@@ -14,7 +14,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({label,placeholder,type,name,value, ...props},ref)=>{
     return (
       <div>
-        <label htmlFor={name}>{label}</label>
+        {label && <label htmlFor={name}>{label}</label>}
         <input
           ref={ref}
           type={type}
