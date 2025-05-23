@@ -11,7 +11,9 @@ export default function LoginPage(){
       {/* 로그인폼 */}
       <LoginForm onLogin={(id, pw) => console.log(id, pw)}/>    
       {/* 간편로그인 */}
-
+      <div>
+        <p>간편로그인_추가</p>
+      </div>
     </div>
 
   )
