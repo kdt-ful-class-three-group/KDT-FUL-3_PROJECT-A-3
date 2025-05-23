@@ -1,7 +1,7 @@
 import { Input } from "@/components/common/Input"
 import { Select } from "@/components/common/Select";
 
-export function EmailField() {
+export function EmailField({setEmail}:{setEmail: React.Dispatch<React.SetStateAction<string>>}) {
 
   const emailDomains = [
     { name: "선택해주세요", value: "" },

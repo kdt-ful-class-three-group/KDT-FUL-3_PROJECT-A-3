@@ -1,7 +1,7 @@
 import { Input } from "@/components/common/Input"
 
 
-export function BirthField() {
+export function BirthField({setBirth}:{setBirth: React.Dispatch<React.SetStateAction<string>>}) {
   return (
     <div>
       <Input

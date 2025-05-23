@@ -3,7 +3,7 @@ import { PasswordField } from "./fields/PasswordField"
 import { EmailField } from "./fields/EmailField"
 import { BirthField } from "./fields/BirthField"
 import { Button } from "../common/Button"
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 
 
 
@@ -32,14 +32,20 @@ export function SignupForm() {
   useEffect(()=>{
     console.log('pw작성 : ', password)
   },[password])
+  useEffect(()=>{
+    console.log('email작성 : ', email)
+  },[email])
+  useEffect(()=>{
+    console.log('birth작성 : ', birth)
+  },[birth])
 
   return (
     <div>
       <form onSubmit={signupSubmit}>
       <IdField setId={setId}/>
       <PasswordField setPassword={setPassword} />
-      <EmailField />
-      <BirthField />
+      <EmailField setEmail={setEmail}/>
+      <BirthField setBirth={setBirth}/>
         <Button
           name="가입"
           type="submit"
