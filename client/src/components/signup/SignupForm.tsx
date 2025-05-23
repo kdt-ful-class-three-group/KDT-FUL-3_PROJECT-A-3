@@ -25,15 +25,19 @@ export function SignupForm() {
   // 생년월일 - 생년월일 제한
   const [birth, setBirth] = useState('');
 
+  // 디버깅
   useEffect(()=>{
-    console.log(id)
+    console.log('id작성 : ',id)
   },[id])
+  useEffect(()=>{
+    console.log('pw작성 : ', password)
+  },[password])
 
   return (
     <div>
       <form onSubmit={signupSubmit}>
       <IdField setId={setId}/>
-      <PasswordField />
+      <PasswordField setPassword={setPassword} />
       <EmailField />
       <BirthField />
         <Button
