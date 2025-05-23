@@ -3,11 +3,9 @@ import { Input } from "@/components/common/Input";
 import { InputProps } from "@/components/common/Input";
 
 // Input 인터페이스에 타입 추가
-interface PasswordFieldProps extends InputProps {
-  password: string;
-}
 
-export function PasswordField({ password, onChange }: PasswordFieldProps) {
+
+export function PasswordField({ value, onChange }: InputProps) {
   const [passwordCheck, setPasswordCheck] = useState("");
 
   // 비밀번호 체크 확인
@@ -22,7 +20,7 @@ export function PasswordField({ password, onChange }: PasswordFieldProps) {
         label="비밀번호"
         placeholder="비밀번호"
         type="password"
-        value={password}
+        value={value}
         onChange={onChange}
       />
       <Input
