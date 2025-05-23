@@ -1,5 +1,5 @@
-import { Input } from "../common/Input";
-import { Button } from "../common/Button";
+import { Input } from "@/components/common/Input"
+import { Button } from "@/components/common/Button"
 
 export function IdField() {
 

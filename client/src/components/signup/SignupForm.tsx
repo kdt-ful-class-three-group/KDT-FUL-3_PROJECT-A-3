@@ -1,8 +1,10 @@
-import { IdField } from "../fields/IdField"
-import { PasswordField } from "../fields/PasswordField"
-import { EmailField } from "../fields/EmailField"
-import { BirthField } from "../fields/BirthField"
+import { IdField } from "./fields/IdField"
+import { PasswordField } from "./fields/PasswordField"
+import { EmailField } from "./fields/EmailField"
+import { BirthField } from "./fields/BirthField"
 import { Button } from "../common/Button"
+
+
 
 export function SignupForm() {
 
