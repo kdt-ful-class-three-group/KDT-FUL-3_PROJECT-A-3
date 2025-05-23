@@ -1,15 +1,18 @@
+"use client";
 // 컴포넌트 가져오기
-import { Button } from "@/components/common/Button";
-import Input from "@/components/common/Input";
+import LoginForm from "@/components/login/LoginForm";
 
 export default function LoginPage(){
-  // 페이지 이름
 
-  // input 2개 - 아이디, 비밀번호
+  return(
+    <div>
+      {/* 페이지 이름 */}
+      <h1>로그인</h1>
+      {/* 로그인폼 */}
+      <LoginForm onLogin={(id, pw) => console.log(id, pw)}/>    
+      {/* 간편로그인 */}
 
-  // 아이디찾기, 비밀번호 찾기, 회원가입 링크
+    </div>
 
-  // 로그인 버튼
-
-  // 간편로그인
+  )
 }
