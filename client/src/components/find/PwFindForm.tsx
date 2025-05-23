@@ -4,7 +4,8 @@ import { Button } from "@/components/common/Button";
 export function PwFindForm() {
   return (
     <div>
-      <form onSubmit={() => { }}>
+      {/* <form onSubmit={() => { }}> */}
+      <form>
         <Input
           label="아이디"
           name="id"
@@ -29,7 +30,7 @@ export function PwFindForm() {
           
         </div>
         <Button
-          type="submit"
+          // type="submit"
           name="확인"
         />
       </form>

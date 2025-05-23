@@ -7,8 +7,7 @@ import { PwFindForm } from "@/components/find/PwFindForm";
 import { Button } from "@/components/common/Button";
 
 export default function Find() {
-
-const [activeTab, setActiveTab] = useState<"id" | "pw">("id")
+  const [activeTab, setActiveTab] = useState<"id" | "pw">("id")
 
   return (
     <div>

@@ -22,11 +22,10 @@ export default function LoginForm({onLogin}:{onLogin:(id:string, pw:string)=>voi
       <Input label="" type="password" name="password" placeholder="비밀번호" value={pw} onChange={e=>setPw(e.target.value)}/>
       {/* 아이디찾기, 비밀번호 찾기, 회원가입으로 이동 */}
       <div>
-        <Link href='/find'>아이디 찾기</Link>
-        <Link href='/find'>비밀번호 찾기</Link>
+        <Link href='/find'>아이디/비밀번호 찾기</Link>
         <Link href='/signup'>회원가입</Link>
       </div>
-      <Button type="submit" name="login">로그인</Button>
+      <Button type="submit" name="로그인"/>
     </form>
   )
 }

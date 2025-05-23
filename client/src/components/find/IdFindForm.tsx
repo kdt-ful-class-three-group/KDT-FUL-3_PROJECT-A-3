@@ -5,7 +5,8 @@ import { Button } from "@/components/common/Button";
 export function IdFindForm() {
   return (
     <div>
-      <form onSubmit={() => { }}>
+      {/* <form onSubmit={() => { }}> */}
+      <form>
       <Input
         label="생년월일"
         name="생년월일"
@@ -17,7 +18,7 @@ export function IdFindForm() {
         />
       <Button
         name="확인"
-        type="submit"
+        // type="submit"
       />
     </form>
     </div>
