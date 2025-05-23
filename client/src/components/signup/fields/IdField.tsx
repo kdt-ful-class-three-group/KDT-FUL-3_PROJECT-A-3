@@ -1,10 +1,12 @@
 import { Input } from "@/components/common/Input"
 import { Button } from "@/components/common/Button"
-import { useEffect , useState} from "react"
+import { useState} from "react"
 
 export function IdField({setId}: {setId: React.Dispatch<React.SetStateAction<string>>}) {
   // id 상태 관리
   const [value, setValue] = useState('')
+  // 상태 관련 메시지
+  const [error, setError] = useState('')
 
   //아이디 유효성 검사 - 4글자 이상 특수문자 안됨 12글자 미만
   const checkId = (text:string):boolean=>{
@@ -28,6 +30,10 @@ export function IdField({setId}: {setId: React.Dispatch<React.SetStateAction<str
     // 유효성 검사
     if(checkId(text)){
       setId(text);
+      setError('')
+    }
+    else {
+      setError('4-12자 이내 영문, 숫자만 가능합니다');
     }
   }
 
@@ -36,8 +42,8 @@ export function IdField({setId}: {setId: React.Dispatch<React.SetStateAction<str
     e.preventDefault();
 
     if(!checkId(value)){
-      alert('4글자 이상 작성')
-      return
+      setError("4-12자 이내 영문, 숫자만 가능합니다");
+      return;
     }
 
     console.log("아이디 중복확인 버튼 클릭");
@@ -55,6 +61,8 @@ export function IdField({setId}: {setId: React.Dispatch<React.SetStateAction<str
         value={value}
         onChange={handleChange}
       />
+      {/* 유효성 검사 메시지 */}
+      {error && <p>{error}</p>}
       <Button
         name="중복확인"
         onClick={submitId}
