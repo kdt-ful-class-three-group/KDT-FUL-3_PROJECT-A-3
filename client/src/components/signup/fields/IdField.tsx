@@ -16,7 +16,14 @@ export function IdField({setId}: {setId: React.Dispatch<React.SetStateAction<str
   //유효성 검사 통과 -> 상태 반영
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
-    setValue(text);
+
+    //유효한 글자만 남기기
+    const filteredText = text.replace(/[^a-zA-Z0-9]/g, '');
+    //12글자 이상일 경우 자르기
+    const slicedText = filteredText.slice(0, 12);
+
+
+    setValue(slicedText);
 
     // 유효성 검사
     if(checkId(text)){
@@ -29,7 +36,7 @@ export function IdField({setId}: {setId: React.Dispatch<React.SetStateAction<str
     e.preventDefault();
 
     if(!checkId(value)){
-      alert('유효하지 않은 아이디')
+      alert('4글자 이상 작성')
       return
     }
 
