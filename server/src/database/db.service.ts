@@ -6,14 +6,17 @@ import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 export class DbService implements OnModuleInit, OnModuleDestroy {
   private pool: Pool;
 
-  onModuleInit(): void {
+  async onModuleInit(): Promise<void> {
     this.pool = new Pool({
-      host: String(process.env.DB_HOST),
-      user: String(process.env.DB_USER),
-      database: String(process.env.DB_NAME),
-      password: String(process.env.DB_PASSWORD),
-      port: Number(process.env.DB_PORT),
+      connectionString: process.env.DB_URL,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     });
+    console.log('DB_URL:', process.env.DB_URL?.slice(0, 50) + '...');
+
+    const result = await this.pool.query('SELECT NOW()');
+    console.log('✅ Database connected at:', result.rows[0].now);
   }
 
   async onModuleDestroy(): Promise<void> {
