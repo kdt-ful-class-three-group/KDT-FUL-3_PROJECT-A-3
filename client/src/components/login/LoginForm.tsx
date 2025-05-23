@@ -2,7 +2,7 @@ import { useState, FormEvent } from "react";
 import Input from "../common/Input";
 import { Button } from "../common/Button";
 
-export default function LoginForm() {
+export default function LoginForm({onLogin}:{onLogin:(id:string, pw:string)=>void}) {
   // 아이디, 비밀번호 상태 관리
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
@@ -10,7 +10,8 @@ export default function LoginForm() {
   // 아이디, 비밀번호 변경 함수
   const handleSubmit = (e : FormEvent) => {
     e.preventDefault();
-
+    // 부모컴포넌트에서 전달받는 props
+    onLogin(id, pw);
   }
   
   return (
