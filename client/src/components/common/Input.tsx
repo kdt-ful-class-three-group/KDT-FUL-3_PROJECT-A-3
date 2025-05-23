@@ -6,7 +6,6 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>{
   placeholder?:string;
   type?:string;
   name?:string;
-  value?:string;
 }
 
 // 부모컴포넌트에서 직접 접근
