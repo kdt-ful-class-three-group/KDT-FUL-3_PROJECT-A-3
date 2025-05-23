@@ -26,5 +26,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 )
 
 // displayName
+Input.displayName = "Input";
 
 // 내보내기
+export default Input;
