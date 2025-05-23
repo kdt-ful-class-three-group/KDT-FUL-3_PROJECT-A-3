@@ -1,7 +1,7 @@
 import React from "react";
 
 // 인터페이스
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>{
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>{
   label:string;
   name?:string;
   // placeholder?:string;

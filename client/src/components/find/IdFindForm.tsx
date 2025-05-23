@@ -3,6 +3,7 @@ import { Button } from "@/components/common/Button";
 
 
 export function IdFindForm() {
+  
   return (
     <div>
       {/* <form onSubmit={() => { }}> */}
