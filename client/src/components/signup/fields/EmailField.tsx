@@ -11,10 +11,11 @@ interface EmailFieldProps {
 export function EmailField({ value, onChange }: EmailFieldProps) {
 
   const [local, setLocal] = useState("");
-  const [domain, setDomain] = useState("");
-  const [customDomain, setCustomDomain] = useState("");
-  const [isCustom, setIsCustom] = useState(false);
+  const [domain, setDomain] = useState(""); // domain = 예시 도메인
+  const [customDomain, setCustomDomain] = useState(""); // coustomDomain = 직접입력.
+  const [isCustom, setIsCustom] = useState(false); // 예시도메인을 누르면 직접입력 input 비활성화하기위한 상태값임
 
+  // 예시 주소 도메인들. 필요하면 여기 추가. 도메인 따로 파일로 빼서 사용할생각도 해보겠음.
   const emailDomains = [
     { name: "선택해주세요", value: "" },
     { name: "naver.com", value: "naver.com" },
@@ -26,9 +27,13 @@ export function EmailField({ value, onChange }: EmailFieldProps) {
   useEffect(() => {
     const actualDomain = domain === "custom" ? customDomain : domain;
     if (local && actualDomain) {
-      onChange(`${local}@${actualDomain}`);
+      // @포함해서 유저가 입력한 주소 보내기
+      const newEmail = `${local}@${actualDomain}`;
+      if (value !== newEmail) {
+        onChange(newEmail);
+      }
     }
-  }, [local, domain, customDomain, onChange]);
+  }, [local, domain, customDomain, value, onChange]);
 
   return (
     <div>
@@ -38,7 +43,9 @@ export function EmailField({ value, onChange }: EmailFieldProps) {
         value={local}
         onChange={(e) => setLocal(e.target.value)}
       />
+
       <span>@</span>
+
       <Select
         name="emailDomain"
         value={domain}
