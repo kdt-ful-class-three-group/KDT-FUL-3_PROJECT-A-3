@@ -1,10 +1,9 @@
 import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
 import { Input } from "../common/Input";
 import { Button } from "../common/Button";
 import Link from "next/link";
 
-export function LoginForm({onLogin}:{onLogin:(id:string, pw:string)=>void}) {
+export default function LoginForm({onLogin}:{onLogin:(id:string, pw:string)=>void}) {
   // 아이디, 비밀번호 상태 관리
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
