@@ -1,3 +1,4 @@
+import { NameField } from "./fields/NameField"
 import { IdField } from "./fields/IdField"
 import { PasswordField } from "./fields/PasswordField"
 import { EmailField } from "./fields/EmailField"
@@ -8,6 +9,7 @@ import { useState } from "react"
 export function SignupForm() {
   // 회원가입 입력데이터 상태값
   const [userData, setUserData] = useState({
+    name: "",
     id: "",
     password: "",
     email: "",
@@ -33,6 +35,7 @@ export function SignupForm() {
   return (
     <div>
       <form onSubmit={signupSubmit}>
+        <NameField value={userData.name} onChange={(e) => handleChange("name", e.target.value)} />
         <IdField value={userData.id} onChange={(e) => handleChange("id", e.target.value)} />
         <PasswordField value={userData.password} onChange={(e) => handleChange("password", e.target.value)} />
         <EmailField value={userData.email} onChange={(val) => handleChange("email", val)} />
