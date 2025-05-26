@@ -41,7 +41,8 @@ export function PasswordField({value, onChange}:InputProps) {
     //일치하는지 확인
     if(pwCheck ===value){
       setCheckError('일치합니다')
-    } else {
+    } 
+    if(pwCheck!==value || pwCheck.length===0){
       setCheckError('비밀번호가 일치하지 않습니다');
     }
   }
