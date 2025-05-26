@@ -1,10 +1,11 @@
 import { Input } from "@/components/common/Input"
 import { Button } from "@/components/common/Button"
-import { useState} from "react"
+import { useState } from "react"
+import { InputProps } from "@/components/common/Input"
 
-export function IdField({setId}: {setId: React.Dispatch<React.SetStateAction<string>>}) {
-  // id 상태 관리
-  const [value, setValue] = useState('')
+export function IdField({value, onChange}: InputProps) {
+  //id 상태 관리
+  // const [valueId, setValueId] = useState('')
   // 상태 관련 메시지
   const [error, setError] = useState('')
 
@@ -25,26 +26,28 @@ export function IdField({setId}: {setId: React.Dispatch<React.SetStateAction<str
     const slicedText = filteredText.slice(0, 12);
 
 
-    setValue(slicedText);
+    // setValueId(slicedText);
 
     // 유효성 검사
-    if(checkId(text)){
-      setId(text);
-      setError('')
-    }
-    else {
+    if(!checkId(slicedText)){
       setError('4-12자 이내 영문, 숫자만 가능합니다');
     }
+    else {
+      setError('')
+    }
+
+    //부모에 값 전달
+    onChange?.(e)
   }
 
   // Button onClick 이벤트 추가
   const submitId=(e:React.MouseEvent)=>{
     e.preventDefault();
 
-    if(!checkId(value)){
-      setError("4-12자 이내 영문, 숫자만 가능합니다");
-      return;
-    }
+    // if(!checkId(value)){
+    //   setError;
+    // }("4-12자 이내 영문, 숫자만 가능합니다");
+    //   return
 
     console.log("아이디 중복확인 버튼 클릭");
     //중복확인 로직
@@ -58,7 +61,6 @@ export function IdField({setId}: {setId: React.Dispatch<React.SetStateAction<str
         name="id"
         label="아이디"
         placeholder="아이디"
-        value={value}
         onChange={handleChange}
       />
       {/* 유효성 검사 메시지 */}
