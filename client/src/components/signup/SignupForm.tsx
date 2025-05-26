@@ -1,3 +1,4 @@
+import { NameField } from "./fields/NameField"
 import { IdField } from "./fields/IdField"
 import { PasswordField } from "./fields/PasswordField"
 import { EmailField } from "./fields/EmailField"
@@ -10,6 +11,7 @@ export function SignupForm() {
   const [userData, setUserData] = useState({
     id: "",
     password: "",
+    name: "",
     email: "",
     birth: "",
   })
@@ -35,6 +37,7 @@ export function SignupForm() {
       <form onSubmit={signupSubmit}>
         <IdField value={userData.id} onChange={(e) => handleChange("id", e.target.value)} />
         <PasswordField value={userData.password} onChange={(e) => handleChange("password", e.target.value)} />
+        <NameField value={userData.name} onChange={(e) => handleChange("name", e.target.value)} />
         <EmailField value={userData.email} onChange={(val) => handleChange("email", val)} />
         <BirthField value={userData.birth} onChange={(val) => handleChange("birth", val)} />
         <Button name="가입" type="submit" />
