@@ -1,6 +1,6 @@
 import { Input } from "@/components/common/Input"
 import { Select } from "@/components/common/Select";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function EmailField({setEmail}:{setEmail: React.Dispatch<React.SetStateAction<string>>}) {
 
@@ -9,6 +9,8 @@ export function EmailField({setEmail}:{setEmail: React.Dispatch<React.SetStateAc
   const [emailId, setEmailId] = useState('')
   // 도메인
   const [emailDomain, setEmailDomain] = useState('')
+  // 커스텀 이메일
+  const [customEmail, setCustomEmail]= useState('')
   // 메시지
   const [error, setError] = useState('')
 
@@ -18,6 +20,11 @@ export function EmailField({setEmail}:{setEmail: React.Dispatch<React.SetStateAc
 
     return isValid
   }
+
+  // 값이 주어질 때마다 유효성 검사
+  useEffect(()=>{
+
+  },[emailId, emailDomain, customEmail])
 
   const emailDomains = [
     { name: "선택해주세요", value: "" },
@@ -48,6 +55,7 @@ export function EmailField({setEmail}:{setEmail: React.Dispatch<React.SetStateAc
         type="text"
         label=""
         placeholder="example@exam.com"
+        value={customEmail}
       />
       {error && <p>{error}</p>}
     </div>
