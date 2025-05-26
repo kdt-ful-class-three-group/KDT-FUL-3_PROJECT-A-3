@@ -4,7 +4,6 @@ import { useState } from "react"
 export function PasswordField({value, onChange}:InputProps) {
 
   // 비밀번호 상태 관리
-  // const [pw, setPw] = useState('')
   const [pwCheck, setPwCheck] = useState('')
   // 메시지
   const [pwError, setPwError] = useState('')
@@ -22,12 +21,9 @@ export function PasswordField({value, onChange}:InputProps) {
   // 비밀번호 유효성 검사 -> 상태반영
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pw = e.target.value;
-    // setPw(pw)
 
     // 유효성 검사
     if(!checkPw(pw)){
-      // setPw(pw);
-      // setPassword(pw);
       setPwError('8-50자 이내 영문, 숫자, 특수문자 포함해야합니다');
     }
     else {

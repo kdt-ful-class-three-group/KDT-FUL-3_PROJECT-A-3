@@ -30,6 +30,11 @@ export function EmailField({value, onChange}: EmailFieldProps) {
   // 메시지
   const [error, setError] = useState('')
 
+  //이메일 인증번호
+  const [emailCode, setEmailCode] = useState('')
+  //인증번호 메시지
+  const [codeError, seetCodeError] = useState('')
+
   //최종 이메일
   const fullEmail = ():string =>{
     // custom일때
@@ -61,11 +66,9 @@ export function EmailField({value, onChange}: EmailFieldProps) {
     
       //유효성 검사에 해당되어야 함
       if(checkEmail(email)){
-        // setEmail(email)
         onChange(email)
         setError('사용가능한 이메일입니다')
       } else {
-        // setEmail('')
         onChange('')
         setError('유효하지 않은 이메일 형식입니다')
       }
@@ -74,7 +77,7 @@ export function EmailField({value, onChange}: EmailFieldProps) {
   },[emailId, emailDomain, customEmail])
 
 
-
+  // !이메일 인증번호 로직
 
   return (
     <div>
@@ -103,12 +106,15 @@ export function EmailField({value, onChange}: EmailFieldProps) {
         placeholder="직접 입력"
       />
       {error && <p>{error}</p>}
-      <Button name='인증'/>
+      <Button name='인증번호 전송'/>
       <Input
         type="text"
         label=""
         placeholder="인증번호"
+        value={emailCode}
+        onChange={(e) => {setEmailCode(e.target.value)}}
         name="emailAuth" />
+      {codeError && <p>{codeError}</p>}
       <Button name='확인' />
     </div>
   );

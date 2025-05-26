@@ -10,6 +10,8 @@ export function BirthField({ value , onChange }: BirthFieldProps) {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
+  //메시지
+  const [error, setError] = useState('')
 
 
   //Select option 년월일 배열들
@@ -34,6 +36,9 @@ export function BirthField({ value , onChange }: BirthFieldProps) {
   useEffect(() => {
     if (year && month && day) {
       onChange?.(`${year}-${month}-${day}`);
+      setError('')
+    } else {
+      setError('생년월일을 모두 선택해주세요.')
     }
   }, [year, month, day]);
 
@@ -61,6 +66,8 @@ export function BirthField({ value , onChange }: BirthFieldProps) {
           option={days.map((d) => ({ name: d === "" ? "일" : d, value: d }))}
         />
       </div>
+      {/* 에러 메시지 */}
+      {error && <p>{error}</p>}
     </div>
   );
 }

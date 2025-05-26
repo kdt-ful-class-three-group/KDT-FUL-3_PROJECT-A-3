@@ -41,7 +41,7 @@ export function IdField({value, onChange}: InputProps) {
     e.preventDefault();
 
     console.log("아이디 중복확인 버튼 클릭");
-    //중복확인 로직
+    //!중복확인 로직
 
 
   }
