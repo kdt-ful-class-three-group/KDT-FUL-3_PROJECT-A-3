@@ -12,6 +12,13 @@ export function EmailField({setEmail}:{setEmail: React.Dispatch<React.SetStateAc
   // 메시지
   const [error, setError] = useState('')
 
+  // 이메일 유효성 검사
+  const checkEmail = (email:string):boolean => {
+    const isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
+
+    return isValid
+  }
+
   const emailDomains = [
     { name: "선택해주세요", value: "" },
     { name: "naver.com", value: "naver.com" },
@@ -27,12 +34,14 @@ export function EmailField({setEmail}:{setEmail: React.Dispatch<React.SetStateAc
         name="email"
         label="이메일"
         placeholder="이메일"
+        value={emailId}
         onChange={() => { }}
       />
       <span>@</span>
       <Select
         name="emailDomain"
         option={emailDomains}
+        value={emailDomain}
         onChange={() => { }}
       />
       <Input
