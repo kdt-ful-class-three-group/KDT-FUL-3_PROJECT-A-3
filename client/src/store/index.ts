@@ -9,5 +9,5 @@ export const store = configureStore({
 })
 
 //타입 정의
-export type RootStatet = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
