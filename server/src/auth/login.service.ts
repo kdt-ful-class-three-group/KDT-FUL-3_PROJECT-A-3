@@ -32,11 +32,15 @@ export class LoginService {
       return null;
     } else {
       console.log('로그인 성공', result.rows[0].user_id);
+        return {
+            user_id: result.rows[0].user_id,
+            message: '로그인 성공',
+        };
     }
 
   } catch(err){
         console.error('로그인 실패','해당 유저가 존재하지 않습니다.', err);
-        throw new InternalServerErrorException('서버 오류로 가입에 실패했습니다.');
+        throw new InternalServerErrorException('서버 오류로 로그인에 실패했습니다.');
     }
   }
 }

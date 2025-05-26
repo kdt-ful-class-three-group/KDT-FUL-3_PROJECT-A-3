@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+
 // 컴포넌트 가져오기
 import LoginForm from "@/components/login/LoginForm";
 import AuthButton from "@/components/login/AuthButton";
@@ -7,19 +7,29 @@ import AuthButton from "@/components/login/AuthButton";
 export default function LoginPage(){
 
   // 8008에서 데이터 조회
-  const checkLogin = async(id: string, pw: string) => {
-    try {
-      const res = await axios.post(
-        "http://localhost:8008/auth/login",
-        { user_id: id, password: pw },
-        { withCredentials: true }
-      );
-      console.log(res);
-      alert("성공했습니다");
-    } catch (error: any) {
-      alert("다시 입력해주세요");
-      console.error("서버 응답 오류:", error.response?.status);
-    }
+  const checkLogin = async(id:string, pw:string)=>{
+    const res = await fetch('http://localhost:8008/auth/login',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      credentials:'include',
+      body:JSON.stringify({user_id:id,password:pw})
+    })
+
+    //디버깅
+    console.log(res)
+
+    //로그인 정보 없을 때
+   if(res.ok){
+        const data = await res.json();
+        console.log('로그인 성공', data);
+        return data; // 로그인 성공 시 데이터 반환
+        }
+   else{
+        console.log("로그인 실패")
+       window.location.href = '/login'; // 로그인 실패 시 홈으로 이동
+        // 로그인 실패시 alert
+        alert("아이디 또는 비밀번호가 틀렸습니다.")
+   }
   }
 
   return(
