@@ -8,6 +8,10 @@ import { InputProps } from "@/components/common/Input";
 export function PasswordField({ value, onChange }: InputProps) {
   const [passwordCheck, setPasswordCheck] = useState("");
 
+
+
+
+  
   // 비밀번호 체크 확인
   const handlePasswordCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordCheck(e.target.value);

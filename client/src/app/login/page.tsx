@@ -1,6 +1,7 @@
 "use client";
 // 컴포넌트 가져오기
 import LoginForm from "@/components/login/LoginForm";
+import AuthButton from "@/components/login/AuthButton";
 
 export default function LoginPage(){
 
@@ -13,6 +14,7 @@ export default function LoginPage(){
       {/* 간편로그인 */}
       <div>
         <p>간편로그인_추가</p>
+        <AuthButton />
       </div>
     </div>
 

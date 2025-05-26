@@ -4,6 +4,10 @@ import { InputProps } from "@/components/common/Input"
 
 export function IdField({ value, onChange }: InputProps) {
   // 아이디중복체크 이벤트
+
+
+
+
   const IdCheck = () => {
     console.log('아이디 중복체크 로직')
   }
