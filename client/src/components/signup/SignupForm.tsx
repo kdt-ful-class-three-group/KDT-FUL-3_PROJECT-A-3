@@ -36,7 +36,7 @@ export function SignupForm() {
         <IdField value={userData.id} onChange={(e) => handleChange("id", e.target.value)} />
         <PasswordField value={userData.password} onChange={(e) => handleChange("password", e.target.value)} />
         <EmailField value={userData.email} onChange={(val) => handleChange("email", val)} />
-        <BirthField value={userData.birth} onChange={(e) => handleChange("birth", e.target.value)} />
+        <BirthField value={userData.birth} onChange={(val) => handleChange("birth", val)} />
         <Button name="가입" type="submit" />
       </form>
     </div>
