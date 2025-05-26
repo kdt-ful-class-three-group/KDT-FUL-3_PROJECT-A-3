@@ -1,3 +1,5 @@
+'use client'
+import { useRouter } from "next/navigation"
 import { NameField } from "./fields/NameField"
 import { IdField } from "./fields/IdField"
 import { PasswordField } from "./fields/PasswordField"
@@ -16,6 +18,9 @@ export function SignupForm() {
     birth: "",
   })
   
+
+  const router = useRouter()
+
   function handleChange(field: keyof typeof userData, value: string) {
     setUserData((prev) => ({
       ...prev,
@@ -29,6 +34,7 @@ export function SignupForm() {
     console.log(userData)
 
     //!회원가입 처리 로직
+    router.push('/login')
 
   }
 
