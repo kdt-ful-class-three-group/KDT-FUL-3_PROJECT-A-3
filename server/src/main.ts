@@ -8,6 +8,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // * express의 server.listen() 과 유사한 역할을 함.
   // * 포트 번호는 .env 파일의 PORT 환경 변수에서 가져오거나, 없으면 3000번 포트로 설정.
-  await app.listen(process.env.PORT ?? 3000); console.log('http://localhost:3000');
+  await app.listen(process.env.PORT ?? 8008); console.log('http://localhost:3000');
 }
 bootstrap();
