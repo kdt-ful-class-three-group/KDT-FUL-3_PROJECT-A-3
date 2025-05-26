@@ -103,6 +103,13 @@ export function EmailField({value, onChange}: EmailFieldProps) {
         placeholder="직접 입력"
       />
       {error && <p>{error}</p>}
+      <Button name='인증'/>
+      <Input
+        type="text"
+        label=""
+        placeholder="인증번호"
+        name="emailAuth" />
+      <Button name='확인' />
     </div>
   );
 }
