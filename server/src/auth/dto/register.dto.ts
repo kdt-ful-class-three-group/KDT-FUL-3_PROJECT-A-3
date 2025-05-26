@@ -1,7 +1,7 @@
 export class RegisterDto {
   name: string;
   user_id: string;
-  age: number;
+  birth: Date;
   email: string;
   password: string;
   created_at: Date;
