@@ -1,23 +1,19 @@
-'use client';
-
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "../common/Input";
 import { Button } from "../common/Button";
 import Link from "next/link";
 
-export default function LoginForm({onLogin}:{onLogin:(id:string, pw:string)=>void}) {
+export function LoginForm({onLogin}:{onLogin:(id:string, pw:string)=>void}) {
   // 아이디, 비밀번호 상태 관리
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const router = useRouter();
 
   // 아이디, 비밀번호 변경 함수
   const handleSubmit = (e : FormEvent) => {
     e.preventDefault();
     // 부모컴포넌트에서 전달받는 props
     onLogin(id, pw);
-    router.push('/home');
   }
   
   return (
