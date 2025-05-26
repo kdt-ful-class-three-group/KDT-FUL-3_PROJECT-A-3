@@ -9,9 +9,9 @@ import { useState } from "react"
 export function SignupForm() {
   // 회원가입 입력데이터 상태값
   const [userData, setUserData] = useState({
-    name: "",
     id: "",
     password: "",
+    name: "",
     email: "",
     birth: "",
   })
@@ -35,9 +35,9 @@ export function SignupForm() {
   return (
     <div>
       <form onSubmit={signupSubmit}>
-        <NameField value={userData.name} onChange={(e) => handleChange("name", e.target.value)} />
         <IdField value={userData.id} onChange={(e) => handleChange("id", e.target.value)} />
         <PasswordField value={userData.password} onChange={(e) => handleChange("password", e.target.value)} />
+        <NameField value={userData.name} onChange={(e) => handleChange("name", e.target.value)} />
         <EmailField value={userData.email} onChange={(val) => handleChange("email", val)} />
         <BirthField value={userData.birth} onChange={(val) => handleChange("birth", val)} />
         <Button name="가입" type="submit" />
