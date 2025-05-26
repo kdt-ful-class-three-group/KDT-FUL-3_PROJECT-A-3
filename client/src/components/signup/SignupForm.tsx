@@ -8,7 +8,7 @@ import { BirthField } from "./fields/BirthField"
 import { Button } from "../common/Button"
 import { useState } from "react"
 
-export function SignupForm() {
+export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; password: string; name: string; email: string; birth: string }) => void }) {
   // 회원가입 입력데이터 상태값
   const [userData, setUserData] = useState({
     id: "",
@@ -34,7 +34,7 @@ export function SignupForm() {
     console.log(userData)
 
     //!회원가입 처리 로직
-    router.push('/login')
+    onSignup(userData);
 
   }
 
