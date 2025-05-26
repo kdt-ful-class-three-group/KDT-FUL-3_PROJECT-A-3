@@ -7,6 +7,13 @@ async function bootstrap() {
   // * AppModule은 최상위 모듈, 애플리케이션의 모든 모듈을 포함.
   const PORT: string | number = process.env.PORT ?? '8008'; // 기본 포트 설정
   const app = await NestFactory.create(AppModule);
+
+  //cors
+  app.enableCors({
+    origin: 'http://localhost:3000',
+    credentials: true // 오타 수정: Credential -> credentials
+  })
+
   // * express의 server.listen() 과 유사한 역할을 함.
   // * 포트 번호는 .env 파일의 PORT 환경 변수에서 가져오거나, 없으면 3000번 포트로 설정.
   await app.listen(PORT); console.log(`http://localhost:${PORT}`);
