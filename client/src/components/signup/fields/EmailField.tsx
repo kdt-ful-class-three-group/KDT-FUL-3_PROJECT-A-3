@@ -27,13 +27,13 @@ export function EmailField({ value, onChange }: EmailFieldProps) {
   useEffect(() => {
     const actualDomain = domain === "custom" ? customDomain : domain;
     if (local && actualDomain) {
-      // @포함해서 유저가 입력한 주소 보내기
+      // '@' 포함해서 유저가 입력한 주소 보내기
       const newEmail = `${local}@${actualDomain}`;
       if (value !== newEmail) {
         onChange(newEmail);
       }
     }
-  }, [local, domain, customDomain, value, onChange]);
+  }, [local, domain, customDomain]);
 
   return (
     <div>
