@@ -2,8 +2,12 @@
 // 컴포넌트 가져오기
 import LoginForm from "@/components/login/LoginForm";
 import AuthButton from "@/components/login/AuthButton";
+import { useState } from "react";
 
 export default function LoginPage(){
+
+  //로그인성공유무
+  const [isLogin, setIsLogin] = useState(false)
 
   // 8008에서 데이터 조회
   const checkLogin = async(id:string, pw:string)=>{
@@ -24,10 +28,15 @@ export default function LoginPage(){
       alert('다시 입력해주세요')
 
       console.error('서버 응답 오류:',res.status)
+
+      setIsLogin(false)
+    } else {
+      //!로그인 성공
+      alert('성공했습니다')
+      setIsLogin(true)
+      return
     }
 
-    //!로그인 성공
-    alert('성공했습니다')
 
   }
 

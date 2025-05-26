@@ -17,7 +17,7 @@ export default function LoginForm({onLogin}:{onLogin:(id:string, pw:string)=>voi
     e.preventDefault();
     // 부모컴포넌트에서 전달받는 props
     onLogin(id, pw);
-    router.push('/home');
+    // router.push('/home');
   }
   
   return (
