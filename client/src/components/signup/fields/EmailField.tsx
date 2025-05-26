@@ -24,6 +24,11 @@ export function EmailField({setEmail}:{setEmail: React.Dispatch<React.SetStateAc
   // 값이 주어질 때마다 유효성 검사
   useEffect(()=>{
 
+    //emailId@emailDomain 또는 customEmail값
+    
+    //유효성 검사에 해당되어야 함
+
+
   },[emailId, emailDomain, customEmail])
 
   const emailDomains = [
@@ -42,20 +47,22 @@ export function EmailField({setEmail}:{setEmail: React.Dispatch<React.SetStateAc
         label="이메일"
         placeholder="이메일"
         value={emailId}
-        onChange={() => { }}
+        onChange={(e) => {setEmailId(e.target.value) }}
       />
       <span>@</span>
       <Select
         name="emailDomain"
         option={emailDomains}
         value={emailDomain}
-        onChange={() => { }}
+        onChange={(e) => {setEmailDomain(e.target.value)}}
       />
       <Input
         type="text"
         label=""
         placeholder="example@exam.com"
         value={customEmail}
+        onChange={(e) => {setCustomEmail(e.target.value)}}
+        disabled={emailDomain !== "custom"}
       />
       {error && <p>{error}</p>}
     </div>
