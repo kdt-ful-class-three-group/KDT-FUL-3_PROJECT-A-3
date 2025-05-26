@@ -14,6 +14,7 @@ export default function LoginPage(){
       body:JSON.stringify({user_id:id,password:pw})
     })
 
+    //디버깅
     console.log(res)
 
     //로그인 정보 없을 때
