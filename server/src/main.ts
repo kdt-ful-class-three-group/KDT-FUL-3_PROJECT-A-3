@@ -1,8 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
+// * 서버를 실행하기 위한 부트스트랩 함수.
 async function bootstrap() {
+  // * NestFactory.create()는 NestJs 애플리케이션 인스턴스를 생성하는 역할.
+  // * AppModule은 최상위 모듈, 애플리케이션의 모든 모듈을 포함.
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
+  // * express의 server.listen() 과 유사한 역할을 함.
+  // * 포트 번호는 .env 파일의 PORT 환경 변수에서 가져오거나, 없으면 3000번 포트로 설정.
+  await app.listen(process.env.PORT ?? 3000); console.log('http://localhost:3000');
 }
 bootstrap();
