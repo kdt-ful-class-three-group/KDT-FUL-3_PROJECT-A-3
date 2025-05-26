@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { DbService } from '../database/db.service';
 import { QueryResult } from "pg";
 import { LoginDto } from './dto/login.dto';
@@ -36,7 +36,7 @@ export class LoginService {
 
   } catch(err){
         console.error('로그인 실패','해당 유저가 존재하지 않습니다.', err);
-        
+        throw new InternalServerErrorException('서버 오류로 가입에 실패했습니다.');
     }
   }
 }
