@@ -25,8 +25,16 @@ export function EmailField({setEmail}:{setEmail: React.Dispatch<React.SetStateAc
   useEffect(()=>{
 
     //emailId@emailDomain 또는 customEmail값
+    const email = emailDomain === 'custom' ? `${emailId}@${customEmail}` : `${emailId}@${emailDomain}`;
     
     //유효성 검사에 해당되어야 함
+    if(checkEmail(email)){
+      setEmail(email)
+      setError('사용가능한 이메일입니다')
+    } else {
+      setEmail('')
+      setError('유효하지 않은 이메일 형식입니다')
+    }
 
 
   },[emailId, emailDomain, customEmail])
