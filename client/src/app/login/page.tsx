@@ -7,13 +7,26 @@ export default function LoginPage(){
 
   // 8008에서 데이터 조회
   const checkLogin = async(id:string, pw:string)=>{
-    const rest = await fetch('http://localhost:8008/auth/login',{
+    const res = await fetch('http://localhost:8008/auth/login',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({id,pw})
+      credentials:'include',
+      body:JSON.stringify({user_id:id,password:pw})
     })
 
-    const data = await rest.json()
+    console.log(res)
+
+    //로그인 정보 없을 때
+    if(!res.ok){
+
+      //!로그인 실패
+      alert('다시 입력해주세요')
+
+      console.error('서버 응답 오류:',res.status)
+    }
+
+    //!로그인 성공
+    alert('성공했습니다')
 
   }
 
