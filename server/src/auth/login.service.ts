@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { DbService } from '../database/db.service';
 import { QueryResult } from "pg";
 import { LoginDto } from './dto/login.dto';
@@ -25,12 +25,21 @@ export class LoginService {
 
     console.log("쿼리문 시행 정보", result.rows[0].password);
 
+    //유저가 없을 때
+    if(!result.rows[0]){
+      throw new UnauthorizedException('해당 유저가 없습니다')
+    }
+    
+    //비밀번호 매치
     const isMatch = await compare(dto.password, result.rows[0].password);
 
+    //틀렸을 때
     if(!isMatch) {
       console.log('로그인 실패', '비밀번호가 틀렸습니다.');
-      return null;
-    } else {
+      throw new UnauthorizedException('비밀번호가 틀렸습니다')
+    } 
+    //성공
+    else {
       console.log('로그인 성공', result.rows[0].user_id);
         return {
             user_id: result.rows[0].user_id,
@@ -40,6 +49,7 @@ export class LoginService {
 
   } catch(err){
         console.error('로그인 실패','해당 유저가 존재하지 않습니다.', err);
+        if(err instanceof UnauthorizedException) throw err;
         throw new InternalServerErrorException('서버 오류로 로그인에 실패했습니다.');
     }
   }
