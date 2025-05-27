@@ -8,7 +8,25 @@ import { BirthField } from "./fields/BirthField"
 import { Button } from "../common/Button"
 import { useState } from "react"
 
+// RTK
+import { useDispatch, UseDispatch, useSelector } from "react-redux"
+import { RootState } from "@/store"
+import { setField } from "@/store/slices/signupSlice"
+
 export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; password: string; name: string; email: string; birth: string }) => void }) {
+  const dispatch = useDispatch()
+  const {id, password, name, email, birth} = useSelector((state:RootState)=> state.signup)
+
+  //유효성 상태값
+  const [idValid, setIdValid] = useState(false)
+  const [pwValid, setPwValid] = useState(false)
+  const [nameValid, setNameValid] = useState(false)
+  const [emailValid, setEmailValid] = useState(false)
+  const [birthValid, setBirthValid] = useState(false)
+  //최종
+  const isFormValid = idValid && pwValid && nameValid && emailValid && birthValid
+
+
   // 회원가입 입력데이터 상태값
   const [userData, setUserData] = useState({
     id: "",
