@@ -1,12 +1,7 @@
 import { Input, InputProps } from "@/components/common/Input"
-import { on } from "events";
 import { useState } from "react"
 
-interface PasswordFieldProps extends InputProps {
-  onValidChange?: (isValid: boolean) => void;
-}
-
-export function PasswordField({value, onChange, onValidChange}: PasswordFieldProps) {
+export function PasswordField({value, onChange, onValidChange}: InputProps) {
   // 비밀번호 상태 관리
   const [pwCheck, setPwCheck] = useState('')
   // 메시지

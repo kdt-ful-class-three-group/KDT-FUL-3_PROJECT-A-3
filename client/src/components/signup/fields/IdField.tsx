@@ -3,13 +3,8 @@ import { Button } from "@/components/common/Button"
 import { useState } from "react"
 import { InputProps } from "@/components/common/Input"
 import axios from "axios"
-import { on } from "events"
 
-interface IdFieldProps extends InputProps {
-  onValidChange?: (isValid: boolean) => void;
-}
-
-export function IdField({value = "", onChange, onValidChange, ...props}: IdFieldProps) {
+export function IdField({value = "", onChange, onValidChange}: InputProps) {
   // 상태 관련 메시지
   const [error, setError] = useState('')
 
