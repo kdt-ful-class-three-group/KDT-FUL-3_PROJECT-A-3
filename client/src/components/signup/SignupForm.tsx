@@ -9,7 +9,7 @@ import { Button } from "../common/Button"
 import { useState } from "react"
 
 // RTK
-import { useDispatch, UseDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/store"
 import { setField } from "@/store/slices/signupSlice"
 
@@ -26,45 +26,28 @@ export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; pa
   //최종
   const isFormValid = idValid && pwValid && nameValid && emailValid && birthValid
 
-
-  // 회원가입 입력데이터 상태값
-  const [userData, setUserData] = useState({
-    id: "",
-    password: "",
-    name: "",
-    email: "",
-    birth: "",
-  })
-  
-
-  const router = useRouter()
-
-  function handleChange(field: keyof typeof userData, value: string) {
-    setUserData((prev) => ({
-      ...prev,
-      [field]: value,
-    }))
+  function handleChange(field: 'id'|'password'|'name'|'email'|'birth', value: string) {
+    dispatch(setField({field,value}))
   }
 
   function signupSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    console.log(userData)
 
     //!회원가입 처리 로직
-    onSignup(userData);
+    onSignup({id, password, name, email, birth});
 
   }
 
   return (
     <div>
       <form onSubmit={signupSubmit}>
-        <IdField value={userData.id} onChange={(e) => handleChange("id", e.target.value)} />
-        <PasswordField value={userData.password} onChange={(e) => handleChange("password", e.target.value)} />
-        <NameField value={userData.name} onChange={(e) => handleChange("name", e.target.value)} />
-        <EmailField value={userData.email} onChange={(val) => handleChange("email", val)} />
-        <BirthField value={userData.birth} onChange={(val) => handleChange("birth", val)} />
-        <Button name="가입" type="submit" />
+        <IdField value={id} onChange={(e) => handleChange("id", e.target.value)} />
+        <PasswordField value={password} onChange={(e) => handleChange("password", e.target.value)} />
+        <NameField value={name} onChange={(e) => handleChange("name", e.target.value)} />
+        <EmailField value={email} onChange={(val) => handleChange("email", val)} />
+        <BirthField value={birth} onChange={(val) => handleChange("birth", val)} />
+        <Button name="가입" type="submit" disabled={!isFormValid}/>
       </form>
     </div>
   )
