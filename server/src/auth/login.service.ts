@@ -1,56 +1,1 @@
-import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
-import { DbService } from '../database/db.service';
-import { QueryResult } from "pg";
-import { LoginDto } from './dto/login.dto';
-import { compare } from 'bcrypt';
-
-@Injectable()
-export class LoginService {
-  constructor(private readonly db: DbService) {}
-
-
-    async login(dto: LoginDto): Promise<any>{
-    const query = `
-      SELECT user_id, password FROM users WHERE user_id = $1;
-    `;
-    const values = [dto.user_id];
-
-      console.log("유저아이디 정보", values)
-
-
-    try{
-      console.log("트라이 진입")
-    
-    const result: QueryResult<any> = await this.db.query(query, values);
-
-    console.log("쿼리문 시행 정보", result.rows[0].password);
-
-    //유저가 없을 때
-    if(!result.rows[0]){
-      throw new UnauthorizedException('해당 유저가 없습니다')
-    }
-    
-    //비밀번호 매치
-    const isMatch = await compare(dto.password, result.rows[0].password);
-
-    //틀렸을 때
-    if(!isMatch) {
-      console.log('로그인 실패', '비밀번호가 틀렸습니다.');
-      throw new UnauthorizedException('비밀번호가 틀렸습니다')
-    } 
-    //성공
-    else {
-      console.log('로그인 성공', result.rows[0].user_id);
-        return {
-            user_id: result.rows[0].user_id,
-            message: '로그인 성공',
-        };
-    }
-
-  } catch(err){
-        console.error('로그인 실패','해당 유저가 존재하지 않습니다.', err);
-        if(err instanceof UnauthorizedException) throw err;
-        throw new InternalServerErrorException('서버 오류로 로그인에 실패했습니다.');
-    }
-  }
-}
+import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';import { DbService } from '../database/db.service';import { QueryResult } from "pg";import { LoginDto } from './dto/login.dto';import { compare } from 'bcrypt';import {JwtService} from "@nestjs/jwt";@Injectable()export class LoginService {  constructor(private readonly db: DbService, private jwtService: JwtService) {}    async login(dto: LoginDto): Promise<any>{    const query = `      SELECT user_id, password, name, guide_check FROM users WHERE user_id = $1;    `;    const values = [dto.user_id];      console.log("유저아이디 정보", values)    try{      console.log("트라이 진입")        const result: QueryResult<any> = await this.db.query(query, values);      const user = result.rows[0];    //유저가 없을 때    if(!user){      throw new UnauthorizedException('해당 유저가 없습니다')    }        //비밀번호 매치    const isMatch = await compare(dto.password, user.password);    //틀렸을 때    if(!isMatch) {      console.log('로그인 실패', '비밀번호가 틀렸습니다.');      throw new UnauthorizedException('비밀번호가 틀렸습니다')    }      //JWT 토큰 생성      const payload = {        user_id: user.user_id,        name: user.name,        guide_check: user.guide_check,      };      const accessToken = this.jwtService.sign(payload, { expiresIn: '15m' });      const refreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });      return {        accessToken,        refreshToken,        user_id: user.user_id,        message: '로그인 성공',      };  } catch(err){        console.error('로그인 실패','해당 유저가 존재하지 않습니다.', err);        if(err instanceof UnauthorizedException) throw err;        throw new InternalServerErrorException('서버 오류로 로그인에 실패했습니다.');    }  }}
