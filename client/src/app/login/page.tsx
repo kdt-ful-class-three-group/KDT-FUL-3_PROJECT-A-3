@@ -20,9 +20,8 @@ export default function LoginPage(){
 
     //로그인 정보 없을 때
    if(res.ok){
-        const data = await res.json();
-        console.log('로그인 성공', data);
-        return data; // 로그인 성공 시 데이터 반환
+        console.log('로그인 성공');
+        window.location.href = '/home'; 
         }
    else{
         console.log("로그인 실패")
