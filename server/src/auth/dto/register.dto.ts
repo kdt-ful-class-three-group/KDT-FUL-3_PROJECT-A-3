@@ -1,4 +1,7 @@
+import {ApiProperty} from "@nestjs/swagger";
+
 export class RegisterDto {
+  @ApiProperty()
   name: string;
   user_id: string;
   birth: Date;

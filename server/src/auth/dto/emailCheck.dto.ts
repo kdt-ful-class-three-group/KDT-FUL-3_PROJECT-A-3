@@ -1,3 +1,8 @@
-export class EmailCheckDto {
-  email: string;
+import {ApiProperty} from "@nestjs/swagger";
+
+export class EmailCheckDto{
+
+@ApiProperty()
+    email: string;
+
 }
