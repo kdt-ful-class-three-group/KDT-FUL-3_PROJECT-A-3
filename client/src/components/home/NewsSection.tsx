@@ -9,14 +9,15 @@ export function NewsSection() {
   const [news, setNews] = useState([])
 
   const apiKey = process.env.NEXT_PUBLIC_NEWS_API_KEY
-  const url = `https://newsapi.org/v2/everything?q=ai&sortBy=publishedAt&apiKey=${apiKey}`;
+  // everythingUrl-한국기사 & 최신순
+  const url = `https://newsapi.org/v2/everything?q=주식 OR 코스피 OR 삼성전자&sortBy=publishedAt&apiKey=${apiKey}`;
 
   //axios
   useEffect(()=>{
     async function fetchNews(){
       try{
         const res = await axios.get(url)
-        console.log(res.data)
+        console.log(res.data.articles)
       }
       catch(err){
         console.error('뉴스 불러오기 실패',err)
