@@ -1,18 +1,45 @@
+'use client';
+
+import axios from "axios";
 import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Input } from "../common/Input";
 import { Button } from "../common/Button";
-import Link from "next/link";
 
-export default function LoginForm({onLogin}:{onLogin:(id:string, pw:string)=>void}) {
+export function LoginForm() {
   // 아이디, 비밀번호 상태 관리
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
+  const router = useRouter();
+  
+  // 8008에서 데이터 조회
+  const checkLogin = async (id: string, pw: string) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:8008/auth/login",
+        {
+          user_id: id,
+          password: pw
+        },
+        {
+          withCredentials: true
+        }
+      );
+      console.log("로그인 성공", res);
+      router.push("/home");
+    } catch (error) {
+      console.log("로그인 실패", error);
+      alert("아이디 또는 비밀번호가 틀렸습니다.");
+    }
+  };
 
   // 아이디, 비밀번호 변경 함수
-  const handleSubmit = (e : FormEvent) => {
+  const handleSubmit = async (e : FormEvent) => {
     e.preventDefault();
+    await checkLogin(id, pw); // 로그인 체크 함수 호출
     // 부모컴포넌트에서 전달받는 props
-    onLogin(id, pw);
+    // onLogin(id, pw);
   }
   
   return (

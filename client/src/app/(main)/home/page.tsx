@@ -1,4 +1,3 @@
-import { Header } from "@/components/common/menu/Header";
 import { StockSection } from "@/components/home/StockSection"
 import { NewsSection } from "@/components/home/NewsSection";
 
