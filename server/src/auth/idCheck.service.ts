@@ -38,6 +38,8 @@ export class IdCheckService {
     
   } catch(err){
         console.error('서버 오류', err);
+        // * if(err instanceof BadRequestException) throw err; = 에러 코드가 BadRequestException 이면 에러코드 400 그대로 보내라. 
+        // * BadRequestException가 UnauthorizedException 일 경우에는 에러코드가 401이면 401 그대로 보내라. 라는 뜻.
         if(err instanceof BadRequestException) throw err;
         throw new InternalServerErrorException('서버 오류로 통신에 실패했습니다.');
     }
