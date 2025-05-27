@@ -3,9 +3,11 @@
 // 컴포넌트 가져오기
 import LoginForm from "@/components/login/LoginForm";
 import AuthButton from "@/components/login/AuthButton";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage(){
-
+  const router = useRouter();
+  
   // 8008에서 데이터 조회
   const checkLogin = async(id:string, pw:string)=>{
     const res = await fetch('http://localhost:8008/auth/login',{
@@ -20,14 +22,14 @@ export default function LoginPage(){
 
     //로그인 정보 없을 때
    if(res.ok){
-        console.log('로그인 성공');
-        window.location.href = '/home'; 
+     console.log('로그인 성공');
+     router.push('/home'); 
         }
    else{
         console.log("로그인 실패")
-       window.location.href = '/login'; // 로그인 실패 시 홈으로 이동
         // 로그인 실패시 alert
-        alert("아이디 또는 비밀번호가 틀렸습니다.")
+     alert("아이디 또는 비밀번호가 틀렸습니다.")
+    //  router.push('/login');
    }
   }
 
