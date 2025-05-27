@@ -18,7 +18,7 @@ const emailDomains = [
   { name: "직접입력", value: "custom" },
 ];
 
-export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
+export function EmailField({value, onChange}: EmailFieldProps) {
 
   // 상태
   // 이메일
@@ -60,7 +60,6 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
     if(!emailId || (!emailDomain && !customEmail)){
       onChange('',false) // 이메일이 비어있거나 도메인이 선택되지 않은 경우
       setError('이메일을 입력해주세요') // 에러 메시지 초기화
-      onValidChange?.(false) // 유효성 검사 실패
       return;
     }
     
@@ -68,11 +67,9 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
       if(checkEmail(email)){
         onChange(email,true)
         setError('사용가능한 이메일입니다')
-        onValidChange?.(true) // 유효성 검사 성공
       } else {
         onChange('',false)
         setError('유효하지 않은 이메일 형식입니다')
-        onValidChange?.(false) // 유효성 검사 실패
       }
 
 

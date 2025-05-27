@@ -28,7 +28,6 @@ export function NameField({value, onChange}: {value:string; onChange:(e:string,v
     } else {
       setError('');
     }
-    onValidChange?.(isValid);
 
     // 부모에게 전달 - replace와 slice 적용시키기
     onChange?.(slicedText,valid);
