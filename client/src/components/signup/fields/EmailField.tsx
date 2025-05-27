@@ -6,7 +6,7 @@ import { Button } from "@/components/common/Button";
 // 기존 inputProps 사용하려했는데 안되겠어.
 interface EmailFieldProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange:(e:string,valid:boolean)=>void
 }
 
 // 예시 주소 도메인들. 필요하면 여기 추가. 도메인 따로 파일로 빼서 사용할생각도 해보겠음.
@@ -62,7 +62,7 @@ export function EmailField({value, onChange}: EmailFieldProps) {
     const email = fullEmail();
 
     if(!emailId || (!emailDomain && !customEmail)){
-      onChange('') // 이메일이 비어있거나 도메인이 선택되지 않은 경우
+      onChange('',false) // 이메일이 비어있거나 도메인이 선택되지 않은 경우
       setError('이메일을 입력해주세요') // 에러 메시지 초기화
       setIsDisabled(true)
       return
@@ -70,11 +70,11 @@ export function EmailField({value, onChange}: EmailFieldProps) {
     
       //유효성 검사에 해당되어야 함
       if(checkEmail(email)){
-        onChange(email)
+        onChange(email,true)
         setError('사용가능한 이메일입니다')
         setIsDisabled(false)
       } else {
-        onChange('')
+        onChange('',false)
         setError('유효하지 않은 이메일 형식입니다')
         setIsDisabled(true)
       }
