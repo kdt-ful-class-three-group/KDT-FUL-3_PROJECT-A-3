@@ -1,12 +1,14 @@
 import { Select } from "@/components/common/Select";
+import { on } from "events";
 import { useEffect, useState } from "react";
 
 interface BirthFieldProps {
   value?: string;
-  onChange:(e:string,valid:boolean)=>void
+  onChange?: (value: string) => void;
+  onValidChange?: (isValid: boolean) => void;
 }
 
-export function BirthField({value, onChange}: BirthFieldProps) {
+export function BirthField({ value , onChange, onValidChange }: BirthFieldProps) {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
@@ -35,10 +37,12 @@ export function BirthField({value, onChange}: BirthFieldProps) {
   // 년/월/일 모두 선택되면 부모로 전달
   useEffect(() => {
     if (year && month && day) {
-      onChange?.(`${year}-${month}-${day}`,true);
+      onChange?.(`${year}-${month}-${day}`);
       setError('')
+      onValidChange?.(true);
     } else {
       setError('생년월일을 모두 선택해주세요.')
+      onValidChange?.(false);
     }
   }, [year, month, day]);
 

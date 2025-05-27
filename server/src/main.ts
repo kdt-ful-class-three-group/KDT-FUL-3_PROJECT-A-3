@@ -1,12 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 // * 서버를 실행하기 위한 부트스트랩 함수.
 async function bootstrap() {
   // * NestFactory.create()는 NestJs 애플리케이션 인스턴스를 생성하는 역할.
   // * AppModule은 최상위 모듈, 애플리케이션의 모든 모듈을 포함.
   const PORT: string | number = process.env.PORT ?? '8008'; // 기본 포트 설정
   const app = await NestFactory.create(AppModule);
+
+
+  //! Swagger 설정
+  const config = new DocumentBuilder()
+      .setTitle('StockNewbie-Park API')
+      .setDescription('요청 endpoint에 대한 설명.')
+      .setVersion('1.0')
+      .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   //cors
   app.enableCors({

@@ -6,7 +6,8 @@ import { Button } from "@/components/common/Button";
 // 기존 inputProps 사용하려했는데 안되겠어.
 interface EmailFieldProps {
   value: string;
-  onChange:(e:string,valid:boolean)=>void
+  onChange: (value: string) => void;
+  onValidChange?: (isValid: boolean) => void;
 }
 
 // 예시 주소 도메인들. 필요하면 여기 추가. 도메인 따로 파일로 빼서 사용할생각도 해보겠음.
@@ -18,7 +19,7 @@ const emailDomains = [
   { name: "직접입력", value: "custom" },
 ];
 
-export function EmailField({value, onChange}: EmailFieldProps) {
+export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
 
   // 상태
   // 이메일
@@ -33,26 +34,22 @@ export function EmailField({value, onChange}: EmailFieldProps) {
   //이메일 인증번호
   const [emailCode, setEmailCode] = useState('')
   //인증번호 메시지
-  const [codeError, seetCodeError] = useState('')
-
-  //버튼 상태
-  const [isDisabled, setIsDisabled] = useState(true)
+  const [codeError, setCodeError] = useState('')
 
   //최종 이메일
   const fullEmail = ():string =>{
     // custom일때
-    if(emailDomain === 'custom') return `${emailId}@${customEmail}`
+    if (emailDomain === 'custom') return `${emailId}@${customEmail}`;
     // 값이 없을 때
-    if(!emailDomain) return ''
+    if (!emailDomain) return '';
     // 값이 있을때
-    return `${emailId}@${emailDomain}`
+    return `${emailId}@${emailDomain}`;
   }
 
   // 이메일 유효성 검사
   const checkEmail = (email:string):boolean => {
-    const isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
-
-    return isValid
+    // const isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
   }
 
   // 값이 주어질 때마다 유효성 검사
@@ -62,27 +59,27 @@ export function EmailField({value, onChange}: EmailFieldProps) {
     const email = fullEmail();
 
     if(!emailId || (!emailDomain && !customEmail)){
-      onChange('',false) // 이메일이 비어있거나 도메인이 선택되지 않은 경우
+      onChange('') // 이메일이 비어있거나 도메인이 선택되지 않은 경우
       setError('이메일을 입력해주세요') // 에러 메시지 초기화
-      setIsDisabled(true)
-      return
+      onValidChange?.(false) // 유효성 검사 실패
+      return;
     }
     
       //유효성 검사에 해당되어야 함
       if(checkEmail(email)){
-        onChange(email,true)
+        onChange(email)
         setError('사용가능한 이메일입니다')
-        setIsDisabled(false)
+        onValidChange?.(true) // 유효성 검사 성공
       } else {
-        onChange('',false)
+        onChange('')
         setError('유효하지 않은 이메일 형식입니다')
-        setIsDisabled(true)
+        onValidChange?.(false) // 유효성 검사 실패
       }
 
 
   },[emailId, emailDomain, customEmail])
 
-
+  const isDisabled = !emailId || (!emailDomain && !customEmail) || !checkEmail(fullEmail());
   // !이메일 인증번호 로직
 
   return (
