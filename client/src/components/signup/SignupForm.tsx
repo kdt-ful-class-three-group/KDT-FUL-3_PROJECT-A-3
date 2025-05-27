@@ -14,7 +14,10 @@ import { RootState } from "@/store"
 import { setField } from "@/store/slices/signupSlice"
 
 export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; password: string; name: string; email: string; birth: string }) => void }) {
+
+  //* Redux의 액션을 보낼 수 있게 준비하는 훅
   const dispatch = useDispatch()
+  //* 전역 상태에서 상태 가져오기 -> 다른 컴포넌트에서 공유 가능
   const {id, password, name, email, birth} = useSelector((state:RootState)=> state.signup)
 
   //유효성 상태값
@@ -26,6 +29,7 @@ export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; pa
   //최종
   const isFormValid = idValid && pwValid && nameValid && emailValid && birthValid
 
+  //* 상태 업데이트
   function handleChange(field: 'id'|'password'|'name'|'email'|'birth', value: string) {
     dispatch(setField({field,value}))
   }

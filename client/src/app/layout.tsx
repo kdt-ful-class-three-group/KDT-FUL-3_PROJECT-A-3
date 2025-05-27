@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/components/session/SessionWrapper";
-//RTK
+//*RTK store를 하위컴포넌트에 전달
 import { ReduxProvider } from "./provider";
 
 const geistSans = Geist({
