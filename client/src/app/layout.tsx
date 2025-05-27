@@ -4,6 +4,7 @@ import "./globals.css";
 import SessionWrapper from "@/components/session/SessionWrapper";
 //*RTK store를 하위컴포넌트에 전달
 import { ReduxProvider } from "./provider";
+import { Header } from "@/components/common/menu/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,8 @@ export default function RootLayout({
       >
         <ReduxProvider>
           <SessionWrapper>
-          {children}
+            <Header />
+            {children}
           </SessionWrapper>
         </ReduxProvider>
       </body>
