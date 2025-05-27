@@ -3,15 +3,19 @@ import { DbService } from '../database/db.service';
 import { QueryResult } from "pg";
 import { LoginDto } from './dto/login.dto';
 import { compare } from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class LoginService {
-  constructor(private readonly db: DbService) {}
+  constructor(
+    private readonly db: DbService,
+    private readonly jwtService: JwtService
+  ) {}
 
 
     async login(dto: LoginDto): Promise<any>{
     const query = `
-      SELECT user_id, password FROM users WHERE user_id = $1;
+      SELECT user_id, password, name, guide_check FROM users WHERE user_id = $1;
     `;
     const values = [dto.user_id];
 
@@ -23,7 +27,7 @@ export class LoginService {
     
     const result: QueryResult<any> = await this.db.query(query, values);
 
-    console.log("쿼리문 시행 정보", result.rows[0].password);
+    console.log("쿼리문 시행 정보", result.rows[0]);
 
     //유저가 없을 때
     if(!result.rows[0]){
@@ -40,8 +44,14 @@ export class LoginService {
     } 
     //성공
     else {
+      const payload = { user_id: result.rows[0].user_id, name: result.rows[0].name, guide_check: result.rows[0].guide_check };
+      console.log('페이로드 정보:',payload);
+      console.log('JWT 시크릿 값 확인:', process.env.JWT_TOKEN_SECRET); // 👈 이 줄 추가
+      const accessToken = this.jwtService.sign(payload);
+
       console.log('로그인 성공', result.rows[0].user_id);
         return {
+            accessToken,
             user_id: result.rows[0].user_id,
             message: '로그인 성공',
         };
