@@ -1,8 +1,12 @@
 import { Input, InputProps } from "@/components/common/Input"
+import { on } from "events";
 import { useState } from "react"
 
-export function PasswordField({value, onChange}:InputProps) {
+interface PasswordFieldProps extends InputProps {
+  onValidChange?: (isValid: boolean) => void;
+}
 
+export function PasswordField({value, onChange, onValidChange}: PasswordFieldProps) {
   // 비밀번호 상태 관리
   const [pwCheck, setPwCheck] = useState('')
   // 메시지
@@ -13,25 +17,34 @@ export function PasswordField({value, onChange}:InputProps) {
 
   // 영문 숫자 특수문자 포함 8글자 이상 50자 미만
   const checkPw = (pw:string):boolean=>{
-    const isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,50}$/.test(pw);
-
-    return isValid
+    // const isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,50}$/.test(pw);
+    return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,50}$/.test(pw);
   }
 
   // 비밀번호 유효성 검사 -> 상태반영
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pw = e.target.value;
-
+    const isValid = checkPw(pw);
+    
     // 유효성 검사
-    if(!checkPw(pw)){
+    if (!isValid)
       setPwError('8-50자 이내 영문, 숫자, 특수문자 포함해야합니다');
-    }
     else {
       setPwError('')
     }
-
-    onChange?.(e)
+    onValidChange?.(isValid);
+    onChange?.(e);
   }
+
+  //   if(!checkPw(pw)){
+  //     setPwError('8-50자 이내 영문, 숫자, 특수문자 포함해야합니다');
+  //   }
+  //   else {
+  //     setPwError('')
+  //   }
+
+  //   onChange?.(e)
+  // }
 
   //비밀번호 확인
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -18,6 +18,13 @@ export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; pa
     birth: "",
   })
   
+  const [isIdValid, setIsIdValid] = useState(false);
+  const [isPwValid, setIsPwValid] = useState(false);
+  const [isNameValid, setIsNameValid] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isBirthValid, setIsBirthValid] = useState(false);
+
+  const isFormValid = isIdValid && isPwValid && isNameValid && isEmailValid && isBirthValid;
 
   const router = useRouter()
 
@@ -34,19 +41,39 @@ export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; pa
     console.log(userData)
 
     //!회원가입 처리 로직
+    if (!isFormValid) {
+      alert("모든 필드를 올바르게 입력해주세요.");
+      return;
+    }
     onSignup(userData);
-
   }
 
   return (
     <div>
       <form onSubmit={signupSubmit}>
-        <IdField value={userData.id} onChange={(e) => handleChange("id", e.target.value)} />
-        <PasswordField value={userData.password} onChange={(e) => handleChange("password", e.target.value)} />
-        <NameField value={userData.name} onChange={(e) => handleChange("name", e.target.value)} />
-        <EmailField value={userData.email} onChange={(val) => handleChange("email", val)} />
-        <BirthField value={userData.birth} onChange={(val) => handleChange("birth", val)} />
-        <Button name="가입" type="submit" />
+        <IdField
+          value={userData.id}
+          onChange={(e) => handleChange("id", e.target.value)}
+          onValidChange={setIsIdValid}
+        />
+        <PasswordField value={userData.password}
+          onChange={(e) => handleChange("password", e.target.value)}
+          onValidChange={setIsPwValid}
+        />
+        <NameField value={userData.name} onChange={(e) => handleChange("name", e.target.value)}
+          onValidChange={setIsNameValid}
+        />
+        <EmailField
+          value={userData.email}
+          onChange={(val) => handleChange("email", val)}
+          onValidChange={setIsEmailValid}
+        />
+        <BirthField
+          value={userData.birth}
+          onChange={(val) => handleChange("birth", val)}
+          onValidChange={setIsBirthValid}
+        />
+          <Button name="가입" type="submit" disabled={!isFormValid} />
       </form>
     </div>
   )
