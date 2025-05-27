@@ -28,7 +28,7 @@ export function IdField({value = "", onChange, onValidChange}: InputProps) {
   }
 
   // Button onClick 이벤트 추가
-  const submitId= async (e:React.MouseEvent)=>{
+  const submitId = async (e: React.MouseEvent) => {
     e.preventDefault();
 
     console.log("아이디 중복확인 버튼 클릭");
@@ -37,19 +37,23 @@ export function IdField({value = "", onChange, onValidChange}: InputProps) {
     if (!value) return setError('아이디를 입력해주세요');
 
     try {
-      const res = await axios.post('http://localhost:8008/auth/idCheck', { id: value });
+      const res = await axios.post('http://localhost:8008/auth/idCheck', { user_id: value });
 
-      // available = 불리언값  true면 사용가능, false면 사용불가
-      if (res.data.available) {
+      if (res.status === 201) {
         setError('사용 가능한 아이디입니다.');
       } else {
-        setError('이미 사용 중인 아이디입니다.');
+        setError('알 수 없는 오류가 발생했습니다.');
       }
-    } catch (error) {
-      console.error('중복체크실패: 서버오류', error);
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 400) {
+          setError('이미 사용 중인 아이디입니다.');
+        } else {
+          setError('알 수 없는 오류가 발생했습니다.');
+        }
+      }
     }
   }
-
   return (
     <div>
       <Input 
@@ -60,11 +64,11 @@ export function IdField({value = "", onChange, onValidChange}: InputProps) {
         onChange={handleChange}
       />
       {/* 유효성 검사 메시지 */}
-      {error && <p style={{color: "red"}}>{error}</p>}
+      {error && <p>{error}</p>}
       <Button
         name="중복확인"
         onClick={submitId}
       /> 
     </div>
   ) 
-}
+  }
