@@ -3,7 +3,7 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "../common/Button";
 
-export default function AuthButton() {
+export function AuthButton() {
   const { data: session, status } = useSession();
 
   if (status === "loading") return <p>로딩 중...</p>;

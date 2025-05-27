@@ -25,6 +25,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
   return (
     <html lang="en">
       <body
@@ -32,7 +34,7 @@ export default function RootLayout({
       >
         <ReduxProvider>
           <SessionWrapper>
-          {children}
+            {children}
           </SessionWrapper>
         </ReduxProvider>
       </body>
