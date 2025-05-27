@@ -42,11 +42,11 @@ export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; pa
   return (
     <div>
       <form onSubmit={signupSubmit}>
-        <IdField value={id} onChange={(e) => handleChange("id", e.target.value)} />
-        <PasswordField value={password} onChange={(e) => handleChange("password", e.target.value)} />
+        <IdField value={id} onChange={(value, valid) => {handleChange("id", value); setIdValid(valid)}} />
+        {/* <PasswordField value={password} onChange={(e) => handleChange("password", e.target.value)} />
         <NameField value={name} onChange={(e) => handleChange("name", e.target.value)} />
         <EmailField value={email} onChange={(val) => handleChange("email", val)} />
-        <BirthField value={birth} onChange={(val) => handleChange("birth", val)} />
+        <BirthField value={birth} onChange={(val) => handleChange("birth", val)} /> */}
         <Button name="가입" type="submit" disabled={!isFormValid}/>
       </form>
     </div>

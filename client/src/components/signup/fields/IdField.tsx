@@ -3,7 +3,7 @@ import { Button } from "@/components/common/Button"
 import { useState } from "react"
 import { InputProps } from "@/components/common/Input"
 
-export function IdField({value, onChange}: InputProps) {
+export function IdField({value, onChange}: {value:string; onChange:(e:string,valid:boolean)=>void}) {
   // 상태 관련 메시지
   const [error, setError] = useState('')
 
@@ -17,23 +17,18 @@ export function IdField({value, onChange}: InputProps) {
   //유효성 검사 통과 -> 상태 반영
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
-
     //유효한 글자만 남기기
     const filteredText = text.replace(/[^a-zA-Z0-9]/g, '');
     //12글자 이상일 경우 자르기
     const slicedText = filteredText.slice(0, 12);
+    //유효성
+    const valid = checkId(slicedText)
 
-    // 유효성 검사
-    if(!checkId(slicedText)){
-      setError('4-12자 이내 영문, 숫자만 가능합니다');
-    }
-    else {
-      setError('')
-    }
+    //유효성에 땨른 메시지
+    setError(valid? '':'4-12자 이내 영문, 숫자만 가능합니다')
 
     // 부모에게 전달 - replace와 slice 적용시키기
-    const filteringEvent = {...e, target:{...e.target, value: slicedText}}
-    onChange?.(filteringEvent)
+    onChange?.(slicedText,valid)
   }
 
   // Button onClick 이벤트 추가
