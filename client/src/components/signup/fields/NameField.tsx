@@ -29,11 +29,6 @@ export function NameField({value, onChange, onValidChange}: InputProps) {
     }
     onValidChange?.(isValid);
 
-    // if (!checkName(slicedText)) {
-    //   setError('2-10자 이내 한글, 영문만 가능합니다');
-    // } else {
-    //   setError('');
-    // }
     // 부모에게 전달 - replace와 slice 적용시키기
     const filteringEvent = { ...e, target: { ...e.target, value: slicedText } };
     onChange?.(filteringEvent as React.ChangeEvent<HTMLInputElement>);

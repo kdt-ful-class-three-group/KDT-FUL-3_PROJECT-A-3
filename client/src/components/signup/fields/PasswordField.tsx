@@ -31,16 +31,6 @@ export function PasswordField({value, onChange, onValidChange}: InputProps) {
     onChange?.(e);
   }
 
-  //   if(!checkPw(pw)){
-  //     setPwError('8-50자 이내 영문, 숫자, 특수문자 포함해야합니다');
-  //   }
-  //   else {
-  //     setPwError('')
-  //   }
-
-  //   onChange?.(e)
-  // }
-
   //비밀번호 확인
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pwCheck = e.target.value;
