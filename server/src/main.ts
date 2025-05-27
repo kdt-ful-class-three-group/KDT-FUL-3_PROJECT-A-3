@@ -21,7 +21,7 @@ async function bootstrap() {
 
   //cors
   app.enableCors({
-    origin: 'http://localhost:8008',
+    origin: 'http://localhost:3000',
     credentials: true // 오타 수정: Credential -> credentials
   })
 
