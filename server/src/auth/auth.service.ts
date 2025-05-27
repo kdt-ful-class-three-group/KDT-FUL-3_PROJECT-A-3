@@ -1,4 +1,4 @@
-import {Injectable, InternalServerErrorException} from '@nestjs/common';
+import {BadRequestException, Injectable, InternalServerErrorException} from '@nestjs/common';
 import { DbService } from '../database/db.service';
 import { RegisterDto } from './dto/register.dto';
 import { hash } from 'bcrypt';

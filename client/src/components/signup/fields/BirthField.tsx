@@ -39,6 +39,7 @@ export function BirthField({value, onChange}: BirthFieldProps) {
       setError('')
     } else {
       setError('생년월일을 모두 선택해주세요.')
+      onChange?.(``,false);
     }
   }, [year, month, day]);
 

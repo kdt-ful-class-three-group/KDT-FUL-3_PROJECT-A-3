@@ -13,9 +13,8 @@ export function PasswordField({value, onChange}: {value:string; onChange:(e:stri
 
   // 영문 숫자 특수문자 포함 8글자 이상 50자 미만
   const checkPw = (pw:string):boolean=>{
-    const isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,50}$/.test(pw);
-
-    return isValid
+    // const isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,50}$/.test(pw);
+    return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,50}$/.test(pw);
   }
 
   // 비밀번호 유효성 검사 -> 상태반영
@@ -29,7 +28,7 @@ export function PasswordField({value, onChange}: {value:string; onChange:(e:stri
       setPwError('')
     }
 
-    //비밀번호 확인 값이 있으면 일치 여부 
+        //비밀번호 확인 값이 있으면 일치 여부 
     if(pwCheck.length>0 && pwCheck===pw){
       setCheckError('일치합니다')
     } else if(pwCheck.length>0) {

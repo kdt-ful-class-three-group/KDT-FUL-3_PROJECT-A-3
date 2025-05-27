@@ -2,45 +2,57 @@ import { Input } from "@/components/common/Input"
 import { Button } from "@/components/common/Button"
 import { useState } from "react"
 import { InputProps } from "@/components/common/Input"
+import axios from "axios"
 
 export function IdField({value, onChange}: {value:string; onChange:(e:string,valid:boolean)=>void}) {
   // 상태 관련 메시지
   const [error, setError] = useState('')
 
   //아이디 유효성 검사 - 4글자 이상 특수문자 안됨 12글자 미만
-  const checkId = (text:string):boolean=>{
-    const isValid = /^[a-zA-Z0-9]{4,12}$/.test(text);
+  const checkId = (id: string) => /^[a-zA-Z0-9]{4,12}$/.test(id);
 
-    return isValid;
-  }
-  
   //유효성 검사 통과 -> 상태 반영
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
     //유효한 글자만 남기기
-    const filteredText = text.replace(/[^a-zA-Z0-9]/g, '');
-    //12글자 이상일 경우 자르기
-    const slicedText = filteredText.slice(0, 12);
+    const filteredText = text.replace(/[^a-zA-Z0-9]/g, '').slice(0, 12);
     //유효성
-    const valid = checkId(slicedText)
+    const valid = checkId(filteredText)
 
     //유효성에 땨른 메시지
     setError(valid? '':'4-12자 이내 영문, 숫자만 가능합니다')
 
     // 부모에게 전달 - replace와 slice 적용시키기
-    onChange?.(slicedText,valid)
+    onChange?.(filteredText,valid)
   }
 
   // Button onClick 이벤트 추가
-  const submitId=(e:React.MouseEvent)=>{
+  const submitId = async (e: React.MouseEvent) => {
     e.preventDefault();
 
     console.log("아이디 중복확인 버튼 클릭");
     //!중복확인 로직
+    
+    if (!value) return setError('아이디를 입력해주세요');
 
+    try {
+      const res = await axios.post('http://localhost:8008/auth/idCheck', { user_id: value });
 
+      if (res.status === 201) {
+        setError('사용 가능한 아이디입니다.');
+      } else {
+        setError('알 수 없는 오류가 발생했습니다.');
+      }
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 400) {
+          setError('이미 사용 중인 아이디입니다.');
+        } else {
+          setError('알 수 없는 오류가 발생했습니다.');
+        }
+      }
+    }
   }
-
   return (
     <div>
       <Input 
@@ -58,4 +70,4 @@ export function IdField({value, onChange}: {value:string; onChange:(e:string,val
       /> 
     </div>
   ) 
-}
+  }

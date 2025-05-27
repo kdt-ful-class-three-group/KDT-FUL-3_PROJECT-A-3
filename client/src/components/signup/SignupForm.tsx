@@ -35,8 +35,11 @@ export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; pa
 
 
     //!회원가입 처리 로직
+    if (!isFormValid) {
+      alert("모든 필드를 올바르게 입력해주세요.");
+      return;
+    }
     onSignup({id, password, name, email, birth});
-
   }
 
   return (

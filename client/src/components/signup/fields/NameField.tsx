@@ -8,8 +8,8 @@ export function NameField({value, onChange}: {value:string; onChange:(e:string,v
 
   // 이름 유효성 검사 - 2글자 이상 20글자 이하 한글, 영문, 숫자만 허용
   const checkName = (text: string): boolean => {
-    const isValid = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]{2,20}$/.test(text);
-    return isValid;
+    // const isValid = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]{2,20}$/.test(text);
+    return /^[ㄱ-ㅎ가-힣a-zA-Z0-9]{2,20}$/.test(text);
   }
   // 유효성 검사 통과 -> 상태 반영
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,11 +22,14 @@ export function NameField({value, onChange}: {value:string; onChange:(e:string,v
     const valid = checkName(slicedText)
 
     // 유효성 검사
-    if (!checkName(slicedText)) {
+    const isValid = checkName(slicedText);
+    if (!isValid) {
       setError('2-10자 이내 한글, 영문만 가능합니다');
     } else {
       setError('');
     }
+    onValidChange?.(isValid);
+
     // 부모에게 전달 - replace와 slice 적용시키기
     onChange?.(slicedText,valid);
   }
