@@ -2,7 +2,7 @@ import { Input } from "@/components/common/Input"
 import { useState } from "react"
 import { InputProps } from "@/components/common/Input"
 
-export function NameField({value, onChange}: InputProps) {
+export function NameField({value, onChange}: {value:string; onChange:(e:string,valid:boolean)=>void}) {
   // 상태 관련 메시지
   const [error, setError] = useState('')
 
@@ -18,6 +18,9 @@ export function NameField({value, onChange}: InputProps) {
     const filteredText = text.replace(/[^ㄱ-ㅎ가-힣a-zA-Z]/g, '');
     // 10글자 이상일 경우 자르기
     const slicedText = filteredText.slice(0, 10);
+
+    const valid = checkName(slicedText)
+
     // 유효성 검사
     if (!checkName(slicedText)) {
       setError('2-10자 이내 한글, 영문만 가능합니다');
@@ -25,8 +28,7 @@ export function NameField({value, onChange}: InputProps) {
       setError('');
     }
     // 부모에게 전달 - replace와 slice 적용시키기
-    const filteringEvent = { ...e, target: { ...e.target, value: slicedText } };
-    onChange?.(filteringEvent);
+    onChange?.(slicedText,valid);
   }
 
  
