@@ -1,7 +1,7 @@
 import { Input, InputProps } from "@/components/common/Input"
 import { useState } from "react"
 
-export function PasswordField({value, onChange}:InputProps) {
+export function PasswordField({value, onChange}: {value:string; onChange:(e:string,valid:boolean)=>void}) {
 
   // 비밀번호 상태 관리
   const [pwCheck, setPwCheck] = useState('')
@@ -21,37 +21,43 @@ export function PasswordField({value, onChange}:InputProps) {
   // 비밀번호 유효성 검사 -> 상태반영
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pw = e.target.value;
+    const valid = checkPw(pw) && pwCheck.length > 0 && pwCheck === pw;
 
-    // 유효성 검사
     if(!checkPw(pw)){
       setPwError('8-50자 이내 영문, 숫자, 특수문자 포함해야합니다');
-    }
-    else {
+    } else {
       setPwError('')
     }
 
     //비밀번호 확인 값이 있으면 일치 여부 
     if(pwCheck.length>0 && pwCheck===pw){
       setCheckError('일치합니다')
-    } else {
+    } else if(pwCheck.length>0) {
       setCheckError('비밀번호가 일치하지 않습니다')
+    } else {
+      setCheckError('')
     }
 
-    onChange?.(e)
+    // 부모에게 비밀번호와 유효성(비밀번호+확인까지 모두 true) 전달
+    onChange?.(pw, valid)
   }
-
+  
   //비밀번호 확인
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pwCheck = e.target.value;
     setPwCheck(pwCheck)
 
+    const valid = checkPw(value) && pwCheck === value;
     //일치하는지 확인
-    if(pwCheck ===value){
+    if(pwCheck === value && checkPw(value)){
       setCheckError('일치합니다')
-    } 
-    if(pwCheck!==value || pwCheck.length===0){
+    } else if(pwCheck.length > 0) {
       setCheckError('비밀번호가 일치하지 않습니다');
+    } else {
+      setCheckError('')
     }
+    // 부모에게 비밀번호와 유효성(비밀번호+확인까지 모두 true) 전달
+    onChange?.(value, valid)
   }
   
   
