@@ -67,6 +67,7 @@ export function IdField({value = "", onChange, onValidChange}: InputProps) {
       {error && <p>{error}</p>}
       <Button
         name="중복확인"
+        type="button"
         onClick={submitId}
       /> 
     </div>
