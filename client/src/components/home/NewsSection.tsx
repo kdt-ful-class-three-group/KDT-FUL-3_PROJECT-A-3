@@ -1,6 +1,21 @@
 import { Section } from "../common/Section";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export function NewsSection() {
+
+  //뉴스 상태
+  const [news, setNews] = useState([])
+
+  const apiKey = process.env.NEXT_PUBLIC_NEWS_API_KEY
+  const url = `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${apiKey}`
+
+  //axios
+  useEffect(()=>{
+
+  },[])
+
+
   return (
     <Section
       title="뉴스"
