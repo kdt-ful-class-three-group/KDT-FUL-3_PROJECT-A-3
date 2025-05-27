@@ -2,6 +2,7 @@ import { Input } from "@/components/common/Input"
 import { Select } from "@/components/common/Select";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/common/Button";
+import axios from "axios";
 
 // 기존 inputProps 사용하려했는데 안되겠어.
 interface EmailFieldProps {
@@ -54,7 +55,6 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
 
   // 값이 주어질 때마다 유효성 검사
   useEffect(()=>{
-
     //emailId@emailDomain 또는 customEmail값
     const email = fullEmail();
 
@@ -64,23 +64,59 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
       onValidChange?.(false) // 유효성 검사 실패
       return;
     }
-    
       //유효성 검사에 해당되어야 함
       if(checkEmail(email)){
         onChange(email)
-        setError('사용가능한 이메일입니다')
+        setError('중복확인을 해주세요')
         onValidChange?.(true) // 유효성 검사 성공
       } else {
         onChange('')
         setError('유효하지 않은 이메일 형식입니다')
         onValidChange?.(false) // 유효성 검사 실패
       }
-
-
   },[emailId, emailDomain, customEmail])
 
-  const isDisabled = !emailId || (!emailDomain && !customEmail) || !checkEmail(fullEmail());
-  // !이메일 인증번호 로직
+
+  // const isDisabled = !emailId || (!emailDomain && !customEmail) || !checkEmail(fullEmail());
+
+
+  //*  이메일 중복확인 버튼 클릭 이벤트
+  const submitEmail = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    console.log("아이디 중복확인 버튼 클릭");
+    //!중복확인 로직
+
+    try {
+      const res = await axios.post('http://localhost:8008/auth/emailCheck', { email: value });
+
+      if (res.status === 201) {
+        setError('사용 가능한 이메일입니다.');
+      } else {
+        // setError('알 수 없는 오류가 발생했습니다.');
+      }
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 400) {
+          setError('이미 사용 중인 이메일입니다.');
+        } else {
+          setError('알 수 없는 오류가 발생했습니다.');
+        }
+      }
+    }
+  }
+  
+  // !이메일 인증번호 로직추가
+  const submitEmailCode = () => {
+    // 인증번호 전송 로직
+    console.log("인증번호 전송 클릭");
+  }
+
+  const submitEmailAuth = () => {
+    // 인증번호 확인 로직
+    console.log("인증번호 확인 클릭");
+  }
+
 
   return (
     <div>
@@ -99,6 +135,7 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
         value={emailDomain}
         onChange={(e) => {setEmailDomain(e.target.value)}}
       />
+
       <Input
         type="text"
         label=""
@@ -109,7 +146,12 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
         placeholder="직접 입력"
       />
       {error && <p>{error}</p>}
-      <Button name='인증번호 전송' disabled={isDisabled}/>
+      
+      <Button
+        name="중복확인"
+        type="button"
+        onClick={submitEmail}
+      />
       <Input
         type="text"
         label=""
@@ -117,8 +159,20 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
         value={emailCode}
         onChange={(e) => {setEmailCode(e.target.value)}}
         name="emailAuth" />
+      
+      <Button
+        name='인증번호 전송'
+        type="button"
+        // disabled={isDisabled}
+        //! 이메일 인증번호 전송 로직
+        onClick={submitEmailCode}
+      />
       {codeError && <p>{codeError}</p>}
-      <Button name='확인' />
+      <Button name='확인'
+        type="button"
+      //! 이메일 인증번호 확인 로직
+        onClick={submitEmailAuth}
+      />
     </div>
   );
 }
