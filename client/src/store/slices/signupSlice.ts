@@ -1,4 +1,3 @@
-import { PayloadAction } from './../../../node_modules/@reduxjs/toolkit/src/createAction';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // 회원가입 상태 추가
