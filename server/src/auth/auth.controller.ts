@@ -16,10 +16,6 @@ export class AuthController {
     private readonly IdCheckService: IdCheckService,
     private readonly EmailCheckService: EmailCheckService,
   ) {}
-  @Get()
-  async getHello() {
-    return 'Hello World!';
-  }
   @Post('register')
 
   async register(@Body() dto: RegisterDto) {
