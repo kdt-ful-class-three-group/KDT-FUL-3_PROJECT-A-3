@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 
 interface BirthFieldProps {
   value?: string;
-  onChange?: (value: string) => void;
+  onChange:(e:string,valid:boolean)=>void
 }
 
-export function BirthField({ value , onChange }: BirthFieldProps) {
+export function BirthField({value, onChange}: BirthFieldProps) {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
@@ -35,7 +35,7 @@ export function BirthField({ value , onChange }: BirthFieldProps) {
   // 년/월/일 모두 선택되면 부모로 전달
   useEffect(() => {
     if (year && month && day) {
-      onChange?.(`${year}-${month}-${day}`);
+      onChange?.(`${year}-${month}-${day}`,true);
       setError('')
     } else {
       setError('생년월일을 모두 선택해주세요.')
