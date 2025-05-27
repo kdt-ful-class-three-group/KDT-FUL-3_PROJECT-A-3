@@ -1,3 +1,5 @@
+import { IdCheckDto } from './dto/idCheck.dto';
+import { IdCheckService } from './idCheck.service';
 import { LoginService } from './login.service';
 import { Body, Controller, Post, Get,HttpCode } from "@nestjs/common";
 import { AuthService } from './auth.service';
@@ -6,7 +8,11 @@ import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService, private readonly loginService: LoginService) {}
+  constructor(
+    private readonly authService: AuthService, 
+    private readonly loginService: LoginService,
+    private readonly IdCheckService: IdCheckService,
+  ) {}
   @Get()
   async getHello() {
     return 'Hello World!';
@@ -19,5 +25,9 @@ export class AuthController {
   @Post('login')
   async login(@Body() dto : LoginDto) {
     return this.loginService.login(dto);
+  }
+  @Post('idCheck')
+  async idCheck(@Body() dto: LoginDto) {
+    return this.IdCheckService.idCheck(dto);
   }
 }
