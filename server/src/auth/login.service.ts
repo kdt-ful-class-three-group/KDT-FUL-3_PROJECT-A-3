@@ -44,14 +44,20 @@ export class LoginService {
     } 
     //성공
     else {
-      const payload = { user_id: result.rows[0].user_id, name: result.rows[0].name, guide_check: result.rows[0].guide_check };
+      const payload = { 
+          user_id: result.rows[0].user_id, 
+          name: result.rows[0].name, 
+          guide_check: result.rows[0].guide_check 
+        };
+
       console.log('페이로드 정보:',payload);
-      console.log('JWT 시크릿 값 확인:', process.env.JWT_TOKEN_SECRET); // 👈 이 줄 추가
-      const accessToken = this.jwtService.sign(payload);
+      const accessToken = this.jwtService.sign(payload, { expiresIn: '1m' });
+      const refreshToken = this.jwtService.sign(payload, { expiresIn: '5m' });
 
       console.log('로그인 성공', result.rows[0].user_id);
         return {
             accessToken,
+            refreshToken,
             user_id: result.rows[0].user_id,
             message: '로그인 성공',
         };
