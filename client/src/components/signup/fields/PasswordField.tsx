@@ -19,7 +19,7 @@ export function PasswordField({value, onChange, onValidChange}: InputProps) {
   // 비밀번호 유효성 검사 -> 상태반영
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pw = e.target.value;
-    const isValid = checkPw(pw);
+    const isValid = checkPw(pw)&& pwCheck.length > 0 && pwCheck === pw;
     
     // 유효성 검사
     if (!isValid)
@@ -27,6 +27,14 @@ export function PasswordField({value, onChange, onValidChange}: InputProps) {
     else {
       setPwError('')
     }
+
+        //비밀번호 확인 값이 있으면 일치 여부 
+    if(pwCheck.length>0 && pwCheck===pw){
+      setCheckError('일치합니다')
+    } else {
+      setCheckError('비밀번호가 일치하지 않습니다')
+    }
+
     onValidChange?.(isValid);
     onChange?.(e);
   }

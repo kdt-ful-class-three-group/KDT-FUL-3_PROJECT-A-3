@@ -20,6 +20,9 @@ export function NameField({value, onChange, onValidChange}: InputProps) {
     const filteredText = text.replace(/[^ㄱ-ㅎ가-힣a-zA-Z]/g, '');
     // 10글자 이상일 경우 자르기
     const slicedText = filteredText.slice(0, 10);
+
+    const valid = checkName(slicedText)
+
     // 유효성 검사
     const isValid = checkName(slicedText);
     if (!isValid) {

@@ -8,70 +8,65 @@ import { BirthField } from "./fields/BirthField"
 import { Button } from "../common/Button"
 import { useState } from "react"
 
+// RTK
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "@/store"
+import { setField } from "@/store/slices/signupSlice"
+
 export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; password: string; name: string; email: string; birth: string }) => void }) {
-  // 회원가입 입력데이터 상태값
-  const [userData, setUserData] = useState({
-    id: "",
-    password: "",
-    name: "",
-    email: "",
-    birth: "",
-  })
-  
-  const [isIdValid, setIsIdValid] = useState(false);
-  const [isPwValid, setIsPwValid] = useState(false);
-  const [isNameValid, setIsNameValid] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isBirthValid, setIsBirthValid] = useState(false);
+  const dispatch = useDispatch()
+  const {id, password, name, email, birth} = useSelector((state:RootState)=> state.signup)
 
-  const isFormValid = isIdValid && isPwValid && isNameValid && isEmailValid && isBirthValid;
+  //유효성 상태값
+  const [idValid, setIdValid] = useState(false)
+  const [pwValid, setPwValid] = useState(false)
+  const [nameValid, setNameValid] = useState(false)
+  const [emailValid, setEmailValid] = useState(false)
+  const [birthValid, setBirthValid] = useState(false)
+  //최종
+  const isFormValid = idValid && pwValid && nameValid && emailValid && birthValid
 
-  const router = useRouter()
-
-  function handleChange(field: keyof typeof userData, value: string) {
-    setUserData((prev) => ({
-      ...prev,
-      [field]: value,
-    }))
+  function handleChange(field: 'id'|'password'|'name'|'email'|'birth', value: string) {
+    dispatch(setField({field,value}))
   }
 
   function signupSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    console.log(userData)
 
     //!회원가입 처리 로직
+    
     if (!isFormValid) {
       alert("모든 필드를 올바르게 입력해주세요.");
       return;
     }
-    onSignup(userData);
+    onSignup({id, password, name, email, birth});
   }
 
   return (
     <div>
       <form onSubmit={signupSubmit}>
         <IdField
-          value={userData.id}
+          value={id}
           onChange={(e) => handleChange("id", e.target.value)}
-          onValidChange={setIsIdValid}
+          onValidChange={setIdValid}
         />
-        <PasswordField value={userData.password}
+        <PasswordField value={password}
           onChange={(e) => handleChange("password", e.target.value)}
-          onValidChange={setIsPwValid}
+          onValidChange={setPwValid}
         />
-        <NameField value={userData.name} onChange={(e) => handleChange("name", e.target.value)}
-          onValidChange={setIsNameValid}
+        <NameField value={name} onChange={(e) => handleChange("name", e.target.value)}
+          onValidChange={setNameValid}
         />
         <EmailField
-          value={userData.email}
+          value={email}
           onChange={(val) => handleChange("email", val)}
-          onValidChange={setIsEmailValid}
+          onValidChange={setEmailValid}
         />
         <BirthField
-          value={userData.birth}
+          value={birth}
           onChange={(val) => handleChange("birth", val)}
-          onValidChange={setIsBirthValid}
+          onValidChange={setBirthValid}
         />
           <Button name="가입" type="submit" disabled={!isFormValid} />
       </form>
