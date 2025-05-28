@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { Hamburger } from "@/components/hamburger/Hamburger"
 
 export default function HamburgerPage(){

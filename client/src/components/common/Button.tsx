@@ -3,9 +3,10 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaBars } from "react-icons/fa6";
 import { FaPlus } from 'react-icons/fa'
+import { IoClose } from "react-icons/io5";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   name?: string;
-  icon?: 'search' | 'hamburger' | 'plus' | 'minus' | 'edit' | 'delete';
+  icon?: 'search' | 'hamburger' | 'plus' | 'minus' | 'edit' | 'delete' | 'close';
   variant?: 'default' | 'icon';
   href?: string;
 }
@@ -19,6 +20,8 @@ export function Button({ name, icon, ...props }: ButtonProps) {
         return <FaBars style={{ marginRight: '0.5rem' }} />;
       case 'plus':
         return <FaPlus style={{marginRight: '0.5rem'}}/>
+      case 'close':
+        return <IoClose style={{marginRight: '0.5rem'}}/>
       default:
         return null;
     }

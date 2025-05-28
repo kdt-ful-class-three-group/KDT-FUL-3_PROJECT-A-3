@@ -22,7 +22,7 @@ export function Nav() {
         />
         
         {/* 햄버거 메뉴 */}
-        <Button variant="icon" icon="hamburger" />
+        <Button variant="icon" icon="hamburger" onClick={()=>router.push('/hamburger')}/>
       </div>
     </div>
   )
