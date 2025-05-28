@@ -2,10 +2,15 @@
 import Trade from "./Trade"
 import Create from "./Create"
 
-export function Modal({type}:{type:'trade'|'create'}){
+type props = {
+  type:'trade'|'create';
+  onConfirm?: ()=>void
+}
+
+export function Modal({type, onConfirm}:props){
   return(
     <div>
-      {type === 'trade' ? <Trade /> : <Create/>}
+      {type === 'trade' ? <Trade /> : <Create onConfirm={onConfirm}/>}
     </div>
   )
 }
