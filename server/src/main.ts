@@ -20,8 +20,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  //cors
+  // * 클라이언트에서 받아온 cookie를 읽기 위해 필요한 cookieParser를 사용한다고 정의.
   app.use(cookieParser());
+  //cors
   app.enableCors({
     origin: 'http://localhost:3000',
     credentials: true // 오타 수정: Credential -> credentials
