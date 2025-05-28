@@ -2,13 +2,12 @@ import { useEffect } from 'react';
 import { Input } from '../common/Input';
 import { Button } from '../common/Button';
 
-// 타입 - onClose 함수
-type Props = {
+import styles from './StockSearch.module.css'
+interface StockSearchProps {
   onClose: () => void;
-};
+}
 
-export function StockSearch({ onClose }: Props) {
-
+export function StockSearch({ onClose }: StockSearchProps) {
 
   useEffect(() => {
     // search 화면 나왔을 때 배경 스크롤 방지
@@ -17,20 +16,11 @@ export function StockSearch({ onClose }: Props) {
     return () => { document.body.style.overflow = 'auto'; };
   }, []);
 
+
   return (
 
-    // 홈 검색 창 나중에 스타일 수정
-    <div style={{
-      position: 'fixed',
-      top: 0, left: 0,
-      width: '100vw',
-      height: '100vh',
-      backgroundColor: 'rgba(255,255,255,0.95)',
-      zIndex: 1000,
-      display: 'flex',
-      justifyContent: 'center',
-      // alignItems: 'center',
-    }}>
+    // 홈 검색 창 스타일. 모듈에 있으니 나중에 수정할 때 참고할것.
+    <div className={styles.overlay}>
 
       <div>
         <Button
@@ -38,11 +28,17 @@ export function StockSearch({ onClose }: Props) {
           onClick={onClose}
         />
       </div>
+      
       <div>
         <Input
           type="text"
         />
       </div>
+
+      <div>
+        {/* 여기에 인기 주식 리스트나 실시간 인기 검색어 등등 추가하면 될듯 */}
+      </div>
+
     </div>
   )
 }
