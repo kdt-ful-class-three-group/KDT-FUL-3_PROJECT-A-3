@@ -10,11 +10,11 @@ export class AccountService {
 
     async account(dto: AccountDto): Promise<any>{
     const query = `
-      INSERT INTO account (name, account_number, asset)
+      INSERT INTO account (user_id, account_number, asset)
       VALUES ($1, $2, $3)
       RETURNING *;
     `;
-    const values = [dto.name, dto.account_number, dto.asset];
+    const values = [dto.user_id, dto.account_number, dto.asset];
 
       console.log("계좌 정보", values)
 
@@ -26,7 +26,9 @@ export class AccountService {
 
     console.log("쿼리문 시행 정보", result.rows[0]);
 
-    console.log(result.rows[0].name, '님 계좌개설 성공')
+    const nameResult = await this.db.query(`SELECT name FROM users WHERE user_id = $1`,[result.rows[0].user_id]);
+
+    console.log(nameResult.rows[0].name, '님 계좌개설 성공')
     return result.rows[0];
 
   } catch(err){
