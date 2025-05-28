@@ -20,20 +20,22 @@ type Article = {
 
 export function NewsSection() {
 
-  //뉴스 상태
+  //뉴스 데이터
   const [news, setNews] = useState<Article[]>([])
-
+  //뉴스인덱스
+  const [index, setIndex] = useState(0)
+  //api키
   const apiKey = process.env.NEXT_PUBLIC_NEWS_API_KEY
-  // everythingUrl-한국기사 & 최신순
+  // everythingUrl-키워드 & 최신순
   const url = `https://newsapi.org/v2/everything?q=주식 OR 코스피 OR 삼성전자&sortBy=publishedAt&apiKey=${apiKey}`;
 
-  //axios
+  //axios - 뉴스 api
   useEffect(()=>{
     async function fetchNews(){
       try{
         const res = await axios.get(url)
         //디버깅
-        console.log(res.data.articles)
+        // console.log(res.data.articles)
         //데이터 담기
         setNews(res.data.articles)
       }
@@ -46,6 +48,13 @@ export function NewsSection() {
     fetchNews()
   },[])
 
+  //1시간마다 뉴스 업데이트
+  useEffect(()=>{
+    //1시간 setInterval
+
+    //return clearInterval
+  },[news])
+
 
   return (
     <Section
@@ -55,13 +64,12 @@ export function NewsSection() {
         <div>
         {news.length>0 ?(
           <div>
-
-          <h3>{news[1].title}</h3>
-          <a href={news[1].url} target="_blank" title="news">
-          <img src={news[1].urlToImage} alt="" />
-          </a>
+            <a href={news[index].url} target="_blank" title="news">
+              <h3>{news[index].title}</h3>
+              <img src={news[index].urlToImage} alt={news[index].content} />
+            </a>
           </div>
-        ) : <p>,,,</p>}
+        ) : <p>뉴스 불러우는 중</p>}
         </div>
         
       }
