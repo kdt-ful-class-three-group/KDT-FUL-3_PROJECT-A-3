@@ -18,10 +18,12 @@ export function SearchOverlay({ onClose, children }: Props) {
 
   return (
     <div className={styles.overlay}>
-    <div>
-      <Button name="닫기" onClick={onClose} />
+      <div>
+        <Button name="닫기" onClick={onClose} />
+      </div>
+      <div>
+      {children}
+      </div>
     </div>
-    {children}
-  </div>
   )
 }
