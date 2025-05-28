@@ -10,4 +10,4 @@ import { CheckService } from "./check.service";
     controllers: [AccountController],
     providers: [AccountService, CheckService],
 })
-export class AuthModule {}
+export class AccountModule {}
