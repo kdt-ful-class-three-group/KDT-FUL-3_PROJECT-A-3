@@ -19,6 +19,7 @@ export default function Create({onConfirm}:props){
   }
   
 
+  //! 확인버튼 누르면 DB에 전달 필요함
 
   return (
     <div>
