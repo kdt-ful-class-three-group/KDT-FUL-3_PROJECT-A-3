@@ -19,7 +19,10 @@ export default function StatusBar(){
 
   //데이터 배열 - count type은 number
   //[//한강물{icon:'water',name:'한강물',count:temp},//주식{icon: count>0 ? 'up':'down', name:'주식1',count:stock},{icon: count>0 ? 'up':'down', name:'주식2',count:stock}..{icon: count>0 ? 'up':'down', name:'주식10',count:stock}]
-const [list, setList]= useState<item[]>([])
+  const [list, setList]= useState<item[]>([])
+
+  //배열인덱스
+  const [index, setIndex]= useState(0)
 
   //한강물
   useEffect(()=>{
@@ -61,14 +64,26 @@ const [list, setList]= useState<item[]>([])
         console.log(list)
       }
       catch(err){
-        console.log('수온 데이터 가져오기 실패',err)
+        console.log('데이터 가져오기 실패',err)
       }
     }
 
     fetchData()
   },[])
 
+  //30초 마다 업데이트
+  useEffect(()=>{
+    if (list.length === 0) return;
+
+    const updateList = setInterval(()=>{
+      setIndex(i=>(i+1)%list.length)
+    },1000*30)
+
+    //cleanup
+    return ()=> clearInterval(updateList)
+  },[list])
+
   return(
-    <div>{list[2]?.count}</div>
+    <div>{list[index]?.count}</div>
   )
 }
