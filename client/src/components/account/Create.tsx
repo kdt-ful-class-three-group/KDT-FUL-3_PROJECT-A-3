@@ -2,7 +2,12 @@
 
 import { Button } from "../common/Button";
 
-export default function Create(){
+type props = {
+  //확인 버튼 클릭 
+  onConfirm?:()=>void
+}
+
+export default function Create({onConfirm}:props){
 
   // 랜덤 계좌
   function strAccount(){
@@ -13,7 +18,6 @@ export default function Create(){
     return `1111-${str.slice(0,3)}-${str.slice(3)}`
   }
   
-  //!확인 버튼 클릭 로직
 
 
   return (
@@ -28,7 +32,7 @@ export default function Create(){
         <p>1,000,000풀</p>
       </div>
       {/* 버튼 */}
-      <Button name='확인' type='button'/>
+      <Button name='확인' type='button' onClick={onConfirm}/>
     </div>
   )
 }
