@@ -40,7 +40,7 @@ export class AuthController {
     secure: false,
     sameSite: 'lax',
     // * 1분
-    maxAge: 1000 * 60 
+    maxAge: 1000 * 10 
   });
 
   res.cookie('refresh_token', refreshToken, {
@@ -48,7 +48,7 @@ export class AuthController {
     secure: false,
     sameSite: 'lax',
     // * 5분
-    maxAge: 1000 * 60 * 5, 
+    maxAge: 1000 * 30, 
   });
 
   return { message, user_id };
@@ -61,29 +61,40 @@ export class AuthController {
     async emailCheck(@Body() dto: EmailCheckDto) {
         return this.EmailCheckService.emailCheck(dto);
     }
-    @Post('refresh')
-async refresh(@Req() req, @Res({ passthrough: true }) res: Response) {
-  const refreshToken = req.cookies?.refresh_token;
-  if (!refreshToken) throw new UnauthorizedException('Refresh Token 없음');
+  @Post('refresh')
+  async refresh(@Req() req, @Res({ passthrough: true }) res: Response) {
+    console.log('리프레쉬 요청 실행');
 
-  try {
-    const payload = this.jwtService.verify(refreshToken); // 검증
-    const newAccessToken = this.jwtService.sign(
-      { sub: payload.sub, name: payload.name, guide_check: payload.guide_check },
-      { expiresIn: '1m' },
-    );
+    const accessToken = req.cookies?.access_token;
+    if (accessToken) {
+      try {
+        return { message: 'Access Token 아직 유효함' };
+      } catch (e) {
+        // Access Token이 만료됨 → 아래 refresh 흐름으로 진행
+      }
+    }
 
-    res.cookie('access_token', newAccessToken, {
-      httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
-      maxAge: 1000 * 60 ,
-    });
+    const refreshToken = req.cookies?.refresh_token;
+    if (!refreshToken) throw new UnauthorizedException('Refresh Token 없음');
 
-    return { message: 'Access Token 재발급 성공' };
-  } catch (err) {
-    throw new UnauthorizedException('Refresh Token이 유효하지 않음');
+    try {
+      const payload = this.jwtService.verify(refreshToken); // 검증
+      const newAccessToken = this.jwtService.sign(
+        { user_id: payload.user_id, name: payload.name, guide_check: payload.guide_check },
+        { expiresIn: '1m' },
+      );
+
+      res.cookie('access_token', newAccessToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        maxAge: 1000 * 10,
+      });
+
+      return { message: 'Access Token 재발급 성공' };
+    } catch (err) {
+      throw new UnauthorizedException('Refresh Token이 유효하지 않음');
+    }
   }
-}
 
 }
