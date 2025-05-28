@@ -10,3 +10,8 @@ export const stockList = [
   { name: "스타벅스", symbol: "SBUX" },
   { name: "나이키", symbol: "NKE" },
 ]
+
+export function getKoreanSymbol(symbol: string): string {
+  const stock = stockList.find(s => s.symbol === symbol);
+  return stock ? stock.name : symbol;
+}
