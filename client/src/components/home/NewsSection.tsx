@@ -35,7 +35,7 @@ export function NewsSection() {
       try{
         const res = await axios.get(url)
         //디버깅
-        console.log(res.data.articles)
+        // console.log(res.data.articles)
         //데이터 담기
         setNews(res.data.articles)
       }
