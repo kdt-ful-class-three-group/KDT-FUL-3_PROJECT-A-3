@@ -2,6 +2,7 @@
 
 import { Button } from "../Button"
 import { useRouter } from "next/navigation"
+import StatusBar from "./StatusBar";
 
 export function Nav() {
 
@@ -10,7 +11,7 @@ export function Nav() {
   return(
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
       <div>
-        <p>온도 체크</p>
+        <StatusBar />
       </div>
 
       <div >

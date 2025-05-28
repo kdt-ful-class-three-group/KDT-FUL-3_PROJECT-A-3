@@ -34,7 +34,7 @@ export default function StatusBar(){
 
         const newList : item[]=[{
           icon:'water',
-          name:'실시간 한강물',
+          name:'한강',
           count: temp+'℃'
         }]
 
@@ -77,13 +77,27 @@ export default function StatusBar(){
 
     const updateList = setInterval(()=>{
       setIndex(i=>(i+1)%list.length)
-    },1000*30)
+    },1000*10)
 
     //cleanup
     return ()=> clearInterval(updateList)
   },[list])
 
   return(
-    <div>{list[index]?.count}</div>
+    <div style={{display:'flex'}}>
+      <p>
+        {list[index]?.icon === 'water' ? (
+        <IoMdWater/>
+        ) : list[index]?.icon === 'up' ? (
+        <FaCaretUp color='red'/>
+        ) : list[index]?.icon === 'down' ? (
+        <FaCaretDown color='blue'/>
+        ) : (
+        '↺'
+        )}
+      </p>
+      <p>{list[index]?.name}</p>
+      <p>{list[index]?.count}</p>
+    </div>
   )
 }
