@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { Input } from '../common/Input';
 import { Button } from '../common/Button';
 
-import styles from './StockSearch.module.css'
-interface StockSearchProps {
+import styles from './SearchBar.module.css'
+interface SearchBarProps {
   onClose: () => void;
 }
 
-export function StockSearch({ onClose }: StockSearchProps) {
+export function StockSearch({ onClose }: SearchBarProps) {
 
   useEffect(() => {
     // search 화면 나왔을 때 배경 스크롤 방지
