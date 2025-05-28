@@ -14,10 +14,13 @@ export function StockSection() {
   const [showModal, setShowModal] = useState(false)
 
   return (
-    <Section
-      title="주식"
-      // description="주식 시장의 최신 동향과 정보를 확인하세요."
-      children={hasAccount ? <p>내 계좌</p> : <CreateStock />}
-    />
+    <>
+      <Section
+        title="주식"
+        // description="주식 시장의 최신 동향과 정보를 확인하세요."
+        children={hasAccount ? <p>내 계좌</p> : <CreateStock onClick={()=>setShowModal(true)}/>}
+      />
+      {showModal && <Modal type='create'/>}
+    </>
   );
 }
