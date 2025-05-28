@@ -51,8 +51,12 @@ export function NewsSection() {
   //1시간마다 뉴스 업데이트
   useEffect(()=>{
     //1시간 setInterval
+    const updateNews = setInterval(()=>{
+      setIndex(i=>(i+1)%news.length)
+    },3600000)
 
     //return clearInterval
+    return () => clearInterval(updateNews)
   },[news])
 
 
