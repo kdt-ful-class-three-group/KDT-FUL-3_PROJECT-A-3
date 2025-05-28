@@ -7,10 +7,10 @@ export default function Create(){
   // 랜덤 계좌
   function strAccount(){
 
-    const account = Math.floor(1000000000 + Math.random() * 9000000000); // 10자리 숫자
+    const account = Math.floor(10000000 + Math.random() * 90000000); 
 
     const str = account.toString()
-    return `${str.slice(0,4)}-${str.slice(4,7)}-${str.slice(7)}`
+    return `1111-${str.slice(0,3)}-${str.slice(3)}`
   }
   
   //!확인 버튼 클릭 로직
