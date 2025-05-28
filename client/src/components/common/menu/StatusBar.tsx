@@ -44,6 +44,13 @@ export default function StatusBar(){
         for(const symbol of symbols){
           //주식 데이터 최신 2개 비교
           const stockRes = await axios.get(`http://localhost:8008/stocks/${symbol}`)
+
+          //조건에 해당하지 않을때
+          if(!stockRes.data.values || stockRes.data.length<2){
+            console.log('데이터부족')
+            continue;
+          }
+
           const current = parseFloat(stockRes.data.values[0].close);
           const prev = parseFloat(stockRes.data.values[1].close);
           //증감 계신
@@ -61,22 +68,22 @@ export default function StatusBar(){
         //상태값
         setList(newList)
 
-        console.log(list)
       }
       catch(err){
         console.log('데이터 가져오기 실패',err)
       }
     }
-
+    
     fetchData()
   },[])
-
+  
   //30초 마다 업데이트
   useEffect(()=>{
     if (list.length === 0) return;
-
+    
     const updateList = setInterval(()=>{
       setIndex(i=>(i+1)%list.length)
+      // console.log(list)
     },1000*10)
 
     //cleanup
