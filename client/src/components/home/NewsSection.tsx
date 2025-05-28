@@ -35,7 +35,7 @@ export function NewsSection() {
       try{
         const res = await axios.get(url)
         //디버깅
-        // console.log(res.data.articles)
+        console.log(res.data.articles)
         //데이터 담기
         setNews(res.data.articles)
       }
@@ -70,7 +70,12 @@ export function NewsSection() {
           <div>
             <a href={news[index].url} target="_blank" title="news">
               <h3>{news[index].title}</h3>
-              <img src={news[index].urlToImage} alt={news[index].content} />
+              {
+                news[index].urlToImage ? 
+                <img src={news[index].urlToImage} alt={news[index].content} />
+                : <div>이미지</div> //!추후 img와 사이즈 동일하게 맞추기
+                
+              }
             </a>
           </div>
         ) : <p>뉴스 불러우는 중</p>}
