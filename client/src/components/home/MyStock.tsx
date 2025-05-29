@@ -21,7 +21,7 @@ export default function MyStock({account, money}:{account:string, money:string})
   // date, money (asset)
   const moneyData = [
     {date:'계좌만든 날',asset:1000000}, // 계좌 생성 직후
-    {date:'오늘',asset:1000000}, // 오늘
+    {date:'오늘',asset:money}, // 오늘
   ]
   
   //차트용 데이터
