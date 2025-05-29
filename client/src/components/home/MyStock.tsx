@@ -19,7 +19,8 @@ export default function MyStock({account, money}:{account:string, money:string})
   //!차트데이터 (임시)
   // date, money (asset)
   const moneyData = [
-    {date:'2025-05-28',asset:Number(money)} // 계좌 생성 직후
+    {date:'계좌만든 날',asset:1000000}, // 계좌 생성 직후
+    {date:'오늘',asset:1000000}, // 계좌 생성 직후
   ]
   
   //차트용 데이터
@@ -47,11 +48,16 @@ export default function MyStock({account, money}:{account:string, money:string})
       },
       tooltip:{
         callbacks:{
-          label:(ctx:any)=>`${ctx.parsed.y.toLocaleString()}`
+          label:(ctx:any)=>`${ctx.parsed.y.toLocaleString()}풀`
         }
       }
     },
     scales:{
+      x:{
+        // x축 범위 설정
+        min:0, //시작은 첫 데이터
+        max: Math.max(4,moneyData.length-1)//최소 5칸 확보
+      },
       y:{
         ticks:{
           callback:(value:string|number)=> Number(value).toLocaleString()
