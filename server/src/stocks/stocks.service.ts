@@ -9,7 +9,8 @@ export class StocksService {
    const url = 'https://api.twelvedata.com/time_series';
    const params={
      apikey: this.API_KEY,
-     interval:'15min',
+     interval: '1day',
+     outputsize: 7,
      format: 'JSON',
      symbol: symbol.toUpperCase()
    };
