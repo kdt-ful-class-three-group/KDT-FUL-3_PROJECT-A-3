@@ -18,14 +18,22 @@ export interface StockData {
     type: string;
   };
   values: StockValue[];
+  datetime: string;
+  close: string; //
 }
 
-export interface StockChartProps {
-  data: StockValue[];
-  symbol: string;
-}
+// export interface StockChartProps {
+//   data: StockValue[];
+//   symbol: string;
+// }
 
 export interface StockInfoProps {
   symbol: StockData["meta"]["symbol"];
   price?: StockValue["close"]
+}
+
+
+export interface StockChartProps {
+  data: StockData[];
+  symbol: string;
 }
