@@ -33,13 +33,12 @@ export default function StockPage() {
         />
       </div>
       <div>
-      <StockInfo
-        symbol={stockData.meta.symbol}
-        price={stockData.values[0]?.close}
-      />
-      <StockChart
-        data={stockData?.values || []}
-        symbol={symbol as string}
+        <StockInfo
+          symbol={stockData.meta.symbol}
+          price={stockData.values[0]?.close}
+        />
+        <StockChart
+          stockData={stockData?.values || []}
         />
       </div>
     </div>

@@ -1,90 +1,110 @@
-import styles from './StockStyles.module.css'
-import { StockChartProps } from '@/types/stock';
+'use client'
+import { useMemo } from 'react';
+import { format } from 'date-fns';
+import { Chart } from 'react-chartjs-2';
+import { Chart as ChartJS, TimeScale, Tooltip, Legend, CategoryScale, LinearScale } from 'chart.js';
+import { CandlestickController, CandlestickElement } from 'chartjs-chart-financial';
 import { ChartOptions } from 'chart.js';
-import { Tick } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-  Legend,
-  BarElement,      // ✅ Bar 차트 요소
-  BarController 
-} from 'chart.js';
+import 'chartjs-adapter-date-fns';
 
+// ✅ 이 줄로 모든 필요한 모듈을 등록
 ChartJS.register(
   CategoryScale,
+  TimeScale,
   LinearScale,
   Tooltip,
   Legend,
-  BarElement,
-  BarController
+  CandlestickController,
+  CandlestickElement
 );
 
+import styles from './StockStyles.module.css'
 
-export function StockChart({ data, symbol }: StockChartProps) {
+export function StockChart({ stockData }: { stockData: any[] }) {
+  
+  const formattedData = useMemo(() => {
+    const grouped: { [date: string]: any[] } = {};
 
-  const changes = data.map((item, index) => {
-    if (index === 0) return 0;
-    const currentClose = Number(item.close);
-    const prevClose = Number(data[index - 1].close);
-    return currentClose - prevClose;
-  });
-  
-  const barColors = changes.map(change => change >= 0 ? 'red' : 'blue');
-  
-  const chartData = {
-    labels: Array.from(new Set(data.map(item => item.datetime.slice(0, 10)))),
+    stockData.forEach(item => {
+      const date = item.datetime.slice(0, 10); // YYYY-MM-DD
+      if (!grouped[date]) grouped[date] = [];
+      grouped[date].push(item);
+    });
+
+    return Object.entries(grouped).map(([date, items]) => ({
+      x: new Date(date),
+      o: Number(items[0].open),
+      h: Math.max(...items.map(i => Number(i.high))),
+      l: Math.min(...items.map(i => Number(i.low))),
+      c: Number(items[items.length - 1].close ?? items[items.length - 1].price),
+    }));
+  }, [stockData]);
+
+  console.log(formattedData.map(d => d.x));
+  const data = {
     datasets: [
       {
-        label: `${symbol} 전일 대비 등락폭`,
-        data: changes,
-        backgroundColor: barColors,
-      },
-    ],
+        label: '봉차트',
+        data: formattedData,
+        barThickness: 20,
+        color: {
+          up: 'red',
+          down: 'blue',
+          unchanged: 'gray'
+        }
+      }
+    ]
   };
 
-  console.log(chartData.labels)
-
-  const chartOptions: ChartOptions<'bar'> = {
-    responsive: true, // 화면 크기에 따라 자동 반응형
+  const options: ChartOptions<'candlestick'> = {
+    responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const, // 범례 위치: 위쪽
+        position: 'top'
       },
-      title: {
-        display: true,
-        text: `${symbol} 주가 등락폭 차트`, // 차트 제목
-      },
+      tooltip: {
+        mode: 'index',
+        intersect: false
+      }
     },
     scales: {
       x: {
+        type: 'time',
+        time: {
+          unit: 'day',
+          displayFormats: {
+            day: 'MM/dd'
+          }
+        },
         ticks: {
-          callback: function(value: any, index: number, ticks: Tick[]) {
-            const label = ticks[index]?.label;
-            return label?.slice(5); // "MM-DD" 형식
+          source: 'auto',
+          autoSkip: false,
+          maxRotation: 20,
+          minRotation: 20,
+          font: {
+            size: 10
+          },
+          callback: function (tickValue) {
+            const date = new Date(tickValue);
+            if (!isNaN(date.getTime())) {
+              return format(date, 'MM/dd');
+            }
+            return '';
           }
         }
       },
       y: {
-        ticks: {
-          callback: function(value: any) {
-            return Number(value).toLocaleString() + '원'; // 금액 단위 표시
-          }
-        }
+        beginAtZero: false,
+        position: 'right'
       }
     }
   };
 
   return (
-    <div>
-      <div>
-        <h1>{}</h1>
-      </div>
+    <div className={styles.wrapper}>
       <div className={styles.chart}>
-        <Bar data={chartData} options={chartOptions} />
+        <Chart type="candlestick" data={data} options={options} />
       </div>
     </div>
-  )
+  );
 }
