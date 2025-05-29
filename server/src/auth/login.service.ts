@@ -51,8 +51,8 @@ export class LoginService {
         };
 
       console.log('페이로드 정보:',payload);
-      const accessToken = this.jwtService.sign(payload, { expiresIn: '1m' });
-      const refreshToken = this.jwtService.sign(payload, { expiresIn: '5m' });
+      const accessToken = this.jwtService.sign(payload, { expiresIn: '60m' });
+      const refreshToken = this.jwtService.sign(payload, { expiresIn: '60m' });
 
       console.log('로그인 성공', result.rows[0].user_id);
         return {

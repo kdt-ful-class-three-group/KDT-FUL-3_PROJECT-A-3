@@ -40,7 +40,7 @@ export class AuthController {
     secure: false,
     sameSite: 'lax',
     // * 1분
-    maxAge: 1000 * 10 
+    maxAge: 1000 * 60 * 60
   });
 
   res.cookie('refresh_token', refreshToken, {
@@ -48,7 +48,7 @@ export class AuthController {
     secure: false,
     sameSite: 'lax',
     // * 5분
-    maxAge: 1000 * 30, 
+    maxAge: 1000 * 60 * 60,
   });
 
   return { message, user_id };
