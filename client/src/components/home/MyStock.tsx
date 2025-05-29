@@ -54,7 +54,7 @@ export default function MyStock({account, money}:{account:string, money:string})
     scales:{
       y:{
         ticks:{
-          callback:(value:number)=>`${Number(value).toLocaleString()}`
+          callback:(value:string|number)=> Number(value).toLocaleString()
         }
       }
     }
