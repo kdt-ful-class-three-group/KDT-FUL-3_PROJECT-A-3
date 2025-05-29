@@ -24,6 +24,24 @@ const vocaList = [
     description: "시장에 나온 가격으로 즉시 체결되는 주문 방식입니다.",
     formula: null,
   },
+  {
+    voca: "ㄱ",
+    name: "Market Order",
+    description: "시장에 나온 가격으로 즉시 체결되는 주문 방식입니다.",
+    formula: null,
+  },
+  {
+    voca: "ㄴ 주문",
+    name: "Market Order",
+    description: "시장에 나온 가격으로 즉시 체결되는 주문 방식입니다.",
+    formula: null,
+  },
+  {
+    voca: "a 주문",
+    name: "Market Order",
+    description: "시장에 나온 가격으로 즉시 체결되는 주문 방식입니다.",
+    formula: null,
+  },
 ]
 
 export default function Voca() {
@@ -72,6 +90,7 @@ export default function Voca() {
 
   },[])
 
+
   return (
     <div>
       <h1>사전페이지</h1>
@@ -81,7 +100,14 @@ export default function Voca() {
         data={list}
         onSelect={(item)=>{
           setSelected(item)
-          setQuery(item.voca)//선택 후 검색창에 단어 넣기
+          //스크롤 이동
+          const id = `card-${item.voca.replace(/\s/g,'')}`
+          const el = document.getElementById(id)
+          if(el){
+            el.scrollIntoView({behavior:'smooth',block:'start'})
+            setQuery('')//선택 후 입력내용 초기화
+          }
+          
         }}
         />
       {/* 여기에 단어장 컴포넌트나 기능을 추가할 수 있습니다. */}
