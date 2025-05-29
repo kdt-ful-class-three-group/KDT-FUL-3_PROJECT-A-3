@@ -3,7 +3,7 @@ import axios from "axios";
 import { IoMdWater } from "react-icons/io";
 import { FaCaretUp } from "react-icons/fa6";
 import { FaCaretDown } from "react-icons/fa";
-
+import { stockList } from "@/components/stocks/StockList";
 
 type item = {
   icon : 'water' | 'up' | 'down',
@@ -39,7 +39,7 @@ export default function StatusBar(){
         }]
 
         //주식 종목
-        const symbols = ['tsla','aapl','nvda']
+        const symbols = stockList.map((i) => i.symbol)
         //종목 -> 반복문
         for(const symbol of symbols){
           //주식 데이터 최신 2개 비교
