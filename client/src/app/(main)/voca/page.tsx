@@ -3,46 +3,7 @@
 import Card from "@/components/voca/Card";
 import { useEffect, useState } from "react";
 import VocaToolBar from "@/components/voca/VocaToolBar";
-
-// !임시 데이터
-const vocaList = [
-  {
-    voca : "PER",
-    name: "Price Earnings Ratio",
-    description: "주가를 주당순이익(EPS)으로 나눈 값으로, 주가가 기업의 이익에 비해 고평가 또는 저평가되었는지를 판단하는 지표입니다.",
-    formula: "PER = 주가 / EPS"
-  },
-  {
-    voca : "Limit Order",
-    name: "Limit Order",
-    description: "투자자가 지정한 가격 이상 또는 이하에서만 체결되도록 하는 주문입니다.",
-    formula: null
-  },
-  {
-    voca: "시장가 주문",
-    name: "Market Order",
-    description: "시장에 나온 가격으로 즉시 체결되는 주문 방식입니다.",
-    formula: null,
-  },
-  {
-    voca: "ㄱ",
-    name: "Market Order",
-    description: "시장에 나온 가격으로 즉시 체결되는 주문 방식입니다.",
-    formula: null,
-  },
-  {
-    voca: "ㄴ 주문",
-    name: "Market Order",
-    description: "시장에 나온 가격으로 즉시 체결되는 주문 방식입니다.",
-    formula: null,
-  },
-  {
-    voca: "a 주문",
-    name: "Market Order",
-    description: "시장에 나온 가격으로 즉시 체결되는 주문 방식입니다.",
-    formula: null,
-  },
-]
+import axios from "axios";
 
 //초성 순으로 정렬
 const Chosung = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ']
@@ -68,27 +29,29 @@ function getFirstChar(text:string):string{
   return '#'
 
 }
+
 export default function Voca() {
   //검색에 사용
   const [query, setQuery] = useState('')
-  const [selected, setSelected] = useState<typeof vocaList[0]|null>(null)
-
-  const [list, setList]=useState<typeof vocaList>([])
+  const [selected, setSelected] = useState<any>(null)
+  const [list, setList]=useState<any[]>([])
   
-  useEffect(()=>{
-
-    //정렬
-    const sortedList = vocaList.sort((a,b)=>{
-      const one = getFirstChar(a.voca || a.name)
-      const two = getFirstChar(b.voca||b.name)
-
-      return one.localeCompare(two)
-    })
-
-    //정렬된 리스트 넣기
-    setList(sortedList)
-
-  },[])
+  useEffect(() => {
+    axios.get('http://localhost:8008/voca') 
+      .then(res => {
+         // data = 백엔드에서 오는 vocaList 데이터
+        const data = res.data;
+        const sorted = data.sort((a: any, b: any) => {
+          const one = getFirstChar(a.voca || a.name);
+          const two = getFirstChar(b.voca || b.name);
+          return one.localeCompare(two);
+        });
+        setList(sorted);
+      })
+      .catch(err => {
+        console.error('단어 데이터 불러오기 실패:', err);
+      });
+  }, []);
 
 
   return (
