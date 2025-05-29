@@ -6,10 +6,10 @@ import { ConfigModule } from '@nestjs/config';
 import {StocksModule} from "./stocks/stocks.module";
 import { JwtModule } from '@nestjs/jwt';
 import { AccountModule } from './account/account.module';
-
+import { VocaModule } from './voca/voca.module';
 
 @Module({
 
-    imports: [ConfigModule.forRoot({isGlobal:true}),AuthModule, UsersModule, DbModule, StocksModule, JwtModule, AccountModule],
+    imports: [ConfigModule.forRoot({isGlobal:true}),AuthModule, UsersModule, DbModule, StocksModule, JwtModule, AccountModule,VocaModule],
 })
 export class AppModule {}
