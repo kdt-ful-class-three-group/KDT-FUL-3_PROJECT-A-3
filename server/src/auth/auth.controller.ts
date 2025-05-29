@@ -40,7 +40,7 @@ export class AuthController {
     secure: false,
     sameSite: 'lax',
     // * 1분
-    maxAge: 1000 * 10 
+    maxAge: 1000 * 60 * 60 
   });
 
   res.cookie('refresh_token', refreshToken, {
@@ -48,7 +48,8 @@ export class AuthController {
     secure: false,
     sameSite: 'lax',
     // * 5분
-    maxAge: 1000 * 30, 
+        maxAge: 1000 * 60 * 60 * 24 
+
   });
 
   return { message, user_id };
@@ -98,7 +99,7 @@ export class AuthController {
         // * 토큰에 들어갈 데이터
         { user_id: payload.user_id, name: payload.name, guide_check: payload.guide_check },
         // * 유효기간
-        { expiresIn: '1m' },
+        { expiresIn: '1h' },
       );
       // * 클라이언트의 쿠키에 토큰을 보내는 로직.
       // * 쿠키 명 : access_token, 쿠키의 내용 위에서 생성한 새로운 accessToken
@@ -111,7 +112,7 @@ export class AuthController {
         sameSite: 'lax',
         // * 쿠키 만료 기간 을 10초로 설정.
         // * 디버깅 용으로 짧게 설정 해놓음. 이후 배포할 때는 1000 * 60 * 15 와 같이 15분으로 설정하던가 하는 형식으로 늘릴 듯.
-        maxAge: 1000 * 10,
+        maxAge: 1000 * 60 * 60,
       });
 
       // * 클라이언트 측에서 확인 가능하게, 토큰 재발급 성공을 메세지에 담아서 보내줌.
