@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { SearchBar } from "./SearchBar";
 import { SearchDropdown } from "./SearchDropdown";
-import { stockList } from "@/app/stocks/StockList";
+import { stockList } from "@/components/stocks/StockList";
 import styles from "./SearchStyles.module.css";
 
 export function SearchAutoComplete() {
