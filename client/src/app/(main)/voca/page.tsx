@@ -2,6 +2,7 @@
 
 import Card from "@/components/voca/Card";
 import { useEffect, useState } from "react";
+import SearchVoca from "@/components/voca/SearchVoca";
 
 // !임시 데이터
 const vocaList = [
@@ -20,6 +21,9 @@ const vocaList = [
 ]
 
 export default function Voca() {
+  //검색에 사용
+  const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState<typeof vocaList[0]|null>(null)
 
   const [list, setList]=useState<typeof vocaList>([])
   
@@ -30,7 +34,15 @@ export default function Voca() {
   return (
     <div>
       <h1>사전페이지</h1>
-      <p>여기 사전내용이 들어갑니다.</p>
+      <SearchVoca
+        value={query}
+        onChange={setQuery}
+        data={list}
+        onSelect={(item)=>{
+          setSelected(item)
+          setQuery(item.voca)//선택 후 검색창에 단어 넣기
+        }}
+        />
       {/* 여기에 단어장 컴포넌트나 기능을 추가할 수 있습니다. */}
       {list.map((item, index)=>(
         <Card key={index} vocaObj={item}/>
