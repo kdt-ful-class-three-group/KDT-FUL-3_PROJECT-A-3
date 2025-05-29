@@ -1,5 +1,6 @@
+'use client'
 // 검색 컴포넌트
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../common/Input";
 import { Button } from "../common/Button";
 
@@ -23,6 +24,12 @@ export default function SearchVoca({value, onChange, data, onSelect}:Props){
   //검색할 내용 상태값
   const [search, setSearch] = useState<Item[]>([])
 
+  useEffect(()=>{
+    const w = value.toLowerCase()
+    setSearch(
+      data.filter(i => i.voca.toLowerCase().includes(w)||i.name.toLowerCase().includes(w))
+    )
+  },[value,data])
 
   return(
     <div style={{position:'relative'}}>
@@ -31,7 +38,13 @@ export default function SearchVoca({value, onChange, data, onSelect}:Props){
         <Button name='검색'/>
       </div>
       <div style={{position:'absolute', backgroundColor:'#fff', width:'100%'}}>
-        {value && <p>검색중</p>}
+        {
+        value && search.length>0 && (
+          <ul>
+            {search.map((i,index)=><li key={index} onClick={()=>onSelect(i)}>{i.voca}</li>)}
+          </ul>
+        )
+        }
       </div>
     </div>
   )
