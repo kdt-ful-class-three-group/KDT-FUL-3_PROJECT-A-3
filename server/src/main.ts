@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as cookieParser from 'cookie-parser'
 // * 서버를 실행하기 위한 부트스트랩 함수.
 async function bootstrap() {
   // * NestFactory.create()는 NestJs 애플리케이션 인스턴스를 생성하는 역할.
@@ -19,6 +20,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
+  // * 클라이언트에서 받아온 cookie를 읽기 위해 필요한 cookieParser를 사용한다고 정의.
+  app.use(cookieParser());
   //cors
   app.enableCors({
     origin: 'http://localhost:3000',
