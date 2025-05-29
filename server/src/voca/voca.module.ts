@@ -2,7 +2,6 @@ import { Module } from "@nestjs/common";
 import { VocaService } from "./voca.service";
 import { VocaController } from "./voca.controller";
 import { DbModule } from "src/database/db.module";
-import { UsersController } from "src/users/users.controller";
 
 //* VocModule 정의
 @Module({
