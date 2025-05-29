@@ -21,6 +21,6 @@ export class AccountController {
   @UseGuards(AuthGuard('jwt'))
   async create(@Req() req: any) {
     console.log(req.cookies)
-    return this.accountService.createAccount(req.user,response); // req.user를 넘김
+    return this.accountService.createAccount(req.user,null); // req.user를 넘김
   }
 }
