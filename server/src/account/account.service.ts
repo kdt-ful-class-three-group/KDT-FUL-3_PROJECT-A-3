@@ -8,7 +8,9 @@ import cookieParser from "cookie-parser";
 export class AccountService {
   constructor(private readonly db: DbService) {}
   async createAccount(
-    req: { user: AccountDto },
+  //컨트롤러에서 req.user로 넘겼으니 한번만 받아야함 객체가 아니라 user만 받아와야함
+    // 결국 AccountDto.user_id가 되어야 하기 때문
+     user: AccountDto ,
     response: unknown,
   ): Promise<AccountDto> {
     try {
@@ -27,7 +29,7 @@ export class AccountService {
         // 같은 계좌가 있는지 중복확인
         const check = await this.db.query(
           'SELECT account_number FROM account WHERE account_number = $1 AND user_id = $2',
-          [accountNumber, req.user.user_id],
+          [accountNumber, user.user_id],
         );
         // 검색결과가 없으면(중복이 아니면) 계좌 생성
         if (check.rowCount === 0) {
@@ -35,7 +37,7 @@ export class AccountService {
           const asset = 10000000
           const insert = await this.db.query(
             'INSERT INTO account (user_id, account_number, asset) VALUES ($1, $2, $3) RETURNING *',
-            [req.user.user_id, accountNumber, asset],
+            [user.user_id, accountNumber, asset],
           );
           return insert.rows[0];
         }
