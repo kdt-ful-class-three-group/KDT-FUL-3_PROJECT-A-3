@@ -59,8 +59,16 @@ export default function Voca() {
 
     }
 
+    //정렬
+    const sortedList = vocaList.sort((a,b)=>{
+      const one = getFirstChar(a.voca || a.name)
+      const two = getFirstChar(b.voca||b.name)
 
-    setList(vocaList)
+      return one.localeCompare(two)
+    })
+
+    //정렬된 리스트 넣기
+    setList(sortedList)
 
   },[])
 
