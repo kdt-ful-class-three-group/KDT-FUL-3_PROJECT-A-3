@@ -15,14 +15,14 @@ export default function Consonant({onSelect}:Props){
       <div style={{display:'flex', justifyContent:'space-between' }}>
         {
           Kr_list.map(item=>(
-            <p key={item} onClick={()=>onSelect(item)}>{item}</p>
+            <p key={item} onClick={()=>onSelect(item)} style={{cursor:'pointer'}}>{item}</p>
           ))
         }
       </div>
       <div style={{display:'flex', justifyContent:'space-between' }}>
         {
           Us_list.map(item=>(
-            <p key={item} onClick={()=>onSelect(item)}>{item}</p>
+            <p key={item} onClick={()=>onSelect(item)} style={{cursor:'pointer'}}>{item}</p>
           ))
         }
       </div>
