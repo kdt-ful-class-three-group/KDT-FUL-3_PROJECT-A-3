@@ -12,5 +12,7 @@ export class CheckService {
       SELECT * FROM account
       `);
       return result.rows;
+
   }
+
 }

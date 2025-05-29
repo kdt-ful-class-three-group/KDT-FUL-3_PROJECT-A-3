@@ -1,13 +1,14 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import {Body, Controller, Get, Post, Res, Req, UseGuards} from "@nestjs/common";
 import { AccountService } from "./account.service";
-import { AccountDto } from "./dto/account.dto";
 import { CheckService } from './check.service';
+import { AuthGuard } from '@nestjs/passport';
+import {response} from "express";
 
 
 @Controller('account')
 export class AccountController {
   constructor(
-    private readonly AccountService: AccountService,
+    private readonly accountService: AccountService,
     private readonly CheckService: CheckService
   ) {}
   @Get()
@@ -15,8 +16,10 @@ export class AccountController {
     return this.CheckService.getAllAccount();
   }
 
-  @Post('make')
-  async account(@Body() dto : AccountDto) {
-    return this.AccountService.account(dto);
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('create')
+  async create(@Req() req: any) {
+    return this.accountService.createAccount(req.user,response); // req.user를 넘김
   }
 }

@@ -2,38 +2,32 @@ import { Injectable, InternalServerErrorException, UnauthorizedException } from 
 import { DbService } from '../database/db.service';
 import { AccountDto } from './dto/account.dto';
 import { QueryResult } from 'pg';
+import cookieParser from "cookie-parser";
 
 @Injectable()
 export class AccountService {
   constructor(private readonly db: DbService) {}
+  async createAccount(req, res: Promise<any> {
 
 
-    async account(dto: AccountDto): Promise<any>{
-    const query = `
-      INSERT INTO account (user_id, account_number, asset)
-      VALUES ($1, $2, $3)
-      RETURNING *;
-    `;
-    const values = [dto.user_id, dto.account_number, dto.asset];
+    let accountNumber = '';
+    while(true){
+      const raw = Math.floor(10000000 + Math.random() * 90000000).toString();
+      accountNumber = `1111-${raw.slice(0, 3)}-${raw.slice(3)}`;
 
-      console.log("계좌 정보", values)
+      const check = await this.db.query(`SELECT account_number FROM account WHERE account_number = $1 AND user_id = $2`, [accountNumber, req.user.user_id]);
+    if(check.rowCount === 0 ){
+      break;
 
-
-    try{
-    console.log("트라이 진입")
-    
-    const result: QueryResult<any> = await this.db.query(query, values);
-
-    console.log("쿼리문 시행 정보", result.rows[0]);
-
-    const nameResult = await this.db.query(`SELECT name FROM users WHERE user_id = $1`,[result.rows[0].user_id]);
-
-    console.log(nameResult.rows[0].name, '님 계좌개설 성공')
-    return result.rows[0];
-
-  } catch(err){
-        console.error('계좌개설 실패', err);
-        throw new InternalServerErrorException('서버 오류로 로그인에 실패했습니다.');
     }
+    }
+    const insert= await this.db.query(`INSERT INTO account (user_id, account_number, asset) VALUES ($1, $2, $3) RETURNING *;`,[req.user.user_id,accountNumber,req.user.asset])
+    return insert.rows[0];
+
+
+
+
+
   }
+
 }
