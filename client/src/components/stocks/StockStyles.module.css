@@ -3,10 +3,11 @@
   justify-content: center;
 }
 .chart {
-   margin: 0 auto;
    padding: 5%;
    width: 100%;
    max-width: 800px;
+   height: 400px;
+   align-items: center;
    border: 1px solid;
 }
 
