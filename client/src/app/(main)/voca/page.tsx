@@ -3,6 +3,7 @@
 import Card from "@/components/voca/Card";
 import { useEffect, useState } from "react";
 import SearchVoca from "@/components/voca/SearchVoca";
+import Consonant from "@/components/voca/Consonant";
 
 // !임시 데이터
 const vocaList = [
@@ -44,6 +45,30 @@ const vocaList = [
   },
 ]
 
+//초성 순으로 정렬
+const Chosung = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ']
+
+function getFirstChar(text:string):string{
+  // 값이 없으면 빈 문자열 반환
+  if(!text) return ''
+  const firstChar = text.trim().charAt(0) //첫번째 문자 추출
+
+  const code = firstChar.charCodeAt(0)//유니코드 코드 값
+  // 한글 유니코드에 속하는지 확인
+  if(code >= 0xac00 && code <= 0xd7a3){
+    //한글 유니코드에서 초성 뽑기 - 한글 공식 = 초성*588 + 중성*28 + 종성+ 0xAC00
+    const index = Math.floor((code- 0xac00)/588)
+    return Chosung[index]
+  }
+  //영어 - 소문자 대문자 검사 후 대문자로 반환
+  if((code>=65 && code <=90)|| (code>=97 && code <= 122)){
+    return firstChar.toUpperCase()
+  }
+
+  // 기타
+  return '#'
+
+}
 export default function Voca() {
   //검색에 사용
   const [query, setQuery] = useState('')
@@ -52,30 +77,6 @@ export default function Voca() {
   const [list, setList]=useState<typeof vocaList>([])
   
   useEffect(()=>{
-    //초성 순으로 정렬
-    const Chosung = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ']
-
-    function getFirstChar(text:string):string{
-      // 값이 없으면 빈 문자열 반환
-      if(!text) return ''
-      const firstChar = text.trim().charAt(0) //첫번째 문자 추출
-
-      const code = firstChar.charCodeAt(0)//유니코드 코드 값
-      // 한글 유니코드에 속하는지 확인
-      if(code >= 0xac00 && code <= 0xd7a3){
-        //한글 유니코드에서 초성 뽑기 - 한글 공식 = 초성*588 + 중성*28 + 종성+ 0xAC00
-        const index = Math.floor((code- 0xac00)/588)
-        return Chosung[index]
-      }
-      //영어 - 소문자 대문자 검사 후 대문자로 반환
-      if((code>=65 && code <=90)|| (code>=97 && code <= 122)){
-        return firstChar.toUpperCase()
-      }
-
-      // 기타
-      return '#'
-
-    }
 
     //정렬
     const sortedList = vocaList.sort((a,b)=>{
@@ -110,6 +111,21 @@ export default function Voca() {
           
         }}
         />
+      <Consonant onSelect={(keyword)=>{
+        //일치하는 리스트 찾기
+        const findVoca = list.find(item=>{
+          const first = getFirstChar(item.voca||item.name)
+          return first===keyword
+        })
+        //찾았다면
+        if(findVoca){
+          const id = `card-${findVoca.voca.replace(/\s/g,'')}`
+          const el = document.getElementById(id)
+          if(el){
+            el.scrollIntoView({behavior:'smooth',block:'start'})
+          }
+        }
+      }}/>
       {/* 여기에 단어장 컴포넌트나 기능을 추가할 수 있습니다. */}
       {list.map((item, index)=>(
         <Card key={index} vocaObj={item}/>
