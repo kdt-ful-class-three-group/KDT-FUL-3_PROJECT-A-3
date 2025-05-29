@@ -2,8 +2,7 @@
 
 import Card from "@/components/voca/Card";
 import { useEffect, useState } from "react";
-import SearchVoca from "@/components/voca/SearchVoca";
-import Consonant from "@/components/voca/Consonant";
+import VocaToolBar from "@/components/voca/VocaToolBar";
 
 // !임시 데이터
 const vocaList = [
@@ -95,7 +94,7 @@ export default function Voca() {
   return (
     <div>
       <h1>사전페이지</h1>
-      <SearchVoca
+      <VocaToolBar
         value={query}
         onChange={setQuery}
         data={list}
@@ -108,10 +107,8 @@ export default function Voca() {
             el.scrollIntoView({behavior:'smooth',block:'start'})
             setQuery('')//선택 후 입력내용 초기화
           }
-          
         }}
-        />
-      <Consonant onSelect={(keyword)=>{
+        onScroll={(keyword)=>{
         //일치하는 리스트 찾기
         const findVoca = list.find(item=>{
           const first = getFirstChar(item.voca||item.name)
@@ -125,7 +122,8 @@ export default function Voca() {
             el.scrollIntoView({behavior:'smooth',block:'start'})
           }
         }
-      }}/>
+      }}
+      />
       {/* 여기에 단어장 컴포넌트나 기능을 추가할 수 있습니다. */}
       {list.map((item, index)=>(
         <Card key={index} vocaObj={item}/>
