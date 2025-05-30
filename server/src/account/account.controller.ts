@@ -29,6 +29,8 @@ export class AccountController {
   @Get('me')
   async getMyAccount(@Req() req){
     // req.user.user_id 에서 유저 정보 추출
+    // 디버깅
+    // console.log('req.user',req.user)
     return this.GetService.getAccountByUserId(req.user.user_id)
   }
 }
