@@ -12,9 +12,12 @@ type props = {
 }
 
 export default function CreateStock({onClick}:props){
-    const dispatch = useDispatch();
+  // * 변수의 값을 바꾸기 위해서 디스패치 선언
+  const dispatch = useDispatch();
+  // * 리덕스 툴킷으로 계좌 번호, 자산 변수 불러오기
     const {account_number, asset} = useSelector((state:RootState) => state.account)
 
+    // * dataChange를 활용하면 값을 변경.
     function dataChange(field: 'account_number'|'asset', value:string) {
       dispatch(setField({field, value}))
     }

@@ -24,6 +24,7 @@ export default function MyStock(){
   // date, money (asset)
   const moneyData = [
     {date:'계좌만든 날',asset:1000000}, // 계좌 생성 직후
+    // * 리덕스 툴킷으로 불러오는 asset으로 오늘 데이터를 설정.
     {date:'오늘',asset:asset}, // 오늘
   ]
   
