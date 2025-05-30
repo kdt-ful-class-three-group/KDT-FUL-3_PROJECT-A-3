@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { Button } from "../common/Button"
 
 //타입
 type Account = {
@@ -14,6 +15,7 @@ export default function AccountInfo(){
 
   // 정보
   const [account, setAccount] = useState<Account | null>(null)
+  // 메세지
   const [msg, setMsg] = useState('')
 
   useEffect(()=>{
@@ -38,7 +40,14 @@ export default function AccountInfo(){
 
   return(
     <div>
-
+      <div>
+        <p>내 계좌</p>
+        <h3>{account?.account_number}</h3>
+      </div>
+      <div style={{display:'flex'}}>
+        <h1>{account?.asset}풀</h1>
+        <Button name='>'></Button>
+      </div>
     </div>
   )
 }
