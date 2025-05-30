@@ -7,6 +7,7 @@ import { IdCheckService } from './idCheck.service';
 import {EmailCheckService} from "./emailCheck.service";
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtStrategy } from './jwt.strategy';// 👈 이거 추가2
 
 
 @Module({
@@ -18,10 +19,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_TOKEN_SECRET'),
         signOptions: { expiresIn: '1h' },
-      }),
+        }),
     }),
 ],
     controllers: [AuthController],
-    providers: [AuthService, LoginService, IdCheckService, EmailCheckService],
+    providers: [AuthService, LoginService, IdCheckService, EmailCheckService, JwtStrategy], // 👈 이거 추가2
 })
 export class AuthModule {}
