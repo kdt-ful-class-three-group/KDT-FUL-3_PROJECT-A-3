@@ -10,7 +10,7 @@ import { StockTradeButton } from "@/components/stocks/StockTradeButton"
 import axios from "axios"
 
 export default function StockPage() {
-  const { symbol } = useParams();
+  const { symbol } = useParams() as { symbol: string };
   const [stockData, setStockData] = useState<StockData | null>(null);
 
   useEffect(() => {
@@ -34,7 +34,9 @@ export default function StockPage() {
         />
       </div>
       <div>
-        <StockTradeButton />
+        {stockData.values[0]?.close !== undefined && (
+          <StockTradeButton symbol={symbol} price={Number(stockData.values[0].close)} />
+        )}
       </div>
     </div>
   )

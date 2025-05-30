@@ -1,13 +1,24 @@
 'use client'
+
+import { useDispatch, UseDispatch } from "react-redux"
+import { setTrade } from "@/store/slices/tradeSlice"
 import { useRouter } from "next/navigation"
 import { Button } from "../common/Button"
 
-export function StockTradeButton() {
+interface Props {
+  symbol: string
+  price: number
+}
+
+export function StockTradeButton({ symbol, price }: Props) {
+  const dispatch = useDispatch()
   const router = useRouter()
 
   const handleTrade = (type: 'sell' | 'buy') => {
+    dispatch(setTrade({ symbol, price, type }))
     router.push(`/trade?type=${type}`)
   }
+
   return (
     <div>
       <Button
