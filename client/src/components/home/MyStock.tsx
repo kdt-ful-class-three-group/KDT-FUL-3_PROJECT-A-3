@@ -12,16 +12,19 @@ import {
   Filler
 } from 'chart.js'
 import { useMemo } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "@/store"
 //차트 요소 등록
 ChartJS.register(LineElement, CategoryScale,LinearScale, PointElement, Tooltip, Legend, Filler)
 
-export default function MyStock({account, money}:{account:string, money:string}){
+export default function MyStock(){
+    const {account_number, asset} = useSelector((state:RootState) => state.account)
 
   //!차트데이터 (임시)
   // date, money (asset)
   const moneyData = [
     {date:'계좌만든 날',asset:1000000}, // 계좌 생성 직후
-    {date:'오늘',asset:1000000}, // 오늘
+    {date:'오늘',asset:asset}, // 오늘
   ]
   
   //차트용 데이터
@@ -77,10 +80,10 @@ export default function MyStock({account, money}:{account:string, money:string})
     <div>
       <div>
         <p>내 계좌</p>
-        <p>{account}</p>
+        <p>{account_number}</p>
       </div>
       <div>
-        <p>{money}</p>
+        <p>{asset}</p>
         {/* 마이페이지로 이동 */}
         <Button name='>' type='button'/> 
       </div>
