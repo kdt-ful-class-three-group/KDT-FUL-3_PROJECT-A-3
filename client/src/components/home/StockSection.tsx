@@ -5,6 +5,8 @@ import { Section } from "../common/Section";
 import CreateStock from "./CreateStock";
 import { Modal } from "../account/Modal";
 import MyStock from "./MyStock";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 export function StockSection() {
 
@@ -14,6 +16,10 @@ export function StockSection() {
   //모달창
   const [showModal, setShowModal] = useState(false)
 
+  const {account_number, asset} = useSelector((state:RootState) => state.account)
+
+
+
   //모달에서 확인 버튼 클릭시
   const handleConfirm=()=>{
     setHasAccount(true)
@@ -21,17 +27,17 @@ export function StockSection() {
   }
 
   //!차트, 계좌번호, 계좌 임시 
-  const account : string = `1111-123-456789`;
-  const money : string = `1,000,000`;
+  // const account : string = `1111-123-456789`;
+  // const money : string = `1,000,000`;
 
   return (
     <>
       <Section
         title="주식"
         // description="주식 시장의 최신 동향과 정보를 확인하세요."
-        children={hasAccount ? <MyStock account={account} money={money}/> : <CreateStock onClick={()=>setShowModal(true)}/>}
+        children={hasAccount ? <MyStock /> : <CreateStock onClick={()=>setShowModal(true)}/>}
       />
-      {showModal && <Modal type='create' onConfirm={handleConfirm}/>}
+      {showModal && <Modal type='create'/>}
     </>
   );
 }
