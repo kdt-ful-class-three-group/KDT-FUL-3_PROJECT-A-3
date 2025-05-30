@@ -11,8 +11,9 @@ import { StockData } from "@/types/stock"
 import axios from "axios"
 
 export default function StockPage() {
-  const { symbol } = useParams();
-  const [stockData, setStockData] = useState<StockData | null>(null);
+  const params = useParams();
+  const symbol = (params?.symbol ?? '') as string;
+  const [stockData, setStockData] = useState<StockData  | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -34,11 +35,11 @@ export default function StockPage() {
       </div>
       <div>
         <StockInfo
-          symbol={stockData.meta.symbol}
-          price={stockData.values[0]?.close}
+            symbol={stockData.symbol ?? 'UNKNOWN'}
+            price={stockData.close}
         />
         <StockChart
-          stockData={stockData?.values || []}
+          stockData={[stockData?.values || []]}
         />
       </div>
     </div>
