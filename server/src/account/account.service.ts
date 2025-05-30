@@ -31,24 +31,23 @@ export class AccountService {
           'SELECT account_number FROM account WHERE account_number = $1 AND user_id = $2',
           [accountNumber, user.user_id],
         );
-        // 검색결과가 없으면(중복이 아니면) 계좌 생성
+        // 검색결과가 없으면(중복이 아니면) 계좌번호 생성
         if (check.rowCount === 0) {
+          const asset = 10000000;
+          const user_id = user.user_id
+          const account_number = accountNumber
           // 초기자산 설정
-          const asset = 10000000
-          const insert = await this.db.query(
-            'INSERT INTO account (user_id, account_number, asset) VALUES ($1, $2, $3) RETURNING *',
-            [user.user_id, accountNumber, asset],
-          );
-          return insert.rows[0];
+          return { user_id, account_number, asset };
         }
         // 중복일시 1 증가, 총 5번 시도 가능
         attempts++;
+
       }
-      throw new InternalServerErrorException('계좌생성 시도 횟수 초과');
+      throw new InternalServerErrorException('계좌번호생성 시도 횟수 초과');
     } catch (err) {
-      console.error('계좌 생성 중 오류:', err);
+      console.error('계좌번호 생성 중 오류:', err);
       throw new InternalServerErrorException(
-        '계좌 생성 중 오류가 발생했습니다 ',
+        '계좌번호 생성 중 오류가 발생했습니다 ',
       );
     }
   }
