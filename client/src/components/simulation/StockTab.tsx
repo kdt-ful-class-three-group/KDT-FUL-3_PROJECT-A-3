@@ -20,7 +20,7 @@ export default function StockTab(){
       </div>
       {/* 버튼에 따라 보여줄 화면 */}
       <p>{btnValue}</p>
-      <StockShow /> 
+      <StockShow btnValue={btnValue}/> 
     </div>
   )
 }
