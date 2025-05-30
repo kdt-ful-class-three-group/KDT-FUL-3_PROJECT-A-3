@@ -32,6 +32,8 @@ export default function Create({onClose}: props) {
       console.log(res.data);
       // setAccountNumber(res.data.accountNumber); // 서버에서 받은 계좌 번호 설정
       if (onClose) onClose(); // 모달 닫기
+      window.location.reload();
+
     });
 
   }
