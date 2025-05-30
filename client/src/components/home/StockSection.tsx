@@ -1,12 +1,14 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Section } from "../common/Section";
 //계좌 생성 버튼
 import CreateStock from "./CreateStock";
 import { Modal } from "../account/Modal";
 import MyStock from "./MyStock";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
+import axios from "axios";
+import { setField } from "@/store/slices/accountSlice";
 
 export function StockSection() {
 
@@ -16,7 +18,12 @@ export function StockSection() {
   //모달창
   const [showModal, setShowModal] = useState(false)
 
+  const dispatch = useDispatch();
   const {account_number, asset} = useSelector((state:RootState) => state.account)
+
+      function dataChange(field: 'account_number'|'asset', value:string) {
+        dispatch(setField({field, value}))
+      }
 
 
 
@@ -25,6 +32,24 @@ export function StockSection() {
     setHasAccount(true)
     setShowModal(false)
   }
+
+   useEffect(() => {
+    axios.post('http://localhost:8008/account/check', {}, {
+      // * 쿠키를 포함해서 보낸다는 설정.
+      withCredentials: true, // 쿠키 전송
+    })
+    // * 응답이 제대로 오면, 리프레쉬 성공 메시지를 표출하고, 상탯값을 ok로 변경
+    .then(res => {
+      console.log('계좌 있음.', res.data);
+      setHasAccount(true);
+      dataChange('account_number', res.data.account_number);
+      dataChange('asset', res.data.asset);
+    })
+    // * 응답 오류가 발생하면, 리프레쉬 실패 메시지를 표출하고, 상탯값을 no로 변경
+    .catch(err => {
+      console.log('계좌 없음.', err.data);
+    });
+  }, [])
 
   //!차트, 계좌번호, 계좌 임시 
   // const account : string = `1111-123-456789`;

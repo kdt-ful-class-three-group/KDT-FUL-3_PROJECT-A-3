@@ -1,22 +1,30 @@
 import {Body, Controller, Get, Post, Res, Req, UseGuards} from "@nestjs/common";
 import { AccountService } from "./account.service";
-import { CheckService } from './check.service';
 import { AuthGuard } from '@nestjs/passport';
 import {response} from "express";
 import { InsertService } from "./account.insert";
 import { AccountDto } from "./dto/account.dto";
+import { GetService } from "./get.service";
+import { CheckService } from './check.service';
 
 
 @Controller('account')
 export class AccountController {
   constructor(
     private readonly accountService: AccountService,
-    private readonly CheckService: CheckService,
+    private readonly GetService: GetService,
     private readonly InsertService: InsertService,
+    private readonly CheckService: CheckService,
   ) {}
   @Get()
   async getAllAccount() {
-    return this.CheckService.getAllAccount();
+    return this.GetService.getAllAccount();
+  }
+
+  @Post('check')
+  @UseGuards(AuthGuard('jwt'))
+    async check(@Req() req:any) {
+    return this.CheckService.check(req.user);
   }
 
 
