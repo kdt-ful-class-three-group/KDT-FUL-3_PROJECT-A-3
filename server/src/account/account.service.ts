@@ -33,7 +33,7 @@ export class AccountService {
         );
         // 검색결과가 없으면(중복이 아니면) 계좌번호 생성
         if (check.rowCount === 0) {
-          const asset = 10000000;
+          const asset = 1000000;
           const user_id = user.user_id
           const account_number = accountNumber
           // 초기자산 설정
