@@ -2,18 +2,37 @@
 import { Button } from "../common/Button"
 import {useState} from "react";
 import Create from "@/components/account/Create";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { setField } from "@/store/slices/accountSlice";
 
 type props = {
   onClick:()=>void
 }
 
 export default function CreateStock({onClick}:props){
-    const [isOpen, setIsOpen] = useState(false);
-    const handleClick = () => {
-        confirm("계좌를 생성하시겠습니까?");
-        setIsOpen(true);
+    const dispatch = useDispatch();
+    const {account_number, asset} = useSelector((state:RootState) => state.account)
+
+    function dataChange(field: 'account_number'|'asset', value:string) {
+      dispatch(setField({field, value}))
     }
 
+    const [isOpen, setIsOpen] = useState(false);
+    const handleClick = () => {
+        if(confirm("계좌를 생성하시겠습니까?")) {
+          setIsOpen(true);
+
+          axios.post('http://localhost:8008/account/createNumber', {}, {
+            withCredentials: true,
+          }).then(res => {
+          console.log(res.data);
+            dataChange('account_number', res.data.account_number);
+            dataChange('asset', res.data.asset);
+         });
+        }
+    }
 
   return(
       <>
