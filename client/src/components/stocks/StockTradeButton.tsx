@@ -1,6 +1,6 @@
 'use client'
 
-import { useDispatch, UseDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { setTrade } from "@/store/slices/tradeSlice"
 import { useRouter } from "next/navigation"
 import { Button } from "../common/Button"
