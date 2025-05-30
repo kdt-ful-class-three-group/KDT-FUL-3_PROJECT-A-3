@@ -23,7 +23,7 @@ export class AccountService {
 //계좌번호 생성을 5번까지 했는데 계속 중복일 경우 -> 에러반환
       while (attempts < maxAttempts) {
         // 8자리 랜덤 숫자 생성
-        const raw = Math.floor(10000000 + Math.random() * 90000000).toString();
+        const raw = Math.floor(100000000 + Math.random() * 900000000).toString();
         accountNumber = `1111-${raw.slice(0, 3)}-${raw.slice(3)}`;
 
         // 같은 계좌가 있는지 중복확인
