@@ -2,23 +2,21 @@
 import { useRouter } from "next/navigation"
 import { Button } from "../common/Button"
 
-export function TradeButton() {
+export function StockTradeButton() {
   const router = useRouter()
 
-  const trade = () => {
-    console.log('판매/구매 페이지이동')
-    router.push('/trade')
+  const handleTrade = (type: 'sell' | 'buy') => {
+    router.push(`/trade?type=${type}`)
   }
-
   return (
     <div>
       <Button
         name="판매"
-        onClick={trade}
+        onClick={() => handleTrade('sell')}
       />
       <Button
         name="구매"
-        onClick={trade}
+        onClick={() => handleTrade('buy')}
       />
     </div>
   )

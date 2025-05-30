@@ -5,7 +5,7 @@ import { useParams } from "next/navigation"
 import { StockChart } from "@/components/stocks/StockChart"
 import { StockInfo } from "@/components/stocks/StockInfo"
 import { StockData } from "@/types/stock"
-import { TradeButton } from "@/components/stocks/TradeButton"
+import { StockTradeButton } from "@/components/stocks/StockTradeButton"
 
 import axios from "axios"
 
@@ -24,7 +24,6 @@ export default function StockPage() {
 
   return (
     <div>
-
       <div>
         <StockInfo
           symbol={stockData.meta.symbol}
@@ -35,7 +34,7 @@ export default function StockPage() {
         />
       </div>
       <div>
-        <TradeButton />
+        <StockTradeButton />
       </div>
     </div>
   )
