@@ -16,7 +16,7 @@ export function StockTradeButton({ symbol, price }: Props) {
 
   const handleTrade = (type: 'sell' | 'buy') => {
     dispatch(setTrade({ symbol, price, type }))
-    router.push(`/trade?type=${type}`)
+    router.push(`/stocks/${symbol}/trade?type=${type}`)
   }
 
   return (

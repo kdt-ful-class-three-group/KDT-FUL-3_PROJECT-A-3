@@ -15,10 +15,18 @@ export default function StockPage() {
 
   useEffect(() => {
     if (!symbol) return;
-    axios.get<StockData>(`http://localhost:8008/stocks/${symbol}`)
-      .then(res => setStockData(res.data))
-      .catch(console.error);
-  }, [symbol])
+
+    const fetchStockData = async () => {
+      try {
+        const res = await axios.get<StockData>(`http://localhost:8008/stocks/${symbol}`);
+        setStockData(res.data);
+      } catch (error) {
+        console.error('주식 데이터를 불러오는 데 실패했습니다:', error);
+      }
+    };
+
+    fetchStockData();
+  }, [symbol]);
 
   if (!stockData) return <div>주식불러오는중...</div>;
 
