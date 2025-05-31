@@ -1,12 +1,16 @@
-import { Button } from "../common/Button";
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store'
-import { TradeContentProps } from "@/types/\btrade";
-
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { useState } from 'react';
+import { TradeContentProps } from "@/types/trade";
+import { TradeKeypad } from "./TradeKeypad";
 
 
 export function TradeContent({ mode }: TradeContentProps) {
   const { symbol, price } = useSelector((state: RootState) => state.trade)
+  const [amount, setAmount] = useState('')
+
+
+
 
   let title;
   if (mode === 'sell') {
@@ -23,7 +27,7 @@ export function TradeContent({ mode }: TradeContentProps) {
         <p>시장가: {price}풀</p>
       </div>
       <div>
-        {/* TradeKeypad 들어올거임 키패드 */}
+        <TradeKeypad amount={amount} setAmount={setAmount} mode={mode} price={price} />
       </div>
 
     </div>

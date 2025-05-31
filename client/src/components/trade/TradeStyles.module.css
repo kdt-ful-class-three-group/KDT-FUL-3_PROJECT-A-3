@@ -1,0 +1,29 @@
+.keypadGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px;
+  background-color: white;
+  border-radius: 8px;
+  justify-items: center;
+}
+
+.keypadButton {
+  width: 64px;
+  height: 64px;
+  font-size: 24px;
+  color: #333;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.keypadButton:active {
+  background-color: #eee;
+}
