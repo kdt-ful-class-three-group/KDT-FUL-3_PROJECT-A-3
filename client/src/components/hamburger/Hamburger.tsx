@@ -1,4 +1,5 @@
 import { Button } from "../common/Button"
+import { LogoutButton } from "../auth/logout/LogoutButton";
 import { useEffect } from "react";
 import Link from "next/link";
 import styles from './Hamburger.module.css'
@@ -33,21 +34,7 @@ export function Hamburger({onClose}:props){
           <li>고객센터</li>
         </ul>
       </div>
-      <div>
-        <p className={styles.cursor} onClick={() => {
-                  axios.post(
-      'http://localhost:8008/auth/logout',
-      {}, // body
-      { withCredentials: true } // config
-    ).then(() => {
-      console.log("로그아웃 요청 성공");
-      // 예: 페이지 이동이나 상태 초기화 등 추가 처리
-      window.location.href = 'login'
-    }).catch(err => {
-      console.error("로그아웃 실패", err);
-    });
-  }}>로그아웃</p>
-      </div>
+      <LogoutButton />        
     </div>
   )
 }

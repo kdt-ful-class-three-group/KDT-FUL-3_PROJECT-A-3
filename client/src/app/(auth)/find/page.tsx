@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { IdFindForm } from "@/components/find/IdFindForm";
-import { PwFindForm } from "@/components/find/PwFindForm";
+import { IdFindForm } from "@/components/auth/find/IdFindForm";
+import { PwFindForm } from "@/components/auth/find/PwFindForm";
 import { Button } from "@/components/common/Button";
 
 export default function Find() {

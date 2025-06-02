@@ -1,8 +1,8 @@
 'use client'
 
 // 컴포넌트 가져오기
-import { LoginForm } from "@/components/login/LoginForm"
-import { AuthButton } from "@/components/login/AuthButton";
+import { LoginForm } from "@/components/auth/login/LoginForm";
+import { AuthButton } from "@/components/auth/login/AuthButton";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";

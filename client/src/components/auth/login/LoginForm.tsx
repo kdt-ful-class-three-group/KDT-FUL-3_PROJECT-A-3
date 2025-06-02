@@ -4,8 +4,8 @@ import axios from "axios";
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Input } from "../common/Input";
-import { Button } from "../common/Button";
+import { Input } from "@/components/common/Input";
+import { Button } from "@/components/common/Button";
 
 export function LoginForm() {
   // 아이디, 비밀번호 상태 관리
