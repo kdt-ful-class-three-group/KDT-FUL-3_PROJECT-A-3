@@ -1,0 +1,136 @@
+.amountHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.symbol {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.subHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 300px;
+  font-size: 14px;
+  margin: 0 auto;
+  justify-content: center;
+}
+.amountBox {
+  background-color: #f1f3f5;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 0 auto 20px auto;
+  max-width: 320px;
+}
+
+.amountInput {
+  font-size: 20px;
+  font-weight: 600;
+  color: #212529;
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 8px 0;
+  outline: none;
+}
+.amountInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #868e96;
+  margin-top: 8px;
+}
+.totalPriceValue {
+  min-height: 24px;
+  text-align: center;
+  margin-top: 4px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #212529;
+}
+
+.totalPrice {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #212529;
+  text-align: center;
+  width: 100%;
+}
+
+.keypadGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px;
+  background-color: white;
+  border-radius: 8px;
+  justify-items: center;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.keypadButton {
+  width: 64px;
+  height: 64px;
+  font-size: 24px;
+  color: #333;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.keypadButton:active {
+  background-color: #eee;
+}
+
+.tradeButton {
+  max-width: 320px;
+  width: 100%;
+  margin: 20px auto 0 auto;
+}
+
+
+.buyButton {
+  background-color: #fa5252;
+  color: white;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.sellButton {
+  background-color: #228be6;
+  color: white;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.buyButton:hover {
+  background-color: #e64949;
+}
+
+.sellButton:hover {
+  background-color: #1c7ed6;
+}

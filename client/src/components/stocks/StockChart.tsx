@@ -40,7 +40,6 @@ export function StockChart({ stockData }: { stockData: any[] }) {
     }));
   }, [stockData]);
 
-  console.log(formattedData.map(d => d.x));
   const data = {
     datasets: [
       {

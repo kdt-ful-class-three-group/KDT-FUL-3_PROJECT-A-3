@@ -10,7 +10,7 @@ type props = {
 export function Modal({type, onConfirm}:props){
   return(
     <div>
-      {type === 'trade' ? <Trade /> : <Create onConfirm={onConfirm}/>}
+      {type === 'trade' ? <Trade /> : <Create />}
     </div>
   )
 }

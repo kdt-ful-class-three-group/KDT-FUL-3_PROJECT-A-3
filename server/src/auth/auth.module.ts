@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { DbModule } from '../database/db.module'; // 👈 이거 추가
+import { DbModule } from '../database/db.module';
 import { LoginService } from './login.service';
 import { IdCheckService } from './idCheck.service';
 import {EmailCheckService} from "./emailCheck.service";
@@ -14,7 +14,7 @@ import { JwtStrategy } from './jwt.strategy';// 👈 이거 추가2
     imports: [
         DbModule, 
         JwtModule.registerAsync({
-            imports: [ConfigModule], // 👈 ConfigModule 주입
+            imports: [ConfigModule], //
             inject: [ConfigService],
         useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_TOKEN_SECRET'),
