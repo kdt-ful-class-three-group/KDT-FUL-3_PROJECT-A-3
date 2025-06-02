@@ -1,7 +1,7 @@
 // 계좌 생성 버튼
 import { Button } from "../common/Button"
 import {useState} from "react";
-import Create from "@/components/account/Create";
+import Create from "./account/Create";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
