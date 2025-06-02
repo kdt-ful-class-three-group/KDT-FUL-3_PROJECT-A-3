@@ -25,7 +25,6 @@ type Props = {
 import { DonutChartData } from "@/utils/chartData";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
-import { BsBorderWidth } from "react-icons/bs";
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -34,9 +33,17 @@ export default function DoughnutChart({trades}:Props){
   // 가공된 데이터
   const {labels, data} = DonutChartData(trades)
 
+  //? 라벨에 퍼센트 표시
+  const total = data.reduce((sum, val)=>sum+val,0)
+  const percLabel = labels.map((label,i)=>{
+    const perc = ((data[i]/total)*100).toFixed(1)
+
+    return `${label} (${perc}%)`
+  })
+
   // 차트데이터
   const chartData = {
-    labels,
+    labels : percLabel, //? 라벨에 퍼센트 표시
     datasets:[
       {
         label:'총 거래량',
