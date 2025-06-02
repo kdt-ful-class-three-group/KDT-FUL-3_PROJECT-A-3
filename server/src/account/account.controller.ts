@@ -1,22 +1,43 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import {Body, Controller, Get, Post, Res, Req, UseGuards} from "@nestjs/common";
 import { AccountService } from "./account.service";
+import { AuthGuard } from '@nestjs/passport';
+import {response} from "express";
+import { InsertService } from "./account.insert";
 import { AccountDto } from "./dto/account.dto";
+import { GetService } from "./get.service";
 import { CheckService } from './check.service';
 
 
 @Controller('account')
 export class AccountController {
   constructor(
-    private readonly AccountService: AccountService,
-    private readonly CheckService: CheckService
+    private readonly accountService: AccountService,
+    private readonly GetService: GetService,
+    private readonly InsertService: InsertService,
+    private readonly CheckService: CheckService,
   ) {}
   @Get()
   async getAllAccount() {
-    return this.CheckService.getAllAccount();
+    return this.GetService.getAllAccount();
   }
 
-  @Post('make')
-  async account(@Body() dto : AccountDto) {
-    return this.AccountService.account(dto);
+  @Post('check')
+  @UseGuards(AuthGuard('jwt'))
+    async check(@Req() req:any) {
+    return this.CheckService.check(req.user);
+  }
+
+
+  @Post('createNumber')
+  @UseGuards(AuthGuard('jwt'))
+  async create(@Req() req: any) {
+    console.log(req.cookies)
+    return this.accountService.createAccount(req.user,null); // req.user를 넘김
+  }
+
+  @Post('insertData')
+  @UseGuards(AuthGuard('jwt'))
+  async createAccount(@Body() dto: AccountDto, @Req() req: any) {
+    return this.InsertService.insertAccount(dto, req.user);
   }
 }

@@ -1,23 +1,42 @@
 // 계좌 생성
 
 import { Button } from "../common/Button";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+ 
 
 type props = {
   //확인 버튼 클릭 
-  onConfirm?:()=>void
+  onClose?:()=>void
 }
 
-export default function Create({onConfirm}:props){
+/**
+ * 계좌 생성 컴포넌트
+ * @param onClose - 계좌 생성 완료 후 호출되는 콜백 함수 (선택)
+ */
+export default function Create({onClose}: props) {
+  const {account_number, asset} = useSelector((state:RootState) => state.account)
 
-  // 랜덤 계좌
-  function strAccount(){
 
-    const account = Math.floor(10000000 + Math.random() * 90000000); 
 
-    const str = account.toString()
-    return `1111-${str.slice(0,3)}-${str.slice(3)}`
+  /**
+   * 계좌를 생성하는 함수
+   * 서버에 POST 요청을 보내고, 응답으로 받은 계좌 번호를 상태에 저장
+   * 계좌 생성 후 onClose 콜백을 호출하여 모달을 닫음
+   */
+   function creatAccount() {
+    axios.post('http://localhost:8008/account/insertData', {account_number: account_number, asset: asset}, {
+      withCredentials: true,
+    }).then(res => {
+      console.log(res.data);
+      // setAccountNumber(res.data.accountNumber); // 서버에서 받은 계좌 번호 설정
+      if (onClose) onClose(); // 모달 닫기
+      window.location.reload();
+
+    });
+
   }
-  
 
   //! 확인버튼 누르면 DB에 전달 필요함
 
@@ -26,14 +45,16 @@ export default function Create({onConfirm}:props){
       <p>확인 버튼을 누르면 완료됩니다</p>
       <div>
         <p>계좌 번호</p>
-        <p>{strAccount()}</p>
+        <p>{account_number}</p>
       </div>
       <div>
         <p>초기 금액</p>
-        <p>1,000,000풀</p>
+        <p>{asset}풀</p>
       </div>
       {/* 버튼 */}
-      <Button name='확인' type='button' onClick={onConfirm}/>
+      <Button name='확인' type='button' onClick={creatAccount}/>
+      <Button name='취소' type='button' onClick={onClose}/>
+
     </div>
   )
 }

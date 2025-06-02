@@ -4,12 +4,14 @@ import { configureStore } from "@reduxjs/toolkit";
 //slice 가져오는 코드, store에 등록하면 앱 전역에서 접근 가능
 import signupReducer from './slices/signupSlice'
 import tradeReducer from './slices/tradeSlice'
+import accountReducer from './slices/accountSlice'
 
 // store
 export const store = configureStore({
   reducer:{
     signup: signupReducer, // 키 = state이름, state.signup.id 로 접근 가능
-    trade: tradeReducer
+    trade: tradeReducer,
+    account:accountReducer
   }
 })
 
