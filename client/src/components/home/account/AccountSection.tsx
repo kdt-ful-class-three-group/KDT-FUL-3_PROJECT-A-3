@@ -61,7 +61,7 @@ export function AccountSection() {
         children={hasAccount ? <MyStock /> : <CreateAccount onClick={()=>setShowModal(true)}/>}
       />
       {showModal && <Modal type='create'/>}
-      <button onClick={
+      {/* <button onClick={
       () => {
   Promise.all([
     axios.patch(
@@ -102,7 +102,7 @@ export function AccountSection() {
         console.error('거래 실패:', err);
       })
     ])
-  }}>판매</button>
+  }}>판매</button> */}
     </>
   );
 }
