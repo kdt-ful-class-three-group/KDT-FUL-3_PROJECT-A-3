@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 interface StockState{
   holdings : string[]
   interest : string[]
-  selectedTab : '보유' | '관심'
+  selectedTab : '보유' | '관심' | '실시간 순위'
 }
 
 // 초기값
@@ -25,7 +25,7 @@ const stockSlice = createSlice({
     setInterest:(state, action:PayloadAction<string[]>)=>{
       state.interest = action.payload
     },
-    setSelectedTab: (state, action:PayloadAction<'보유'|'관심'>)=>{
+    setSelectedTab: (state, action:PayloadAction<'보유'|'관심'|'실시간 순위'>)=>{
       state.selectedTab=action.payload
     }
   }
