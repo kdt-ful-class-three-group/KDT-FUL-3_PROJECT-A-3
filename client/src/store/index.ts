@@ -5,14 +5,19 @@ import { configureStore } from "@reduxjs/toolkit";
 import signupReducer from './slices/signupSlice'
 import tradeReducer from './slices/tradeSlice'
 import accountReducer from './slices/accountSlice'
+import stockReducer from './slices/stockSlice'
+import { stockApi } from "./slices/stockApi";
 
 // store
 export const store = configureStore({
   reducer:{
-    signup: signupReducer, // 키 = state이름, state.signup.id 로 접근 가능
+    signup:signupReducer, // 키 = state이름, state.signup.id 로 접근 가능
     trade: tradeReducer,
-    account:accountReducer
-  }
+    account:accountReducer,
+    stock:stockReducer,
+    [stockApi.reducerPath]:stockApi.reducer,
+  },
+  middleware:(getDefaultMiddleWare)=> getDefaultMiddleWare().concat(stockApi.middleware)
 })
 
 // 내보내기

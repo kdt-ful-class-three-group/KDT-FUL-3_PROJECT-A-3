@@ -14,5 +14,12 @@ export class GetService {
       return result.rows;
 
   }
+  
+  async getAccountByUserId(userId:string) {
+    const result = await this.db.query(`
+      SELECT * FROM account WHERE user_id=$1
+      `,[userId]);
+      return result.rows[0];
+  }
 
 }
