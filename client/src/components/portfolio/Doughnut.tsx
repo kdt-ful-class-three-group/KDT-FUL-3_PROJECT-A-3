@@ -25,8 +25,10 @@ type Props = {
 import { DonutChartData } from "@/utils/chartData";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+// ? 차트에 퍼센트 표현을 위한 플러그인
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 
-ChartJS.register(ArcElement, Tooltip, Legend)
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels)
 
 export default function DoughnutChart({trades}:Props){
 
@@ -64,7 +66,31 @@ export default function DoughnutChart({trades}:Props){
     ]
   }
 
+  // ? 차트 플러그인 사용 -> 차트에 퍼센트 표시
+  const chartOptions ={
+    plugins: {
+      datalabels:{
+        formatter: (value:number, context:any)=>{
+          const total = context.chart.data.datasets[0].data.reduce(
+            (sum:number, val:number)=> sum+val,
+            0
+          )
+          const perc = ((value/total)*100).toFixed(1)
+          return `${perc}%`
+        },
+        color:'#fff',
+        font : {
+          weight: 'bold' as const,
+          size: 14,
+        }
+      },
+      legend:{
+        position:'bottom' as const
+      }
+    }
+  }
+
   return(
-    <Doughnut data={chartData} />
+    <Doughnut data={chartData} options={chartOptions}/>
   )
 }
