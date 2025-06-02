@@ -10,6 +10,7 @@ import axios from "axios"
 import { useSelector, UseSelector } from "react-redux"
 import { RootState } from "@/store"
 import { useGetStockBySymbolQuery } from "@/store/slices/stockApi"
+import { useRouter } from "next/navigation"
 
 type item = {
   name: string;
@@ -26,6 +27,8 @@ export default function StockShows  ({btnValue}:{btnValue:string}){
   const holdings = useSelector((state:RootState)=>state.stock.holdings)
   const interest = useSelector((state:RootState)=> state.stock.interest)
 
+  const router =useRouter()
+
   // symbol
   let symbols:string[]=[]
 
@@ -40,7 +43,9 @@ export default function StockShows  ({btnValue}:{btnValue:string}){
   return(
     <div>
       {symbols.map((item, index)=>(
-        <StockCard symbol={item} key={index}/>
+        <div key={index} onClick={()=>router.push(`stocks/${item}`)} style={{cursor:'pointer'}}>
+          <StockCard symbol={item} />
+        </div>
       ))}
     </div>
   )
