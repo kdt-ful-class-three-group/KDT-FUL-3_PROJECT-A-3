@@ -4,24 +4,24 @@ import { TradeItem, TradeType } from "@/types/tradeItem"
 
 export default function TradeTable({trades}:{trades:TradeItem[]}){
   return(
-    <div>
-      <ul>
-        <li>날짜</li>
-        <li>종목</li>
-        <li>구매/판매</li>
-        <li>가격</li>
-        <li>주</li>
-        <li>총 금액</li>
-      </ul>
+    <div style={{borderCollapse:'collapse'}}>
+      <div style={{display:'grid', gridTemplateColumns:'repeat(6,1fr)',alignItems:'center', fontWeight:'bold'}}>
+        <div>날짜</div>
+        <div>종목</div>
+        <div>구매/판매</div>
+        <div>가격</div>
+        <div>주</div>
+        <div>총 금액</div>
+      </div>
       {trades.map(item=>(
-        <ul key={item.id}>
-          <li>{item.date.split('T')[0]}</li>
-          <li>{item.buy_sale === TradeType.Buy ? '구매':'판매'}</li>
-          <li>{item.stock_name}</li>
-          <li>{item.price.toLocaleString()}풀</li>
-          <li>{item.much}</li>
-          <li>{(item.price*item.much).toLocaleString()}풀</li>
-        </ul>
+        <div key={item.id} style={{display:'grid', gridTemplateColumns:'repeat(6,1fr)', alignItems:'center'}}>
+          <div>{item.date.split('T')[0]}</div>
+          <div>{item.buy_sale === TradeType.Buy ? '구매':'판매'}</div>
+          <div>{item.stock_name}</div>
+          <div>{item.price.toLocaleString()}풀</div>
+          <div>{item.much}</div>
+          <div>{(item.price*item.much).toLocaleString()}풀</div>
+        </div>
       ))}
     </div>
   )
