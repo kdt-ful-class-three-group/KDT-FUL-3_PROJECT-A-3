@@ -20,16 +20,18 @@ ChartJS.register(
 
 import styles from './StockStyles.module.css'
 
-export function StockChart({ stockData }: { stockData: any[] }) {
-  
+export function StockChart({ data: stockData, symbol }: { data: any[], symbol: string }) {
   const formattedData = useMemo(() => {
     const grouped: { [date: string]: any[] } = {};
 
     stockData.forEach(item => {
+      if (!item || !item.datetime) return;
       const date = item.datetime.slice(0, 10); // YYYY-MM-DD
       if (!grouped[date]) grouped[date] = [];
       grouped[date].push(item);
     });
+
+    console.log("데이터",stockData)
 
     return Object.entries(grouped).map(([date, items]) => ({
       x: new Date(date),
@@ -40,7 +42,8 @@ export function StockChart({ stockData }: { stockData: any[] }) {
     }));
   }, [stockData]);
 
-  console.log(formattedData.map(d => d.x));
+  console.log("formattedData", formattedData);
+
   const data = {
     datasets: [
       {
@@ -55,6 +58,8 @@ export function StockChart({ stockData }: { stockData: any[] }) {
       }
     ]
   };
+
+  console.log("Chart에 전달하는 data 객체", data);
 
   const options: ChartOptions<'candlestick'> = {
     responsive: true,
