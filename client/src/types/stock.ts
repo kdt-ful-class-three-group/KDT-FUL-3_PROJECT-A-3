@@ -1,4 +1,5 @@
 export interface StockValue {
+    symbol: string;
   datetime: string;
   open: string;
   high: string;
@@ -8,7 +9,6 @@ export interface StockValue {
 }
 
 export interface StockData {
-  meta: {
     symbol: string;
     interval: string;
     currency: string;
@@ -16,7 +16,6 @@ export interface StockData {
     exchange: string;
     mic_code: string;
     type: string;
-  };
   values: StockValue[];
   datetime: string;
   close: string; //
@@ -28,7 +27,7 @@ export interface StockData {
 // }
 
 export interface StockInfoProps {
-  symbol: StockData["meta"]["symbol"];
+  symbol: StockData["symbol"];
   price?: StockValue["close"]
 }
 
