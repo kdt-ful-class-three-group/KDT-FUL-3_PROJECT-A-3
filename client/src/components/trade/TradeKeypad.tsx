@@ -4,8 +4,9 @@ import { keypadNumbers } from "./KeypadNumbers"
 import { TradeContentProps } from "@/types/trade"
 import { TradeKeypadProps } from "@/types/trade"
 import styles from './TradeStyles.module.css'
+import axios from "axios"
 
-export function TradeKeypad({ mode, amount, setAmount, price }: TradeContentProps & TradeKeypadProps & { price: number }) {
+export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeContentProps & TradeKeypadProps & { price: number }) {
   const total = Number(amount) * price;
   
   
@@ -29,9 +30,45 @@ export function TradeKeypad({ mode, amount, setAmount, price }: TradeContentProp
     if (mode === 'sell') {
       // 판매 처리
       console.log(total);
+  Promise.all([
+    axios.patch(
+        'http://localhost:8008/account/trade',
+        { price: total, type: 'sell' },
+        { withCredentials: true }
+      ),
+    axios.patch(
+        'http://localhost:8008/userportfolio/trade',
+        { type: 'sell', symbol: symbol, price: total, much: amount },
+        { withCredentials: true }
+      )
+      .then(() => {
+        window.location.href = '/home';
+      })
+      .catch((err) => {
+        console.error('거래 실패:', err);
+      })
+    ])
     } else {
       // 구매 처리
       console.log(total);
+  Promise.all([
+    axios.patch(
+        'http://localhost:8008/account/trade',
+        { price: total, type: 'buy' },
+        { withCredentials: true }
+      ),
+    axios.patch(
+        'http://localhost:8008/userportfolio/trade',
+        { type: 'buy', symbol:symbol, price:total, much: amount },
+        { withCredentials: true }
+      )
+      .then(() => {
+        window.location.href = '/home';
+      })
+      .catch((err) => {
+        console.error('거래 실패:', err);
+      }),
+    ])
     }
   };
 
