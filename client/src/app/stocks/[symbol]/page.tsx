@@ -34,8 +34,8 @@ export default function StockPage() {
     <div>
       <div>
         <StockInfo
-          symbol={stockData.meta.symbol}
-          price={stockData.values[0]?.close}
+          symbol={stockData?.meta?.symbol ?? ''}
+          price={stockData?.values?.[0]?.close}
         />
         <StockChart
           stockData={stockData?.values || []}

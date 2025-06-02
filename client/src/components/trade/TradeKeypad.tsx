@@ -22,12 +22,15 @@ export function TradeKeypad({ mode, amount, setAmount, price }: TradeContentProp
     }
   };
   
-  //  들어왔을때 mode를 판매로 받아왔으면 버튼이 판매하기기능, 구매로 받아오면 구매하기버튼
+  // 모드별 구매처리 기능
+  // total 금액이 0일경우 비활성화나 안눌리게해야함.
   const handleAction = () => {
     if (mode === 'sell') {
       // 판매 처리
+      console.log(Number(amount) * price );
     } else {
       // 구매 처리
+      console.log(Number(amount) * price );
     }
   };
 
@@ -45,7 +48,8 @@ export function TradeKeypad({ mode, amount, setAmount, price }: TradeContentProp
           <p>{title}</p>
           <p className={styles.totalPriceValue}>
             {amount ? `${Number(amount) * price}풀` : '\u00A0'}
-          </p>          </div>
+          </p>
+        </div>
         <Input
           className={styles.amountInput}
           label=""
