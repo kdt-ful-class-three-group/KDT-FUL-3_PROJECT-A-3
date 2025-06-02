@@ -24,7 +24,6 @@ export default function CreateStock({onClick}:props){
 
     const [isOpen, setIsOpen] = useState(false);
     const handleClick = () => {
-        if(confirm("계좌를 생성하시겠습니까?")) {
           setIsOpen(true);
 
           axios.post('http://localhost:8008/account/createNumber', {}, {
@@ -34,7 +33,6 @@ export default function CreateStock({onClick}:props){
             dataChange('account_number', res.data.account_number);
             dataChange('asset', res.data.asset);
          });
-        }
     }
 
   return(
