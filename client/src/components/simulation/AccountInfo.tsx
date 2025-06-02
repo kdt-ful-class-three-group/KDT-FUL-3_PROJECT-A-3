@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { Button } from "../common/Button"
+import { useRouter } from "next/navigation"
 
 //타입
 type Account = {
@@ -12,6 +13,7 @@ type Account = {
 }
 
 export default function AccountInfo(){
+  const router = useRouter();
 
   // 정보
   const [account, setAccount] = useState<Account | null>(null)
@@ -46,7 +48,7 @@ export default function AccountInfo(){
       </div>
       <div style={{display:'flex'}}>
         <h1>{account?.asset}풀</h1>
-        <Button name='>'></Button>
+        <Button name='>' onClick={() => router.push('/mypage')} />
       </div>
     </div>
   )

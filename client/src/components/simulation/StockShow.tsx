@@ -11,6 +11,13 @@ import { useSelector, UseSelector } from "react-redux"
 import { RootState } from "@/store"
 import { useGetStockBySymbolQuery } from "@/store/slices/stockApi"
 
+type item = {
+  name: string;
+  current : number;
+  comparison: number;
+  change: number;
+}
+
 export default function StockShows  ({btnValue}:{btnValue:string}){
 
   // 전체 리스트
@@ -30,11 +37,10 @@ export default function StockShows  ({btnValue}:{btnValue:string}){
     symbols = all
   }
 
-
   return(
     <div>
       {symbols.map((item, index)=>(
-        <div key={index}>{item}</div>
+        <StockCard symbol={item} key={index}/>
       ))}
     </div>
   )
