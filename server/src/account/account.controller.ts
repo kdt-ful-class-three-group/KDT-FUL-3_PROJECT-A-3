@@ -6,7 +6,6 @@ import { InsertService } from "./account.insert";
 import { AccountDto } from "./dto/account.dto";
 import { GetService } from "./get.service";
 import { CheckService } from './check.service';
-import { GetService } from "./get.service";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 
@@ -44,10 +43,10 @@ export class AccountController {
     return this.InsertService.insertAccount(dto, req.user);
   }
 
-    @Post('make')
-  async account(@Body() dto : AccountDto) {
-    return this.AccountService.account(dto);
-  }
+  //   @Post('make')
+  // async account(@Body() dto : AccountDto) {
+  //   return this.accountService.createAccount(dto,null);
+  // }
 
   // 토큰 사용해서 계좌 정보 읽기
   @UseGuards(JwtAuthGuard)

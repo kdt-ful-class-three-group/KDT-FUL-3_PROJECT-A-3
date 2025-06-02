@@ -5,7 +5,6 @@ import { AccountService } from "./account.service";
 import { GetService } from "./get.service";
 import { InsertService } from "./account.insert";
 import { CheckService } from "./check.service";
-import { GetService } from "./get.service";
 
 
 @Module({
