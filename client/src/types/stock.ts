@@ -1,4 +1,5 @@
 export interface StockValue {
+    symbol: string;
   datetime: string;
   open: string;
   high: string;
