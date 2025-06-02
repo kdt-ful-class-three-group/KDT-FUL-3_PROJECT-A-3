@@ -5,12 +5,16 @@ import {Summary} from "@/components/portfolio/Summary"
 import HoldingsList from "@/components/portfolio/HoldingsList"
 
 export default function portfolioPage(){
+  // ! 총 자산 더미데이터
+  const totalValue = 2000000
+  const invested = 1000000
+
   return(
     <div>
       {/* 총 자산 요약 */}
-      <Summary />
+      <Summary totalValue={totalValue} investedAmount={invested}/>
       {/* 도넛 차트 */}
-      <div style={{width:'80%'}}>
+      <div style={{width:'50%'}}>
         <DoughnutChart trades={tradeItems}/>
       </div>
       {/* 보유 종목 리스트  + 거래내역 이동*/}

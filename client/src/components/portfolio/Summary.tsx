@@ -16,6 +16,7 @@ export const Summary:React.FC<SummaryProps>=({totalValue, investedAmount})=>{
 
   return(
     <div>
+      <h1>총 자산</h1>
       {/* 총 자산 */}
       <div>
         <h3>총 평가 금액</h3>
