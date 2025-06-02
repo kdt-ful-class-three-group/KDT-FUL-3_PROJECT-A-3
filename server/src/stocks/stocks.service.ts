@@ -33,7 +33,7 @@ export class StocksService {
             throw new Error('Invalid symbol');
         }
 
-        const query = `SELECT * FROM stocks where symbol = $1 ORDER BY datetime DESC LIMIT 100`;
+        const query = `SELECT * FROM stocks where symbol = $1 ORDER BY datetime DESC LIMIT 300`;
         const rows  = await this.db.query(query, [symbol.toUpperCase()]);
         return {
             symbol,
