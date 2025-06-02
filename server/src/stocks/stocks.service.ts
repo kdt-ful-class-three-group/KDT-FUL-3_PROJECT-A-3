@@ -34,7 +34,11 @@ export class StocksService {
         }
 
         const query = `SELECT * FROM stocks where symbol = $1 ORDER BY datetime DESC LIMIT 100`;
-        const { rows } = await this.db.query(query, [symbol.toUpperCase()]);
-        return rows;
+        const rows  = await this.db.query(query, [symbol.toUpperCase()]);
+        return {
+            symbol,
+            close: rows.rows[0]?.close ?? null,
+            values: rows.rows,
+        }
     }
 }
