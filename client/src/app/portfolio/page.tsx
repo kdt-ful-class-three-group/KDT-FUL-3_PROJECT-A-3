@@ -1,4 +1,6 @@
 'use client'
+import { Button } from "@/components/common/Button"
+import { useRouter } from "next/navigation"
 import DoughnutChart from "@/components/portfolio/Doughnut"
 import { tradeItems } from "@/components/portfolio/mocks/tradeItem"
 import {Summary} from "@/components/portfolio/Summary"
@@ -13,13 +15,17 @@ export default function portfolioPage(){
   // ! 종목 별 리스트
   const holdingData = getHoidingWithAvg(tradeItems)
 
+  const router = useRouter()
 
   return(
     <div>
+      {/* 뒤로가기 */}
+      <Button name="뒤로가기" onClick={()=> router.back()}/>
       {/* 총 자산 요약 */}
       <Summary totalValue={totalValue} investedAmount={invested}/>
       {/* 도넛 차트 */}
       <div style={{width:'50%'}}>
+        <h1>거래량</h1>
         <DoughnutChart trades={tradeItems}/>
       </div>
       {/* 보유 종목 리스트  + 거래내역 이동*/}
