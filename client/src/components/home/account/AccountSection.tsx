@@ -61,6 +61,48 @@ export function AccountSection() {
         children={hasAccount ? <MyStock /> : <CreateAccount onClick={()=>setShowModal(true)}/>}
       />
       {showModal && <Modal type='create'/>}
+      <button onClick={
+      () => {
+  Promise.all([
+    axios.patch(
+        'http://localhost:8008/account/trade',
+        { price: 210000, type: 'buy' },
+        { withCredentials: true }
+      ),
+    axios.patch(
+        'http://localhost:8008/userportfolio/trade',
+        { type: 'buy', symbol:'AAPL', price:210000, much: 1 },
+        { withCredentials: true }
+      )
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.error('거래 실패:', err);
+      }),
+    ])
+  }}>구매</button>
+        <button onClick={
+      () => {
+  Promise.all([
+    axios.patch(
+        'http://localhost:8008/account/trade',
+        { price: 210000, type: 'sell' },
+        { withCredentials: true }
+      ),
+    axios.patch(
+        'http://localhost:8008/userportfolio/trade',
+        { type: 'sell', symbol:'AAPL', price:210000, much: 1 },
+        { withCredentials: true }
+      )
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.error('거래 실패:', err);
+      })
+    ])
+  }}>판매</button>
     </>
   );
 }
