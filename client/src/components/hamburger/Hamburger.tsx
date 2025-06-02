@@ -26,8 +26,8 @@ export function Hamburger({onClose}:props){
       <div>
         <ul>
           <li><Link href={'/mypage'}>내 정보</Link></li>
-          <li><Link href={'/portfolio'}>관심 종목</Link></li>
-          <li><Link href={''}>거래 내역</Link></li>
+          <li><Link href={'/portfolio'}>포트폴리오</Link></li>
+          <li><Link href={'/history'}>거래 내역</Link></li>
           <li>알림</li>
           <li>이벤트</li>
           <li>설정</li>
