@@ -3,11 +3,16 @@ import DoughnutChart from "@/components/portfolio/Doughnut"
 import { tradeItems } from "@/components/portfolio/mocks/tradeItem"
 import {Summary} from "@/components/portfolio/Summary"
 import HoldingsList from "@/components/portfolio/HoldingsList"
+// ! 거래내역 -> 보유 자산 리스트
+import { getHoidingWithAvg } from "@/utils/getHoldings"
 
 export default function portfolioPage(){
   // ! 총 자산 더미데이터
   const totalValue = 2000000
   const invested = 1000000
+  // ! 종목 별 리스트
+  const holdingData = getHoidingWithAvg(tradeItems)
+
 
   return(
     <div>
@@ -18,7 +23,7 @@ export default function portfolioPage(){
         <DoughnutChart trades={tradeItems}/>
       </div>
       {/* 보유 종목 리스트  + 거래내역 이동*/}
-      <HoldingsList />
+      <HoldingsList items={holdingData}/>
     </div>
   )
 }

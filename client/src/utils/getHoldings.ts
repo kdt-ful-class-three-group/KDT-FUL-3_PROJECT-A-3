@@ -2,7 +2,6 @@
 
 // !더미데이터 - 거래 기록 , 현재가
 import { currentPrices } from "@/components/portfolio/mocks/currentPrices";
-import { AmpContext } from "next/dist/server/route-modules/pages/vendored/contexts/entrypoints";
 
 // 타입
 enum TradType {
