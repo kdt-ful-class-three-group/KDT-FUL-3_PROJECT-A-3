@@ -17,6 +17,8 @@ export default function StockPage() {
   const [stockData, setStockData] = useState<StockData  | null>(null);
   const router = useRouter();
 
+
+
   useEffect(() => {
     if (!symbol) return;
     axios.get<StockData>(`http://localhost:8008/stocks/${symbol}`)

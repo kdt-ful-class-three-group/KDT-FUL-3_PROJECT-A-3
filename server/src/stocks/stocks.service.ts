@@ -33,12 +33,32 @@ export class StocksService {
             throw new Error('Invalid symbol');
         }
 
-        const query = `SELECT * FROM stocks where symbol = $1 ORDER BY datetime DESC LIMIT 300`;
-        const rows  = await this.db.query(query, [symbol.toUpperCase()]);
+        const today = new Date();
+        const day = today.getDate();
+        const date = '2025-05-01';
+        const from = `${date} 00:00:00`; // 23:30:00 is the start of the trading day in UTC
+        const to   = `${date} 04:30:00`;
+        const from2 = `${date} 22:30:00`// 06:30:00 is the end of the trading day in UTC
+        const to2 = `${date} 23:59:59`// 06:30:00 is the end of the trading day in UTC
+
+
+
+        const query = `
+            SELECT * FROM stocks
+            WHERE symbol = $1 AND (
+                (datetime BETWEEN $2 AND $3) OR
+                (datetime BETWEEN $4 AND $5)
+                )
+            ORDER BY datetime ASC;
+        `;
+        const rows = await this.db.query(query, [
+            symbol.toUpperCase(), from, to, from2, to2
+        ]);
+
         return {
             symbol,
-            close: rows.rows[0]?.close ?? null,
+            close: rows.rows.at(-1)?.close ?? null,
             values: rows.rows,
-        }
+        };
     }
 }

@@ -7,6 +7,8 @@ import { CandlestickController, CandlestickElement } from 'chartjs-chart-financi
 import { ChartOptions } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 
+
+
 // ✅ 이 줄로 모든 필요한 모듈을 등록
 ChartJS.register(
   CategoryScale,
@@ -22,24 +24,13 @@ import styles from './StockStyles.module.css'
 
 export function StockChart({ data: stockData, symbol }: { data: any[], symbol: string }) {
   const formattedData = useMemo(() => {
-    const grouped: { [date: string]: any[] } = {};
-
-    stockData.forEach(item => {
-      if (!item || !item.datetime) return;
-      const date = item.datetime.slice(0, 10); // YYYY-MM-DD
-      if (!grouped[date]) grouped[date] = [];
-      grouped[date].push(item);
-    });
-
-    console.log("데이터",stockData)
-
-    return Object.entries(grouped).map(([date, items]) => ({
-      x: new Date(date),
-      o: Number(items[0].open),
-      h: Math.max(...items.map(i => Number(i.high))),
-      l: Math.min(...items.map(i => Number(i.low))),
-      c: Number(items[items.length - 1].close ?? items[items.length - 1].price),
-    }));
+    return stockData.map(item => ({
+      x: new Date(item.datetime),
+      o: Number(item.open),
+      h: Number(item.high),
+      l: Number(item.low),
+      c: Number(item.close ?? item.price),
+    })).sort((a, b) => a.x.getTime() - b.x.getTime());
   }, [stockData]);
 
   console.log("formattedData", formattedData);
@@ -49,7 +40,7 @@ export function StockChart({ data: stockData, symbol }: { data: any[], symbol: s
       {
         label: '봉차트',
         data: formattedData,
-        barThickness: 20,
+        barThickness: 4,
         color: {
           up: 'red',
           down: 'blue',
@@ -61,6 +52,7 @@ export function StockChart({ data: stockData, symbol }: { data: any[], symbol: s
 
   console.log("Chart에 전달하는 data 객체", data);
 
+  // @ts-ignore
   const options: ChartOptions<'candlestick'> = {
     responsive: true,
     plugins: {
@@ -75,10 +67,11 @@ export function StockChart({ data: stockData, symbol }: { data: any[], symbol: s
     scales: {
       x: {
         type: 'time',
+
         time: {
-          unit: 'day',
+          unit: 'minute',
           displayFormats: {
-            day: 'MM/dd'
+            minute: 'MM/dd HH:mm'
           }
         },
         ticks: {
