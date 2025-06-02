@@ -4,21 +4,7 @@
 import { currentPrices } from "@/components/portfolio/mocks/currentPrices";
 
 // 타입
-enum TradType {
-  Buy = 0,
-  Sell = 1
-}
-
-type tradeItem = {
-  id:number; //계좌순서
-  account_number: number; //계좌
-  user_name:string; //유저
-  stock_name:string//종목명
-  price:number; //거래 당식 종목 가격
-  much: number; //거래량
-  buy_sale : TradType; //구매 또는 판매
-  date: string; //거래일자
-}
+import { TradeItem } from "@/types/tradeItem";
 
 export type HoldingItem={
   stock_name:string;
@@ -27,7 +13,7 @@ export type HoldingItem={
   currentPrice: number //현재 주가 - 정의한 가격 사용
 }
 
-export function getHoidingWithAvg(items:tradeItem[]):HoldingItem[]{
+export function getHoidingWithAvg(items:TradeItem[]):HoldingItem[]{
 
   // 종목별 집계용 Map : 보유 수량, 총 매수 수량, 총 매수 금액
   const map = new Map<
