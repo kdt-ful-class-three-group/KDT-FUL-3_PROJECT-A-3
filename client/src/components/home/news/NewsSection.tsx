@@ -1,5 +1,5 @@
 'use client'
-import { Section } from "../common/Section";
+import { Section } from "../../common/Section";
 import { useEffect, useState } from "react";
 import axios from "axios";
 

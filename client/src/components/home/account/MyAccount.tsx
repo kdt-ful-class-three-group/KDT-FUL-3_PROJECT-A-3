@@ -1,4 +1,4 @@
-import { Button } from "../common/Button"
+import { Button } from "../../common/Button"
 //차트
 import { Line } from "react-chartjs-2"
 import {
@@ -17,7 +17,7 @@ import { RootState } from "@/store"
 //차트 요소 등록
 ChartJS.register(LineElement, CategoryScale,LinearScale, PointElement, Tooltip, Legend, Filler)
 
-export default function MyStock(){
+export default function MyAccount(){
     const {account_number, asset} = useSelector((state:RootState) => state.account)
 
   //!차트데이터 (임시)

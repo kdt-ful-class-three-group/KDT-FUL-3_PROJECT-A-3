@@ -1,17 +1,17 @@
 // 계좌 생성 버튼
-import { Button } from "../common/Button"
-import {useState} from "react";
-import Create from "@/components/account/Create";
+import { Button } from "@/components/common/Button";
+import { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { setField } from "@/store/slices/accountSlice";
+import Create from "./Create";
 
 type props = {
   onClick:()=>void
 }
 
-export default function CreateStock({onClick}:props){
+export default function CreateAccount({onClick}:props){
   // * 변수의 값을 바꾸기 위해서 디스패치 선언
   const dispatch = useDispatch();
   // * 리덕스 툴킷으로 계좌 번호, 자산 변수 불러오기

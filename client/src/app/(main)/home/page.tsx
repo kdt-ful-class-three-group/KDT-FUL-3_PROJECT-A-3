@@ -1,7 +1,7 @@
 'use client';
 
-import { NewsSection } from "@/components/home/NewsSection";
-import { StockSection } from "@/components/home/StockSection";
+import { NewsSection } from "@/components/home/news/NewsSection";
+import { AccountSection } from "@/components/home/account/AccountSection";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -39,7 +39,7 @@ export default function Home() {
   return (
     <div>
       <div>
-        <StockSection />
+        <AccountSection />
       </div>
 
       <div>
