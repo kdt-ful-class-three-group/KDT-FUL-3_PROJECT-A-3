@@ -41,6 +41,8 @@ export default function StockShows  ({btnValue}:{btnValue:string}){
     symbols = all
   }
 
+  // ! all -> 순위 로직 필요함
+
   return(
     <div>
       {symbols.map((item, index)=>(

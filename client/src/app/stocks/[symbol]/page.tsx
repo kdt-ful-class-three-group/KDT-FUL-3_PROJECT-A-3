@@ -29,10 +29,6 @@ export default function StockPage() {
   return (
     <div>
       <div>
-        <Button
-          name="뒤로가기"
-          onClick={() => router.back()}
-        />
       </div>
       <div>
         <StockInfo
