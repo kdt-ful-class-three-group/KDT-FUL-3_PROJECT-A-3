@@ -1,4 +1,5 @@
-import {Body, Controller, Get, Post, Res, Req, UseGuards} from "@nestjs/common";
+import { TradeResultService } from './tradeResult.service';
+import {Body, Controller, Get, Post, Res, Req, UseGuards, Patch} from "@nestjs/common";
 import { AccountService } from "./account.service";
 import { AuthGuard } from '@nestjs/passport';
 import {response} from "express";
@@ -7,6 +8,7 @@ import { AccountDto } from "./dto/account.dto";
 import { GetService } from "./get.service";
 import { CheckService } from './check.service';
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { TradeDto } from "./dto/trade.dto";
 
 
 @Controller('account')
@@ -16,6 +18,7 @@ export class AccountController {
     private readonly GetService: GetService,
     private readonly InsertService: InsertService,
     private readonly CheckService: CheckService,
+    private readonly TradeResultService: TradeResultService,
   ) {}
 
   @Get()
@@ -49,12 +52,18 @@ export class AccountController {
   // }
 
   // 토큰 사용해서 계좌 정보 읽기
-  @UseGuards(JwtAuthGuard)
   @Get('me')
+  @UseGuards(AuthGuard('jwt'))
   async getMyAccount(@Req() req){
     // req.user.user_id 에서 유저 정보 추출
     // 디버깅
     // console.log('req.user',req.user)
     return this.GetService.getAccountByUserId(req.user.user_id)
+  }
+
+  @Patch('trade')
+  @UseGuards(AuthGuard('jwt'))
+  async tradeResult(@Body() dto: TradeDto, @Req() req: any) {
+    return this.TradeResultService.tradeResult(dto, req.user)
   }
 }
