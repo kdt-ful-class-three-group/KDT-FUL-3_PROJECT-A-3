@@ -10,6 +10,6 @@ import { VocaModule } from './voca/voca.module';
 
 @Module({
 
-    imports: [ConfigModule.forRoot({isGlobal:true}),AuthModule, UsersModule, DbModule, StocksModule, JwtModule, AccountModule,VocaModule],
+    imports: [ConfigModule.forRoot({isGlobal:true}),AuthModule, UsersModule, StocksModule, JwtModule, AccountModule,VocaModule],
 })
 export class AppModule {}
