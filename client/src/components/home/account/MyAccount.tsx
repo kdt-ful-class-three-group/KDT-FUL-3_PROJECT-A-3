@@ -14,11 +14,14 @@ import {
 import { useMemo } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "@/store"
+import { useRouter } from "next/navigation"
 //차트 요소 등록
 ChartJS.register(LineElement, CategoryScale,LinearScale, PointElement, Tooltip, Legend, Filler)
 
 export default function MyAccount(){
     const {account_number, asset} = useSelector((state:RootState) => state.account)
+
+    const router = useRouter()
 
   //!차트데이터 (임시)
   // date, money (asset)
@@ -86,7 +89,7 @@ export default function MyAccount(){
       <div>
         <p>{asset}</p>
         {/* 마이페이지로 이동 */}
-        <Button name='>' type='button'/> 
+        <Button name='>' type='button' onClick={()=>router.push('/portfolio')}/> 
       </div>
       <div>
         <p>금액 변동률</p>

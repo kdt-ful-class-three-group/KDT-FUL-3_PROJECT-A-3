@@ -48,7 +48,7 @@ export default function AccountInfo(){
       </div>
       <div style={{display:'flex'}}>
         <h1>{account?.asset}풀</h1>
-        <Button name='>' onClick={() => router.push('/mypage')} />
+        <Button name='>' onClick={() => router.push('/portfolio')} />
       </div>
     </div>
   )
