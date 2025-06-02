@@ -1,5 +1,6 @@
 import { Button } from "../common/Button"
 import { useEffect } from "react";
+import Link from "next/link";
 import styles from './Hamburger.module.css'
 
 type props = {
@@ -21,10 +22,21 @@ export function Hamburger({onClose}:props){
     <div className={styles.overlay}>
       <Button variant="icon" icon="close" onClick={onClose}/>
       <div>
-        <p>마이페이지</p>
+        <ul>
+          <li><Link href={'/mypage'}>내 정보</Link></li>
+          <li><Link href={''}>관심 종목</Link></li>
+          <li><Link href={''}>거래 내역</Link></li>
+          <li>알림</li>
+          <li>이벤트</li>
+          <li>설정</li>
+          <li>고객센터</li>
+        </ul>
       </div>
       <div>
-        <p>로그아웃</p>
+        <Button
+          name="로그아웃"
+          onClick={() => { }}
+        />
       </div>
     </div>
   )

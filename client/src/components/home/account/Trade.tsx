@@ -1,6 +1,5 @@
 // 주식 거래
-
-import { Button } from "../common/Button"
+import { Button } from "@/components/common/Button";
 
 export default function Trade(){
 
