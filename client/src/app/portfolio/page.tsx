@@ -1,7 +1,7 @@
 'use client'
 import DoughnutChart from "@/components/portfolio/Doughnut"
 import { tradeItems } from "@/components/portfolio/mocks/tradeItem"
-import Summary from "@/components/portfolio/Summary"
+import {Summary} from "@/components/portfolio/Summary"
 import HoldingsList from "@/components/portfolio/HoldingsList"
 
 export default function portfolioPage(){
