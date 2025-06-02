@@ -23,6 +23,8 @@ export default function StockPage() {
       .catch(console.error);
   }, [symbol])
 
+  console.log('StockPage', symbol, stockData);
+
   if (!stockData) return <div>주식불러오는중...</div>;
 
   return (
@@ -38,9 +40,7 @@ export default function StockPage() {
             symbol={stockData.symbol ?? 'UNKNOWN'}
             price={stockData.close}
         />
-        <StockChart
-          stockData={[stockData?.values || []]}
-        />
+        <StockChart data={stockData.values} symbol={stockData.symbol} />
       </div>
     </div>
   )
