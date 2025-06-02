@@ -1,13 +1,14 @@
 import { Input } from "../common/Input"
 import { Button } from "../common/Button"
+import { keypadNumbers } from "./KeypadNumbers"
 import { TradeContentProps } from "@/types/trade"
 import { TradeKeypadProps } from "@/types/trade"
 import styles from './TradeStyles.module.css'
 
 export function TradeKeypad({ mode, amount, setAmount, price }: TradeContentProps & TradeKeypadProps & { price: number }) {
-  // 키패드 버튼들
-  const keypadNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '00', '0', '←'];
-
+  const total = Number(amount) * price;
+  
+  
   // 키패드 이벤트 지우기,0무시 등
   // ! 자기 자산이랑 연동해서 자산보다 많이 입력못하게 만들어야할거같음.
   const handleKeypadClick = (value: string) => {
@@ -27,10 +28,19 @@ export function TradeKeypad({ mode, amount, setAmount, price }: TradeContentProp
   const handleAction = () => {
     if (mode === 'sell') {
       // 판매 처리
-      console.log(Number(amount) * price );
+      console.log(total);
     } else {
       // 구매 처리
-      console.log(Number(amount) * price );
+      console.log(total);
+    }
+  };
+
+  const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+  
+    if (/^\d*$/.test(value)) {
+      if (amount === '' && (value === '0' || value === '00')) return;
+      setAmount(value);
     }
   };
 
@@ -47,7 +57,7 @@ export function TradeKeypad({ mode, amount, setAmount, price }: TradeContentProp
         <div className={styles.totalPrice}>
           <p>{title}</p>
           <p className={styles.totalPriceValue}>
-            {amount ? `${Number(amount) * price}풀` : '\u00A0'}
+            {amount ? `${total}풀` : '\u00A0'}
           </p>
         </div>
         <Input
@@ -55,13 +65,7 @@ export function TradeKeypad({ mode, amount, setAmount, price }: TradeContentProp
           label=""
           placeholder="몇 주 구매할까요?"
           value={amount}
-          onChange={(e) => {
-            const value = e.target.value;
-            if (/^\d*$/.test(value)) {
-              if (amount === '' && (value === '0' || value === '00')) return;
-              setAmount(value);
-            }
-          }}
+          onChange={handleAmount}
         />
       </div>
 
@@ -70,8 +74,7 @@ export function TradeKeypad({ mode, amount, setAmount, price }: TradeContentProp
           <Button
             className={styles.keypadButton}
             key={num}
-            name={num} onClick={() =>
-              handleKeypadClick(num)} />
+            name={num} onClick={() => handleKeypadClick(num)} />
         ))}
       </div>
 

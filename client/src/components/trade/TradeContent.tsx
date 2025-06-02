@@ -25,7 +25,12 @@ export function TradeContent({ mode }: TradeContentProps) {
         </div>
       </div>
       <div>
-        <TradeKeypad amount={amount} setAmount={setAmount} mode={mode} price={price} />
+        <TradeKeypad
+          amount={amount}
+          setAmount={setAmount}
+          mode={mode}
+          price={price}
+        />
       </div>
 
     </div>
