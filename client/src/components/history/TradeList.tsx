@@ -1,8 +1,6 @@
-import { tradeItems } from "../portfolio/mocks/tradeItem";
 import TradeFilter from "./TradeFilter";
 import TradeTable from "./TradeTable";
 import { useState } from "react";
-import { stockList } from "../stocks/StockList";
 // 타입
 import { TradeItem, TradeType } from "@/types/tradeItem";
 type Props={
