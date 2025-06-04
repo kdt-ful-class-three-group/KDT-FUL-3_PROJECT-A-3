@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useParams } from "next/navigation"
-import { StockChart } from "@/components/stocks/StockChart"
+import  StockChart from "@/components/stocks/StockChart"
 import { Button } from "@/components/common/Button"
 import { StockInfo } from "@/components/stocks/StockInfo"
 import { StockData } from "@/types/stock"
