@@ -1,5 +1,3 @@
-import { Badge } from "@/types/badge"
-
 // 배지 조건 체크
 type Props = {
   tradeCount : number
@@ -7,7 +5,7 @@ type Props = {
   // 수익
   // 손실
   // 로그인 횟수
-  level:number
+  level:{level:number; name:string; exp:string;}
 
 }
 
@@ -39,7 +37,7 @@ export function evaluateBadges({tradeCount, tradeVolume, level}:Props){
       id:'level-5',
       name:'풀의 지배자',
       exp:'최고 레벨 5 달성',
-      achieved: level>=5
+      achieved: level.level>=5
     }
   ]
 }
