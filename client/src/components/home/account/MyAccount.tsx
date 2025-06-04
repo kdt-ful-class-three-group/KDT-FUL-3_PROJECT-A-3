@@ -109,7 +109,7 @@ export default function MyAccount(){
     {date:'오늘',asset: totalAsset}, // 오늘
   ]
   
-  console.log('총자산:',totalAsset);
+  // console.log('총자산:',totalAsset);
   
   //차트용 데이터
   const data = useMemo(()=>({
