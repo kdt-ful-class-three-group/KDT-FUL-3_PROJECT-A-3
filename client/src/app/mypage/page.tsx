@@ -1,10 +1,16 @@
+// 컴포넌트
+import ProfileCard from "@/components/mypage/ProfileCard"
+import UserStatus from "@/components/mypage/UserStatus"
+import BadgesSection from "@/components/mypage/BadgesSection"
+
 export default function MyPage() {
   
   return (
 
     <div>
-      <h1>유저</h1>
-      <h3>레벨</h3>
+      <ProfileCard />
+      <UserStatus />
+      <BadgesSection />
     </div>
   )
 }
