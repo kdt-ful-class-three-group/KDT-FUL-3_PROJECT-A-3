@@ -41,7 +41,7 @@ export default function AccountInfo(){
   },[])
 
   return(
-    <div>
+    <div id='my-account'>
       <div>
         <p>내 계좌</p>
         <h3>{account?.account_number}</h3>
