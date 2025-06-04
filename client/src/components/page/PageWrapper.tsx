@@ -32,21 +32,12 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
           x: { duration: 0.2 },
           opacity: { duration: 0.1 }
         }}
-        style={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          boxSizing: 'border-box',
-          marginLeft: '10%',
-          marginRight: '10%'
-        }}
       >
         <div style={{
           width: '100%',
           maxWidth: '1200px',
           padding: '0 10vw',
           boxSizing: 'border-box',
-          margin: '5%'
         }}>
           {children}
         </div>
