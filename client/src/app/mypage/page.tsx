@@ -11,10 +11,15 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { setUser } from "@/store/slices/userSlice"
 import axios from "axios"
+import type { RootState } from "@/store"
+import { useSelector } from "react-redux"
 
 export default function MyPage() {
 
   const dispatch = useDispatch()
+
+  // 아직 준비되지 않았을 때를 대비한 기본값 설정
+  const {tradeCount =0, tradeVolume=0} = useSelector((state:RootState)=> state.userStatus)
 
   useEffect(()=>{
     const fetchSet = async()=>{
@@ -26,33 +31,30 @@ export default function MyPage() {
   
         const idData = res.data?.user_id || '...'
   
-        // 레벨계산에 필요한 tradeCount , tradeVolume
-        // tradeCount - 거래 총 횟수 - length
-        const tradeCount = tradeItems.length
-        // tradeVolume - 누적 거래 금액 - price*much 합
-        const tradeVolume = tradeItems.reduce((total,item)=>{
-          return total+item.price*item.much
-        },0)
-        // 레벨 계산
-        const level = calcLevel(tradeCount, tradeVolume)
-        //다음 레벨까지 계산 함수
-        const toNext = ()=>{
-          if(level.level===1) return {count : 2-tradeCount, volume: 10000-tradeVolume}
-          if(level.level===2) return {count : 5-tradeCount, volume: 30000-tradeVolume}
-          if(level.level===3) return {count : 10-tradeCount, volume: 60000-tradeVolume}
-          if(level.level===4) return {count : 20-tradeCount, volume: 100000-tradeVolume}
-          return 0 //최고레벨
+        // 레벨계산에 필요한 tradeCount , tradeVolume이 유효할 때만 실행
+        if(typeof tradeCount === 'number' && typeof tradeVolume==='number'){
+
+          // 레벨 계산
+          const level = calcLevel(tradeCount, tradeVolume)
+          //다음 레벨까지 계산 함수
+          const toNext = ()=>{
+            if(level.level===1) return {count : 2-tradeCount, volume: 10000-tradeVolume}
+            if(level.level===2) return {count : 5-tradeCount, volume: 30000-tradeVolume}
+            if(level.level===3) return {count : 10-tradeCount, volume: 60000-tradeVolume}
+            if(level.level===4) return {count : 20-tradeCount, volume: 100000-tradeVolume}
+            return 0 //최고레벨
+          }
+          const toNextLevel = toNext()
+    
+          // 값 적용
+          dispatch(
+            setUser({
+              nick:idData,
+              level,
+              toNextLevel
+            })
+          )
         }
-        const toNextLevel = toNext()
-  
-        // 값 적용
-        dispatch(
-          setUser({
-            nick:idData,
-            level,
-            toNextLevel
-          })
-        )
       }
       catch (err){
         console.log('유저 데이터 찾기 실패')
@@ -62,7 +64,7 @@ export default function MyPage() {
     //함수 실행
     fetchSet()
 
-  },[])
+  },[tradeCount, tradeVolume])
 
   
   return (

@@ -1,6 +1,6 @@
 'use client'
 // 주식관련
-import { useDispatch, UseDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getUserStatus } from "@/store/slices/userStatusSlice"
 import { useEffect } from "react"
 import type { RootState, AppDispatch } from "@/store"
