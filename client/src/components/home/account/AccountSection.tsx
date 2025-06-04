@@ -103,6 +103,38 @@ export function AccountSection() {
       })
     ])
   }}>판매</button> */}
+
+        {/* <button onClick={async () => {
+          const res = await axios.post('http://localhost:8008/favorites', 
+            { symbol: 'AAPL' }, 
+            { withCredentials: true })
+
+            console.log(res.data);
+
+        }}>AAPL 관심등록</button>
+        <button onClick={async () => {
+          const res = await axios.post('http://localhost:8008/favorites', 
+            { symbol: 'TSLA' }, 
+            { withCredentials: true })
+
+            console.log(res.data);
+
+        }}>TSLA 관심등록</button>
+        <button onClick={async () => {
+          const res = await axios.post('http://localhost:8008/favorites/delete', 
+            { symbol: 'AAPL' }, 
+            { withCredentials: true })
+
+            console.log(res.data);
+
+        }}>AAPL 관심해제</button>
+        <button onClick={async () => {
+          const res = await axios.post('http://localhost:8008/favorites/delete', 
+            { symbol: 'TSLA' }, 
+            { withCredentials: true })
+
+            console.log(res.data);
+        }}>TSLA 관심해제</button> */}
     </>
   );
 }
