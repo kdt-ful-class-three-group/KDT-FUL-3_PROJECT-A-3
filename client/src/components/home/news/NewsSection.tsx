@@ -1,12 +1,15 @@
 'use client'
 import { Section } from "../../common/Section";
+import { Button } from "@/components/common/Button";
 import { NewsCard } from "./NewsCard";
 import type { Article } from "@/types/news";
 import { useEffect, useState } from "react";
+import styles from './NewsStyles.module.css'
 import axios from "axios";
 
 export function NewsSection() {
-
+  // 뉴스 섹션 상태
+  const [selectedNewsType, setSelectedNewsType] = useState<'general' | 'interest'>('general');
   //뉴스 데이터
   const [generalNews, setGeneralNews] = useState<Article[]>([]);
   const [interestNews, setInterestNews] = useState<Article[]>([]);
@@ -69,29 +72,47 @@ export function NewsSection() {
   
 
   return (
-    <div>
-      <Section
-        title="실시간 뉴스"
-        children={
-          <div>
-            {generalNews.length > 0 ? (
-              <NewsCard article={generalNews[index % generalNews.length]} />
-            ) : <p>뉴스 불러오는 중</p>}
-          </div>
-        }
-      />
+    <div className={styles.section}>
 
-      <Section
-        title="관심 뉴스"
-        children={
-          <div>
-            {interestNews.length > 0 ? (
-              <NewsCard article={interestNews[index % interestNews.length]} />
-            ) : <p>관심 뉴스 없음</p>}
-          </div>
-        }
-      />
+      <div>
+        <Button
+          className={`${styles.button} ${selectedNewsType === 'general' ? styles.active : ''}`}
+          name="실시간 뉴스"
+          onClick={() => setSelectedNewsType('general')}
+        />
 
+        <Button
+          className={`${styles.button} ${selectedNewsType === 'interest' ? styles.active : ''}`}
+          name="관심 뉴스"
+          onClick={() => setSelectedNewsType('interest')}
+        />
+      </div>
+
+      {selectedNewsType === 'general' && (
+        <Section
+          title="실시간 뉴스"
+          children={
+            <div>
+              {generalNews.length > 0 ? (
+                <NewsCard article={generalNews[index % generalNews.length]} />
+              ) : <p>뉴스 불러오는 중</p>}
+            </div>
+          }
+        />
+      )}
+
+      {selectedNewsType === 'interest' && (
+        <Section
+          title="관심 뉴스"
+          children={
+            <div>
+              {interestNews.length > 0 ? (
+                <NewsCard article={interestNews[index % interestNews.length]} />
+              ) : <p>관심 뉴스 없음</p>}
+            </div>
+          }
+        />
+      )}
     </div>
   )
 }

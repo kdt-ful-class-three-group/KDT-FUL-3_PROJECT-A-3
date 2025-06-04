@@ -1,14 +1,24 @@
+// Tab.tsx
+'use client'
 import Link from "next/link"
+import { usePathname } from 'next/navigation'
+import styles from './Menu.module.css'
 
 export function Tab() {
-  
+  const pathname = usePathname()
+
   return (
-    // 스타일 나중에 수정
-    <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px'}}>
-      <ul style={{ display: 'flex', listStyle: 'none', padding: 0, margin: 0}}>
-        <li><Link href={"/home"}>메인</Link></li>
-        <li><Link href={"/voca"}>용어 사전</Link></li>
-        <li><Link href={"/simulation"}>모의 투자</Link></li>
+    <div className={styles.tab}>
+      <ul>
+        <li>
+          <Link href="/home" className={pathname === '/home' ? styles.active : ''}>메인</Link>
+        </li>
+        <li>
+          <Link href="/voca" className={pathname === '/voca' ? styles.active : ''}>주식 용어</Link>
+        </li>
+        <li>
+          <Link href="/simulation" className={pathname === '/simulation' ? styles.active : ''}>모의 투자</Link>
+        </li>
       </ul>
     </div>
   )

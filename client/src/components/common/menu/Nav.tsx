@@ -3,13 +3,14 @@
 import { Button } from "../Button"
 import { useRouter } from "next/navigation"
 import StatusBar from "./StatusBar";
+import styles from './Menu.module.css'
 
 export function Nav() {
 
   const router = useRouter();
   
   return(
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
+    <div className={styles.nav}>
       <div>
         <StatusBar />
       </div>

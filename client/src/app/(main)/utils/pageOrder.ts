@@ -1,0 +1,1 @@
+export const pageOrder = ['/home', '/voca', '/simulation'];

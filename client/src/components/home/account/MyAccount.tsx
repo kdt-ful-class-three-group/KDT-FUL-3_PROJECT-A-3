@@ -1,4 +1,5 @@
 import { Button } from "../../common/Button"
+import styles from './AccountStyles.module.css'
 //차트
 import { Line } from "react-chartjs-2"
 import {
@@ -174,7 +175,7 @@ export default function MyAccount(){
       <div>
         <p>금액 변동률</p>
       </div>
-      <div>
+      <div className={styles.chart}>
         <Line data={data} options={options}/>
       </div>
     </div>
