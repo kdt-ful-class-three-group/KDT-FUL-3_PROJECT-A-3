@@ -1,60 +1,87 @@
 import { Injectable } from '@nestjs/common';
 import axios from "axios";
-import {DbService} from "../database/db.service";
+import { DbService } from "../database/db.service";
+
+export interface StockRow {
+    symbol: string;
+    datetime: string;
+    open: number;          // 시가
+    high: number;          // 고가
+    low: number;           // 저가
+    close: number;         // 종가
+    volume: number;        // 거래량
+}
 
 @Injectable()
 export class StocksService {
     constructor(private readonly db :DbService ) {}
- private readonly API_KEY = process.env.STOCK_API_KEY
+    private readonly API_KEY = process.env.STOCK_API_KEY;
 
- // async getStocksData(symbol: string) : Promise<any> {
- //   const url = 'https://api.twelvedata.com/time_series';
- //   const params={
- //     apikey: this.API_KEY,
- //     interval: '1day',
- //     outputsize: 7,
- //     format: 'JSON',
- //     symbol: symbol.toUpperCase()
- //   };
- //
- //   try{
- //     const res = await axios.get(url, { params });
- //     return res.data;
- //   } catch(err){
- //     console.error('주식데이터 불러오기 실패:', err);
- //        throw new Error('주식데이터를 불러오는 데 실패했습니다. 다시 시도해주세요.');
- //   }
- //
- //
- //
- // }
     async getStockData(symbol: string) {
         if (!/^[A-Z0-9_]+$/.test(symbol)) {
             throw new Error('Invalid symbol');
         }
 
         const today = new Date();
-        const day = today.getDate();
-        const date = '2025-05-01';
-        const from = `${date} 00:00:00`; // 23:30:00 is the start of the trading day in UTC
-        const to   = `${date} 04:30:00`;
-        const from2 = `${date} 22:30:00`// 06:30:00 is the end of the trading day in UTC
-        const to2 = `${date} 23:59:59`// 06:30:00 is the end of the trading day in UTC
+        let targetDate = new Date(today);
+        targetDate.setMonth(targetDate.getMonth() - 1); // 한 달 전으로 시작
+
+        targetDate.setHours(0, 0, 0, 0);
+
+        // 타입초기화
+        let rows: { rows: StockRow[] } = { rows: [] };
+        let attempts = 0;
+        const MAX_ATTEMPTS = 10;
+
+        while (rows.rows.length === 0 && attempts < MAX_ATTEMPTS) {
+            const year = targetDate.getFullYear();
+            const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+            const day = String(targetDate.getDate()).padStart(2, '0');
+            const dateString = `${year}-${month}-${day}`;
 
 
+            const nextDay = new Date(targetDate);
+            nextDay.setDate(targetDate.getDate() + 1);
 
-        const query = `
-            SELECT * FROM stocks
-            WHERE symbol = $1 AND (
-                (datetime BETWEEN $2 AND $3) OR
-                (datetime BETWEEN $4 AND $5)
-                )
-            ORDER BY datetime ASC;
-        `;
-        const rows = await this.db.query(query, [
-            symbol.toUpperCase(), from, to, from2, to2
-        ]);
+            const nextDayYear = nextDay.getFullYear();
+            const nextDayMonth = String(nextDay.getMonth() + 1).padStart(2, '0');
+            const nextDayDay = String(nextDay.getDate()).padStart(2, '0');
+            const fromKST = `${dateString} 22:30:00+09`;
+            const toKST = `${nextDayYear}-${nextDayMonth}-${nextDayDay} 05:00:00+09`; // KST 다음 날 05:00:00 (오프셋은 DB에 따라 제거될 수 있음)
 
+
+            const query = `
+                SELECT * FROM stocks
+                WHERE symbol = $1 AND datetime BETWEEN $2 AND $3
+                ORDER BY datetime ASC
+            `;
+
+
+            // 명시적인 타입 단언이 필요:
+            const result = await this.db.query<StockRow>(query, [symbol.toUpperCase(), fromKST, toKST]);
+            rows.rows = result.rows; // 타입이 지정된 행을 할당
+
+            console.log(`Attempt ${attempts + 1}: Querying for date ${dateString} (${fromKST} to ${toKST})`);
+            console.log("rows 개수:", rows.rows.length);
+
+            if (rows.rows.length === 0) {
+                targetDate.setDate(targetDate.getDate() - 1);
+            }
+            attempts++;
+        }
+
+        if (rows.rows.length === 0) {
+            console.warn(`No stock data found for ${symbol} within the last ${MAX_ATTEMPTS} days.`);
+            return {
+                symbol,
+                close: null,
+                values: [],
+                message: `No data found for ${symbol} on or before the target date.`,
+            };
+        }
+
+        // 이제 TypeScript는 rows.rows 내의 요소들이 StockRow 타입임을 알고 있으므로
+        // 'close' 속성이 존재
         return {
             symbol,
             close: rows.rows.at(-1)?.close ?? null,
