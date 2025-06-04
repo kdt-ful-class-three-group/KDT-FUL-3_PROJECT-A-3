@@ -33,12 +33,12 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
   Promise.all([
     axios.patch(
         'http://localhost:8008/account/trade',
-        { price: total, type: 'sell' },
+        { price: total, type: mode },
         { withCredentials: true }
       ),
     axios.patch(
         'http://localhost:8008/userportfolio/trade',
-        { type: 'sell', symbol: symbol, price: total, much: amount },
+        { type: mode, symbol: symbol, price: total, much: amount },
         { withCredentials: true }
       )
       .then(() => {
@@ -54,12 +54,12 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
   Promise.all([
     axios.patch(
         'http://localhost:8008/account/trade',
-        { price: total, type: 'buy' },
+        { price: total, type: mode },
         { withCredentials: true }
       ),
     axios.patch(
         'http://localhost:8008/userportfolio/trade',
-        { type: 'buy', symbol:symbol, price:total, much: amount },
+        { type: mode, symbol:symbol, price:total, much: amount },
         { withCredentials: true }
       )
       .then(() => {
