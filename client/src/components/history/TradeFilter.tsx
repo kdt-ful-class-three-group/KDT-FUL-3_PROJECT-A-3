@@ -26,10 +26,18 @@ export default function TradeFilter({
     stockOption.push({name:i, value:i})
   })
 
+  // 초기화
+  const resetBtn = ()=>{
+    setSelectedStock('all')
+    setSelectedType('all')
+    setStartDate('')
+    setEndDate('')
+  }
+
   return(
     <div style={{display:'flex'}}>
       {/* 전체 선택 */}
-      <Button name="전체" />
+      <Button name="전체" onClick={resetBtn}/>
       {/* 날짜 */}
       <div style={{display:'flex'}}>
         <Input type="date" label="시작" value={startDate} onChange={(e)=>setStartDate(e.target.value)}/>
