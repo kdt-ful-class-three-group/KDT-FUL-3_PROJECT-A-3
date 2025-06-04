@@ -57,7 +57,7 @@ export default function TradeList({trades=[]}:Props){ //undefined일 때 에러�
         setStartDate = {setStartDate}
         setEndDate = {setEndDate}
       />
-      <TradeTable trades={tradeItems}/>
+      <TradeTable trades={filtered}/>
     </div>
   )
 }

@@ -32,16 +32,16 @@ export default function TradeFilter({
       <Button name="전체" />
       {/* 날짜 */}
       <div style={{display:'flex'}}>
-        <Input type="date" label="시작"/>
-        <Input type="date" label="종료"/>
+        <Input type="date" label="시작" value={startDate} onChange={(e)=>setStartDate(e.target.value)}/>
+        <Input type="date" label="종료" value={endDate} onChange={(e)=>setEndDate(e.target.value)}/>
       </div>
       {/* 종목 */}
       <div>
-        <Select option={stockOption}></Select> 
+        <Select option={stockOption} value={selectedStock} onChange={(e)=>setSelectedStock(e.target.value)}></Select> 
       </div>
       {/* 거래 */}
       <div>
-        <Select option={[{name:'전체',value:'all'},{name:'구매',value:'buy'},{name:'판매',value:'sell'}]}></Select>
+        <Select option={[{name:'전체',value:'all'},{name:'구매',value:'구매'},{name:'판매',value:'판매'}]} value={selectedType} onChange={(e)=>setSelectedType(e.target.value)}></Select>
       </div>
     </div>
   )
