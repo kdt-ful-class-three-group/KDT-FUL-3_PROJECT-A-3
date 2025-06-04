@@ -1,108 +1,76 @@
 'use client'
-import { useMemo } from 'react';
+
+import * as echarts from 'echarts';
+import React, { useEffect, useRef } from 'react';
+import { StockValue} from '@/types/stock';
 import { format } from 'date-fns';
-import { Chart } from 'react-chartjs-2';
-import { Chart as ChartJS, TimeScale, Tooltip, Legend, CategoryScale, LinearScale } from 'chart.js';
-import { CandlestickController, CandlestickElement } from 'chartjs-chart-financial';
-import { ChartOptions } from 'chart.js';
-import 'chartjs-adapter-date-fns';
 
 
 
-// ✅ 이 줄로 모든 필요한 모듈을 등록
-ChartJS.register(
-  CategoryScale,
-  TimeScale,
-  LinearScale,
-  Tooltip,
-  Legend,
-  CandlestickController,
-  CandlestickElement
-);
+export default function StockChart({ data, symbol }: { data: StockValue[], symbol: string }) {
+  const chartRef = useRef<HTMLDivElement>(null);
 
-import styles from './StockStyles.module.css'
 
-export function StockChart({ data: stockData, symbol }: { data: any[], symbol: string }) {
-  const formattedData = useMemo(() => {
-    return stockData.map(item => ({
-      x: new Date(item.datetime),
-      o: Number(item.open),
-      h: Number(item.high),
-      l: Number(item.low),
-      c: Number(item.close ?? item.price),
-    })).sort((a, b) => a.x.getTime() - b.x.getTime());
-  }, [stockData]);
 
-  console.log("formattedData", formattedData);
+  useEffect(() => {
+    if (!chartRef.current || !data || data.length === 0) return;
+    const sortedData = [...data].sort((a, b) =>
+        new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
+    );
 
-  const data = {
-    datasets: [
-      {
-        label: '봉차트',
-        data: formattedData,
-        barThickness: 4,
-        color: {
-          up: 'red',
-          down: 'blue',
-          unchanged: 'gray'
-        }
-      }
-    ]
-  };
+    const chart = echarts.init(chartRef.current);
 
-  console.log("Chart에 전달하는 data 객체", data);
 
-  // @ts-ignore
-  const options: ChartOptions<'candlestick'> = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top'
+    const option = {
+      title: {
+        text: `${symbol} 차트`,
+        left: 'center'
       },
       tooltip: {
-        mode: 'index',
-        intersect: false
-      }
-    },
-    scales: {
-      x: {
-        type: 'time',
-
-        time: {
-          unit: 'minute',
-          displayFormats: {
-            minute: 'MM/dd HH:mm'
-          }
-        },
-        ticks: {
-          source: 'auto',
-          autoSkip: false,
-          maxRotation: 20,
-          minRotation: 20,
-          font: {
-            size: 10
-          },
-          callback: function (tickValue) {
-            const date = new Date(tickValue);
-            if (!isNaN(date.getTime())) {
-              return format(date, 'MM/dd');
-            }
-            return '';
-          }
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross'
         }
       },
-      y: {
-        beginAtZero: false,
-        position: 'right'
-      }
-    }
-  };
+      xAxis: {
+        type: 'category',
+        data: sortedData.map(item =>
+            format(new Date(item.datetime), 'MM/dd HH:mm')
+        ),
+        scale: true,
+        boundaryGap: true,
+        axisLine: { onZero: false },
+        splitLine: { show: false },
+        min: 'dataMin',
+        max: 'dataMax'
+      },
+      yAxis: {
+        scale: true,
+        splitArea: { show: true }
+      },
+      series: [
+        {
+          name:symbol,
+          type: 'candlestick',
+          data: sortedData.map(item => [item.open, item.close, item.low, item.high]),
+          itemStyle: {
+            color: '#ef5350',     // 상승 색
+            color0: '#42a5f5',    // 하락 색
+            borderColor: '#ef5350',
+            borderColor0: '#42a5f5'
+          }
+        }
+      ]
+    };
 
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.chart}>
-        <Chart type="candlestick" data={data} options={options} />
-      </div>
-    </div>
-  );
+    chart.setOption(option);
+
+
+
+    return () => {
+      chart.dispose();
+    };
+  }, [data]);
+  console.log("차트용 데이터:", data);
+  return <div ref={chartRef} style={{ width: '100%', height: '500px' }} />;
 }
