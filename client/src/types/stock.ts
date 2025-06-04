@@ -33,6 +33,6 @@ export interface StockInfoProps {
 
 
 export interface StockChartProps {
-  data: StockData[];
+  data: StockValue[];
   symbol: string;
 }
