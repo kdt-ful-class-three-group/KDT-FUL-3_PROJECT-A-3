@@ -23,4 +23,13 @@ export class UsersService {
     `);
     return result.rows;
   }
+
+  // *로그인한 유저 정보 조회
+  async getUserById(userId : string){
+    const result = await this.db.query(`
+      SELECT * FROM users WHERE user_id=$1
+      `,[userId])
+
+      return result.rows[0]
+  }
 }
