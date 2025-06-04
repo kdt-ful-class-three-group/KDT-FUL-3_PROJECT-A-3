@@ -7,6 +7,8 @@ import tradeReducer from './slices/tradeSlice'
 import accountReducer from './slices/accountSlice'
 import stockReducer from './slices/stockSlice'
 import { stockApi } from "./slices/stockApi";
+// 마이페이지 관련 
+import userReducer from './slices/userSlice'
 
 // store
 export const store = configureStore({
@@ -16,6 +18,7 @@ export const store = configureStore({
     account:accountReducer,
     stock:stockReducer,
     [stockApi.reducerPath]:stockApi.reducer,
+    userProfile:userReducer
   },
   middleware:(getDefaultMiddleWare)=> getDefaultMiddleWare().concat(stockApi.middleware)
 })

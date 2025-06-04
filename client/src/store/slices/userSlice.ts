@@ -7,6 +7,7 @@ interface Level {
   level:number;
   name: string;
   // 아이콘?
+  exp:string;
 }
 
 // 유저
@@ -18,8 +19,8 @@ interface UserState{
 
 // 초기상태
 const initialState: UserState={
-  nick : '',
-  level: {level:0, name:''},
+  nick : '닉네임',
+  level: {level:0, name:'신규',exp:'예시'},
   toNextLevel:0
 }
 
