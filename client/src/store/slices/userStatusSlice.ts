@@ -8,6 +8,8 @@ import { tradeItems } from "@/components/portfolio/mocks/tradeItem";
 interface UserStatusState {
   tradeCount : number;
   tradeVolume : number;
+  // successRate : number; //성공률
+  topTrades : TradeItem[] // 많이 거래한 내역 3개
   loading : boolean;
   error : string | null;
 }
@@ -16,6 +18,8 @@ interface UserStatusState {
 const initialState : UserStatusState={
   tradeCount:0,
   tradeVolume:0,
+  // successRate:0,
+  topTrades:[],
   loading:false,
   error:null
 }
@@ -34,8 +38,16 @@ export const getUserStatus = createAsyncThunk(
         (sum:number, item:any)=> sum+item.price*item.much,0
       )
 
+      // 성공률
+      // const successCount = 1
+      // const successRate = tradeCount === 0 ? 0 : Math.round((successCount/tradeCount)*100)
+
+      // 상위3개
+      const topTrades = [...tradeItems].sort((a,b)=>(b.price * b.much) - (a.price * a.much)).slice(0,3)
+
+
       // * 성공 시 fulfilled , 실패시 rejected
-      return {tradeCount, tradeVolume}
+      return {tradeCount, tradeVolume, topTrades}
     }
     catch(err){
       return thunkAPI.rejectWithValue('거래 데이터 불러오기 실패')
@@ -59,6 +71,7 @@ export const userStatusSlice = createSlice({
       .addCase(getUserStatus.fulfilled,(state,action)=>{
         state.tradeCount = action.payload.tradeCount;
         state.tradeVolume = action.payload.tradeVolume;
+        state.topTrades = action.payload.topTrades;
         state.loading = false
       })
       // *실패 : 에러 메시지
