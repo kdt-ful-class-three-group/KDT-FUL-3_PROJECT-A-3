@@ -32,7 +32,7 @@ export class TradeService {
 
     } else if (user.type === 'sell') {
 
-    const value = [account_number.rows[0].account_number, req.user_id, user.symbol, user.price, user.much, true];
+    const value = [account_number.rows[0].account_number, req.user_id, user.symbol, user.price, user.much, false];
 
     const result = await this.db.query(query, value);
       console.log('타입이 판매일때:',result.rows[0]);

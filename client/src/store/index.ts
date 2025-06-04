@@ -6,6 +6,7 @@ import signupReducer from './slices/signupSlice'
 import tradeReducer from './slices/tradeSlice'
 import accountReducer from './slices/accountSlice'
 import stockReducer from './slices/stockSlice'
+import symbolPriceReducer from './slices/symbolPriceSlice'
 import { stockApi } from "./slices/stockApi";
 // 마이페이지 관련 
 import userReducer from './slices/userSlice'
@@ -18,6 +19,7 @@ export const store = configureStore({
     trade: tradeReducer,
     account:accountReducer,
     stock:stockReducer,
+    symbolPrice: symbolPriceReducer,
     [stockApi.reducerPath]:stockApi.reducer,
     userProfile:userReducer,
     userStatus : UserStatusReducer
