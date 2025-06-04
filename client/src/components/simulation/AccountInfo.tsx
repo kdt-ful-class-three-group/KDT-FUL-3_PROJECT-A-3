@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { Button } from "../common/Button"
 import { useRouter } from "next/navigation"
+import styles from './SimulationStyles.module.css'
 
 //타입
 type Account = {
@@ -41,7 +42,7 @@ export default function AccountInfo(){
   },[])
 
   return(
-    <div>
+    <div className={styles.info}>
       <div>
         <p>내 계좌</p>
         <h3>{account?.account_number}</h3>

@@ -2,6 +2,7 @@
 
 import SearchVoca from "./SearchVoca"
 import Consonant from "./Consonant"
+import styles from './VocaStyles.module.css'
 //타입 지정
 type Item = {
   //검색에 해당하는 데이터
@@ -23,7 +24,7 @@ type Props<T> = {
 export default function VocaToolBar<T extends {voca?:string; name:string;}>({value, onChange, data, onSelect, onScroll}:Props<T>){
 
   return(
-    <div>
+    <div className={styles.voca}>
       <SearchVoca
         value={value}
         onChange={onChange}

@@ -1,49 +1,11 @@
-'use client';
-import { usePathname } from 'next/navigation';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useRef } from 'react';
-import { pageOrder } from './utils/pageOrder'; // adjust path if needed
+// app/(main)/layout.tsx
 import { Header } from "@/components/common/menu/Header";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const prevPathRef = useRef(pathname);
-
-  const vocaIndex = pageOrder.indexOf('/voca');
-  const currentIndex = pageOrder.indexOf(pathname);
-  const prevIndex = pageOrder.indexOf(prevPathRef.current);
-
-  let direction: 'left' | 'right' = 'left';
-  if (pathname === '/voca' && prevIndex < currentIndex) direction = 'right';
-  else if (pathname === '/voca' && prevIndex > currentIndex) direction = 'left';
-  else if (prevPathRef.current === '/voca' && currentIndex < prevIndex) direction = 'left';
-  else if (prevPathRef.current === '/voca' && currentIndex > prevIndex) direction = 'right';
-
-  prevPathRef.current = pathname;
-
   return (
     <>
       <Header />
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-            style={{
-              margin: '0 auto',
-              padding: '0 12vw',
-              maxWidth: '1200px',
-              boxSizing: 'border-box'
-            }}
-            key={pathname}
-            initial={{ x: direction === 'left' ? 300 : -300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: direction === 'left' ? -300 : 300, opacity: 0 }}
-            transition={{
-              x: { duration: 0.2 },
-              opacity: { duration: 0.1 } // 불투명도는 더 빨리 사라짐
-            }}
-        >
-          {children}
-        </motion.div>
-        </AnimatePresence>
+      {children}
     </>
   );
 }

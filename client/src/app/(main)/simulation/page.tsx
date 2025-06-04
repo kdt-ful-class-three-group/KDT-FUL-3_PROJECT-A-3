@@ -2,17 +2,18 @@
 
 import AccountInfo from "@/components/simulation/AccountInfo";
 import StockTab from "@/components/simulation/StockTab";
-import styles from './SimulationStyles.module.css'
+import PageWrapper from "@/components/page/PageWrapper";
 
 export default function Simulation() {
 
   
 
   return (
-    <div className={styles.simulation}>
+    <PageWrapper>
       <h2>시뮬레이션 페이지</h2>
       <AccountInfo />
       <StockTab />
-    </div>
+    </PageWrapper>
+
   );
 }
