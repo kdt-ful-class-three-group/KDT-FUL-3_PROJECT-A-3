@@ -8,9 +8,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { AccountModule } from './account/account.module';
 import { VocaModule } from './voca/voca.module';
 import { UserPortfolioModule } from './userportfolio/userportfolio.module';
+import { FavoritessModule } from './favorites/favorites.module';
 
 @Module({
 
-    imports: [ConfigModule.forRoot({isGlobal:true}),AuthModule, UsersModule, StocksModule, JwtModule, AccountModule,VocaModule, UserPortfolioModule],
+    imports: [ConfigModule.forRoot({isGlobal:true}),AuthModule, UsersModule, StocksModule, JwtModule, AccountModule,VocaModule, UserPortfolioModule, FavoritessModule],
 })
 export class AppModule {}
