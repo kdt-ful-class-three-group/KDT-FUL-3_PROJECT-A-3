@@ -36,17 +36,19 @@ export default function Home() {
 
   // * 상탯값이 ok일 경우 홈페이지 화면이 뜨게 만듦.
   if (authStatus === 'ok') {
-  return (
-    <div>
-      <div>
-        <AccountSection />
-      </div>
+  
 
+    return (
       <div>
-        <NewsSection />
+        <div>
+          <AccountSection />
+        </div>
+
+        <div>
+          <NewsSection />
+        </div>
       </div>
-    </div>
-  )
+    )
   }
 
   // * 상탯값이 no일 경우 로그인페이지로 이동 버튼이 있는 화면이 뜨게 만듦.
