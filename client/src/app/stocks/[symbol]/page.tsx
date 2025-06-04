@@ -15,6 +15,7 @@ export default function StockPage() {
   const params = useParams();
   const symbol = (params?.symbol ?? '') as string;
   const [stockData, setStockData] = useState<StockData  | null>(null);
+  const [favorites, setFavorites] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -24,6 +25,23 @@ export default function StockPage() {
       .catch(console.error);
   }, [symbol])
 
+  useEffect(() => {
+    const favoritesCheck = async () => {
+    const res = await axios.post('http://localhost:8008/favorites/check', 
+      {symbol: symbol}, 
+      { withCredentials: true })
+
+
+      if(res.data.status === true) {
+        setFavorites(true);
+      }else {
+        setFavorites(false);
+      }
+    }
+
+    favoritesCheck();
+  }, [])
+
   if (!stockData) return <div>주식불러오는중...</div>;
 
   return (
@@ -31,6 +49,27 @@ export default function StockPage() {
       <div>
       </div>
       <div>
+        
+        {favorites ?
+        <button onClick={async () => {
+          const res = await axios.post('http://localhost:8008/favorites/delete', 
+            { symbol: symbol }, 
+            { withCredentials: true })
+
+            console.log(res.data);
+            window.location.reload()
+        }}>{symbol} 관심해제</button>
+        : 
+
+          <button onClick={async () => {
+          const res = await axios.post('http://localhost:8008/favorites', 
+            { symbol: symbol }, 
+            { withCredentials: true })
+
+            console.log(res.data);
+            window.location.reload()
+        }}>{symbol} 관심등록</button> 
+        }
         <StockInfo
             symbol={stockData.symbol ?? 'UNKNOWN'}
             price={stockData.close}
