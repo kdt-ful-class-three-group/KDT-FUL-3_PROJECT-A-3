@@ -7,7 +7,6 @@ import { CandlestickController, CandlestickElement } from 'chartjs-chart-financi
 import { ChartOptions } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 
-// ✅ 이 줄로 모든 필요한 모듈을 등록
 ChartJS.register(
   CategoryScale,
   TimeScale,
@@ -26,12 +25,11 @@ export function StockChart({ data: stockData, symbol }: { data: any[], symbol: s
 
     stockData.forEach(item => {
       if (!item || !item.datetime) return;
-      const date = item.datetime.slice(0, 10); // YYYY-MM-DD
+      const date = item.datetime.slice(0, 16); // YYYY-MM-DDTHH:mm (5분 단위 그룹화 대비)
       if (!grouped[date]) grouped[date] = [];
       grouped[date].push(item);
     });
 
-    console.log("데이터",stockData)
 
     return Object.entries(grouped).map(([date, items]) => ({
       x: new Date(date),
