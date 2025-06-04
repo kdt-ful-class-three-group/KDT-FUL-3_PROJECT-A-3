@@ -3,6 +3,7 @@ export interface TradeContentProps {
 }
 
 export interface TradeKeypadProps {
+  symbol:string;
   amount: string;
   setAmount: (value: string) => void;
 }

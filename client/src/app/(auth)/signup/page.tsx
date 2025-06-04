@@ -1,6 +1,7 @@
 'use client'
+import { SignupForm } from "@/components/auth/signup/SignupForm";
 import axios from "axios";
-import { SignupForm } from "@/components/signup/SignupForm"
+// import { SignupForm } from "@/components/signup/SignupForm"
 
 export default function SignupPage() {
 
