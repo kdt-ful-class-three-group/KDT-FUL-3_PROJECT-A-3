@@ -14,10 +14,11 @@ type Props = {
   setSelectedType: (val:string)=>void
   setStartDate : (val:string)=>void
   setEndDate : (val:string)=>void
+  resetBtn : ()=>void
 }
 
 export default function TradeFilter({
-  stock, selectedStock, selectedType, startDate, endDate, setSelectedStock, setSelectedType, setStartDate, setEndDate
+  stock, selectedStock, selectedType, startDate, endDate, setSelectedStock, setSelectedType, setStartDate, setEndDate,resetBtn
 }:Props){
 
   // 전체 추가
@@ -25,14 +26,6 @@ export default function TradeFilter({
   stock.forEach(i=>{
     stockOption.push({name:i, value:i})
   })
-
-  // 초기화
-  const resetBtn = ()=>{
-    setSelectedStock('all')
-    setSelectedType('all')
-    setStartDate('')
-    setEndDate('')
-  }
 
   return(
     <div style={{display:'flex'}}>
