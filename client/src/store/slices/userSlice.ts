@@ -14,14 +14,14 @@ interface Level {
 interface UserState{
   nick : string;
   level : Level;
-  toNextLevel : number;
+  toNextLevel : {count : number, volume:number};
 }
 
 // 초기상태
 const initialState: UserState={
   nick : '닉네임',
   level: {level:0, name:'신규',exp:'예시'},
-  toNextLevel:0
+  toNextLevel:{count:0,volume:0}
 }
 
 // 슬라이스
