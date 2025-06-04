@@ -104,7 +104,7 @@ export function AccountSection() {
     ])
   }}>판매</button> */}
 
-        <button onClick={async () => {
+        {/* <button onClick={async () => {
           const res = await axios.post('http://localhost:8008/favorites', 
             { symbol: 'AAPL' }, 
             { withCredentials: true })
@@ -134,7 +134,7 @@ export function AccountSection() {
             { withCredentials: true })
 
             console.log(res.data);
-        }}>TSLA 관심해제</button>
+        }}>TSLA 관심해제</button> */}
     </>
   );
 }
