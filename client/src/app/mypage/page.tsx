@@ -62,7 +62,6 @@ export default function MyPage() {
     //함수 실행
     fetchSet()
 
-
   },[])
 
   
