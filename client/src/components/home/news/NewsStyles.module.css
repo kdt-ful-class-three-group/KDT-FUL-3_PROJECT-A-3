@@ -1,0 +1,16 @@
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.image {
+  width: 100%;
+  max-width: 400px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
