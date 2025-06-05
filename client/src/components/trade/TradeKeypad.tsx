@@ -150,7 +150,9 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
 }
 
   const modalClick = () => {
+    if(Number(amount) !== 0) {
     setModalMessage(`정말로 거래 하시겠습니까?`)
+    }
   }
 
   const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
