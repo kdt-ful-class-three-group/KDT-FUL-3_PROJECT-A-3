@@ -55,13 +55,14 @@ export function AccountSection() {
   // const money : string = `1,000,000`;
 
   return (
-    <div className={styles.section}>
-      <Section
-        title="주식"
-        // description="주식 시장의 최신 동향과 정보를 확인하세요."
-        children={hasAccount ? <MyStock /> : <CreateAccount onClick={() => setShowModal(true)} />}
-      />
-      {showModal && <Modal type='create' />}
-    </div>
+      <div className="my-[5%] justify-items-center">
+
+          <Section
+              title=""
+              // description="주식 시장의 최신 동향과 정보를 확인하세요."
+              children={hasAccount ? <MyStock/> : <CreateAccount onClick={() => setShowModal(true)}/>}
+          />
+          {showModal && <Modal type='create'/>}
+      </div>
   );
 }

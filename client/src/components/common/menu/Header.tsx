@@ -3,7 +3,7 @@ import { Tab } from "./Tab";
 
 export function Header(){
   return(
-    <header>
+    <header >
       <Nav />
       <Tab />
     </header>

@@ -1,12 +1,12 @@
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 534px;
-  margin: 0 auto;
-  background-color: #B0DB9C
-}
+/*.nav {*/
+/*  display: flex;*/
+/*  justify-content: space-between;*/
+/*  align-items: center;*/
+/*  width: 100%;*/
+/*  max-width: 534px;*/
+/*  margin: 0 auto;*/
+/*  background-color: #B0DB9C*/
+/*}*/
 
 .tab {
   max-width: 480px;
