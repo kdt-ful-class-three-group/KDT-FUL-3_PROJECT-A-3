@@ -1,8 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 // 타입
+
+interface HoldingItem {
+  symbol: string;
+  much: number;
+}
 interface StockState{
-  holdings : string[]
+  holdings : HoldingItem[]
   interest : string[]
   selectedTab : '보유' | '관심' | '실시간 순위'
 }
@@ -19,7 +24,7 @@ const stockSlice = createSlice({
   name:'stock',
   initialState,
   reducers:{
-    setHoldings: (state, action:PayloadAction<string[]>)=>{
+    setHoldings: (state, action:PayloadAction<HoldingItem[]>)=>{
       state.holdings=action.payload
     },
     setInterest:(state, action:PayloadAction<string[]>)=>{

@@ -100,7 +100,7 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
         <Input
           className={styles.amountInput}
           label=""
-          placeholder="몇 주 구매할까요?"
+          placeholder={mode === 'sell' ? '몇 주 판매할까요?' : '몇 주 구매할까요?'}
           value={amount}
           onChange={handleAmount}
         />
