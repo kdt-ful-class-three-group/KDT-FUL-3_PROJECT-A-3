@@ -9,8 +9,8 @@ interface StockState{
 
 // 초기값
 const initialState : StockState = {
-  holdings:['aapl'],
-  interest:['tsla','googl'],
+  holdings:[],
+  interest:[],
   selectedTab:'보유'
 }
 
