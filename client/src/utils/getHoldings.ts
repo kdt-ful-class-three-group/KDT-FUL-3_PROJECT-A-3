@@ -28,13 +28,13 @@ export function getHoidingWithAvg(items:TradeItem[],currentPrices:Record<string,
 
     // 매수
     if(item.buy_sell===true){
-      record.quantity += item.much;
-      record.totalBuy += item.much;
-      record.buyAmount += item.much * item.price
+      record.quantity += Number(item.much);
+      record.totalBuy += Number(item.much);
+      record.buyAmount += Number(item.much) * Number(item.price)
     }
     // 매도
     else {
-      record.quantity -= item.much
+      record.quantity -= Number(item.much)
     }
 
     map.set(item.symbol, record)

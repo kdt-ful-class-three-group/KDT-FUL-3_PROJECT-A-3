@@ -12,7 +12,7 @@ export const DonutChartData = (items:TradeItem[])=>{
 
   for(const item of items){
     const current = map.get(item.symbol)||0
-    map.set(item.symbol, current + item.much) 
+    map.set(item.symbol, current + Number(item.much)) 
   }
 
   //도넛 차트용 데이터로 분리

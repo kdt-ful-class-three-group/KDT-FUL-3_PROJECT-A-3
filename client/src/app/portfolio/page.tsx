@@ -25,7 +25,7 @@ export default function portfolioPage(){
   // ! 총 자산 더미데이터
   const totalValue = 2000000
   const invested = 1000000
-  // ! 종목 별 리스트
+  //종목 별 리스트
   // ? 현재가
   const [currentPrices, setCurrentPrices]= useState<Record<string,number>>({})
   //보유 종목 계산
@@ -87,7 +87,7 @@ export default function portfolioPage(){
       {/* 도넛 차트 */}
       <div style={{width:'50%'}}>
         <h1>거래량</h1>
-        <DoughnutChart trades={tradeItems}/>
+        <DoughnutChart trades={tradeData}/>
       </div>
       {/* 보유 종목 리스트  + 거래내역 이동*/}
       <HoldingsList items={holdingData}/>
