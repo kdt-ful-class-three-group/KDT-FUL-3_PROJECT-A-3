@@ -44,7 +44,23 @@ export const getUserStatus = createAsyncThunk(
       // const successRate = tradeCount === 0 ? 0 : Math.round((successCount/tradeCount)*100)
 
       // 상위3개
-      const topTrades = [...res.data].sort((a,b)=>(b.price * b.much) - (a.price * a.much)).slice(0,3)
+      //  종목별 누적 거래금액
+      // 종목별 누적 거래금액을 계산하기 위한 Map 생성
+      const tradeMap = new Map<string,number>()
+      res.data.forEach((data:any)=>{
+        // 각 symbol(종목)에 대해 누적 거래금액을 더함
+        const current = tradeMap.get(data.symbol)||0
+        tradeMap.set(data.symbol,current+data.price*data.much) //{"symbol"=> 누적거래금액}
+      })
+
+      // 종목별 누적 거래금액이 가장 높은 상위 3개 종목을 구함
+      // 1. Map을 배열로 변환 후, 거래금액 기준 내림차순 정렬
+      // 2. 상위 3개 symbol만 추출
+      // 3. symbol에 해당하는 첫 거래내역을 res.data에서 찾아 반환
+      // 4. 혹시라도 undefined가 섞이면 filter(Boolean)으로 제거
+      const topTrades = Array.from(tradeMap.entries()).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([symbol])=>{
+        return res.data.find((item:any)=>item.symbol===symbol)
+      }).filter(Boolean) //혹시라도 undefined가 섞이면 제거
 
 
       // * 성공 시 fulfilled , 실패시 rejected
