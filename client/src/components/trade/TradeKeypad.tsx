@@ -7,12 +7,14 @@ import styles from './TradeStyles.module.css'
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/store"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { setHavingSymbol } from "@/store/slices/havingSymbolSlice"
 import { setField } from "@/store/slices/accountSlice"
 
 export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeContentProps & TradeKeypadProps & { price: number }) {
   const total = Number(amount) * price;
+
+  const [modalMessage, setModalMessage] = useState<string | null>(null);
 
   // * 리덕스 툴킷을 활용해 가지고있는 전역으로 보내는 주식의 보유 수, 자산의 정보를 가져오기 위한 코드
   const dispatch = useDispatch()
@@ -137,6 +139,10 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
     }
   };
 
+  const modalClick = () => {
+    setModalMessage(`정말로 거래 하시겠습니까?`)
+  }
+
   const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
   
@@ -172,6 +178,30 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
       {/* 보유 풀이 부족하거나, 주식이 부족한 경우 표시하는 문구 */}
         {mode === 'buy' ? total >= Number(asset) ? <p className={styles.textRed}>보유한 풀이 부족합니다</p>: '' : ''}
         {mode === 'sell' ? Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0) ? <p className={styles.textRed}>보유한 주식이 부족합니다.</p>: '' : ''}
+
+        {modalMessage && (
+        <div style={{
+          position: 'fixed',
+          top: '40%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: 'white',
+          padding: '10%',
+          borderRadius: '8px',
+          boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+          zIndex: 1000,
+          textAlign: 'center'
+        }}>
+          <p>{modalMessage}</p>
+          <h1>{`종목 명 : ${symbol}`}</h1>
+          <p>{`거래 수량 : ${amount}주`}</p>
+          <p>{`현재가 : ${price}`}</p>
+          <p>{`총 가격: ${total}`}</p>
+          <button onClick={() => {handleClickWithCheck}}> 확인 </button>
+          <button onClick={() => {setModalMessage(null)}}> 취소 </button>
+          {mode === 'buy' ? total >= Number(asset) ? <p className={styles.textRed}>보유한 풀이 부족합니다</p>: '' : ''}
+          {mode === 'sell' ? Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0) ? <p className={styles.textRed}>보유한 주식이 부족합니다.</p>: '' : ''}
+        </div>)}
       </div>
 
       <div className={styles.keypadGrid}>
@@ -187,7 +217,7 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
         <Button
           className={mode === 'sell' ? styles.sellButton : styles.buyButton}
           name={mode === 'sell' ? "판매하기" : "구매하기"}
-          onClick={handleClickWithCheck}
+          onClick={modalClick}
         />
       </div>
     </div>
