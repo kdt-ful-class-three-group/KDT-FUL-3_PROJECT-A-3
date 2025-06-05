@@ -1,7 +1,7 @@
 'use client'
 import StockShow from "./StockShow"
 import { Button } from "../common/Button"
-import { useDispatch, UseDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/store"
 import { setSelectedTab } from "@/store/slices/stockSlice"
 

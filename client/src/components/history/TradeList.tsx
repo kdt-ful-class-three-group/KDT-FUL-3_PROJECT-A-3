@@ -2,7 +2,7 @@ import TradeFilter from "./TradeFilter";
 import TradeTable from "./TradeTable";
 import { useState } from "react";
 // 타입
-import { TradeItem, TradeType } from "@/types/tradeItem";
+import { TradeItem } from "@/types/tradeItem";
 type Props={
   trades:TradeItem[]
 }
