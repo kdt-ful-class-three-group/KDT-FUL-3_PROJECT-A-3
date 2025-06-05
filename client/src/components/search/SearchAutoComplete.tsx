@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { SearchBar } from "./SearchBar";
 import { SearchDropdown } from "./SearchDropdown";
 import { stockList } from "@/components/stocks/StockList";
+import { SearchContents } from "./SearchContents";
 import styles from "./SearchStyles.module.css";
 
 export function SearchAutoComplete() {
@@ -41,6 +42,10 @@ export function SearchAutoComplete() {
 
   return (
     <div className={styles.wrapper} ref={wrapperRef}>
+      <div>
+        <h1>어떤 종목을 찾고 계신가요?</h1>
+      </div>
+
       <SearchBar
         value={query}
         onChange={setQuery}
@@ -53,6 +58,7 @@ export function SearchAutoComplete() {
           visible={true}
         />
       )}
+      <SearchContents />
     </div>
   );
 }

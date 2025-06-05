@@ -1,5 +1,4 @@
 import { Select } from "@/components/common/Select";
-import { on } from "events";
 import { useEffect, useState } from "react";
 
 interface BirthFieldProps {
