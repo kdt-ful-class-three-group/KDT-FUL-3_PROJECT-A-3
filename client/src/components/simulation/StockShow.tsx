@@ -59,6 +59,7 @@ export default function StockShows({ btnValue }: { btnValue: string }) {
 
   // 전체 리스트
   const all = stockList.map(i => i.symbol)
+  // 전체 리스트에 대해서 등락률로 정렬
   // RTK 해당 데이터 가져오기
   const holdings = useSelector((state: RootState) => state.stock.holdings)
   const interest = useSelector((state: RootState) => state.stock.interest)
@@ -70,7 +71,7 @@ export default function StockShows({ btnValue }: { btnValue: string }) {
 
   if (btnValue === '관심') {
     symbols = interest;
-  } else if (btnValue === '전체') {
+  } else if (btnValue === '실시간 순위') {
     symbols = all;
   }
 

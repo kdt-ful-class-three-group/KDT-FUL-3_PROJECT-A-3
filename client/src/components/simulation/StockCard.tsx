@@ -36,8 +36,8 @@ export default function StockCard({ symbol, much }: Props) {
         {much !== undefined && <p>{much}주</p>}
       </div>
       <div>
-        <p>{item.current}풀</p>
-        <p>{item.comparison} ({item.change.toFixed(2)}%)</p>
+        <p>현재 : {item.current}풀</p>
+        <p>{item.comparison.toFixed(5)}풀 ({item.change.toFixed(2)}%)</p>
       </div>
     </div>
   );
