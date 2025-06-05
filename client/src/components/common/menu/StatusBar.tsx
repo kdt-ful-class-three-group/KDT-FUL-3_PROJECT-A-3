@@ -94,7 +94,7 @@ export default function StatusBar(){
     <div style={{display:'flex'}}>
       <p>
         {list[index]?.icon === 'water' ? (
-        <IoMdWater/>
+        <IoMdWater color="skyblue"/>
         ) : list[index]?.icon === 'up' ? (
         <FaCaretUp color='red'/>
         ) : list[index]?.icon === 'down' ? (
