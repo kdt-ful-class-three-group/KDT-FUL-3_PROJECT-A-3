@@ -5,6 +5,7 @@ import {response} from "express";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { UserPortfolioDto } from "./dto/userportfolio.dto";
 import { TradeService } from "./userportfolio.service";
+import { HistoryPortfolio } from './tradeHistory.service';
 
 
 @Controller('userportfolio')
@@ -12,6 +13,7 @@ export class UserPortfolioController {
   constructor(
     private readonly TradeService: TradeService,
     private readonly GetPortfolio: GetPortfolio,
+    private readonly HistoryPortfolio: HistoryPortfolio,
   ) {}
 
   @Post('calc')
@@ -26,5 +28,12 @@ export class UserPortfolioController {
   async trade(@Body() dto: UserPortfolioDto, @Req() req: any) {
     console.log('데이터가 들어는 와유');
     return this.TradeService.trade(dto, req.user);
+  }
+
+  @Post('hitory')
+  @UseGuards(AuthGuard('jwt'))
+  async hitory(@Req() req: any) 
+  {
+    return this.HistoryPortfolio.history(req.user); // dto 제거
   }
 } 
