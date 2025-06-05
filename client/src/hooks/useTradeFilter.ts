@@ -11,7 +11,7 @@ export function useTradeFilter(trades:TradeItem[]){
 
   //중복 없이 주식 종목 가져오기
   const uniqueStock = useMemo(()=>{
-    return Array.from(new Set(trades.map(i=>i.stock_name)))
+    return Array.from(new Set(trades.map(i=>i.symbol)))
   },[trades])
 
   // 초기화
@@ -26,14 +26,14 @@ export function useTradeFilter(trades:TradeItem[]){
   const filtered = useMemo(()=>{
     return trades.filter(item=>{
       const date = item.date.split('T')[0] //날짜
-      const type = item.buy_sale===true ? '구매' : '판매' //구매,판매
+      const type = item.buy_sell===true ? '구매' : '판매' //구매,판매
 
       // 시작날짜
       const afterStart = !startDate || date >= startDate
       // 종료날짜
       const beforeEnd = !endDate || date<=endDate
       // 주식종목
-      const matchStock = selectedStock ==='all' || selectedStock===item.stock_name
+      const matchStock = selectedStock ==='all' || selectedStock===item.symbol
       // 타입
       const matchType = selectedType === 'all' || selectedType === type
 
