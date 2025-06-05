@@ -14,6 +14,5 @@ export default function Simulation() {
       <AccountInfo />
       <StockTab />
     </PageWrapper>
-
   );
 }

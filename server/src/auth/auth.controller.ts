@@ -2,13 +2,16 @@ import { JwtService } from '@nestjs/jwt';
 import { IdCheckDto } from './dto/idCheck.dto';
 import { IdCheckService } from './idCheck.service';
 import { LoginService } from './login.service';
-import { Body, Controller, Post, Get,HttpCode, Res, UnauthorizedException, Req } from "@nestjs/common";
+import { Body, Controller, Post, Get, HttpCode, Res, UnauthorizedException, Req } from "@nestjs/common";
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import {EmailCheckService} from "./emailCheck.service";
-import {EmailCheckDto} from "./dto/emailCheck.dto";
+import { EmailCheckService } from "./emailCheck.service";
+import { EmailCheckDto } from "./dto/emailCheck.dto";
 import { Response } from 'express';
+import { SendCodeDto } from './dto/sendCode.dto';
+import { VerifyCodeDto } from './dto/verifyCode.dto';
+import { BadRequestException } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
@@ -52,7 +55,8 @@ export class AuthController {
   });
 
   return { message, user_id };
-}
+  }
+  
   @Post('idCheck')
   async idCheck(@Body() dto: IdCheckDto) {
     return this.IdCheckService.idCheck(dto);
@@ -62,6 +66,22 @@ export class AuthController {
         return this.EmailCheckService.emailCheck(dto);
     }
 
+  @Post('sendCode')
+  async sendCode(@Body() dto: SendCodeDto) {
+    return this.authService.sendEmailCode(dto.email);
+  }
+
+  @Post('verifyCode') 
+  async verifyCode(@Body() dto: VerifyCodeDto) {
+    const isValid = this.authService.verifyCode(dto.email, dto.code);
+    if (!isValid) {
+      throw new BadRequestException('인증번호가 일치하지 않습니다.');
+    }
+    return { message: '이메일 인증 완료' };
+  }
+
+  
+  
   // * auth/refresh로 post요청이 들어오면
   @Post('refresh')
   // * { passthrough: true } => NestJS가 기본 응답 흐름을 유지한 채, res 객체만 활용하겠다는 설정

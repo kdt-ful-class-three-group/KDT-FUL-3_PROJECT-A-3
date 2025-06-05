@@ -3,6 +3,7 @@ import { Select } from "@/components/common/Select";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/common/Button";
 import axios from "axios";
+import { EmailVerification } from "./EmailVerification";
 
 // 기존 inputProps 사용하려했는데 안되겠어.
 interface EmailFieldProps {
@@ -20,7 +21,7 @@ const emailDomains = [
   { name: "직접입력", value: "custom" },
 ];
 
-export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
+export function EmailField({ value, onChange, onValidChange }: EmailFieldProps) {
 
   // 상태
   // 이메일
@@ -28,7 +29,7 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
   // 도메인
   const [emailDomain, setEmailDomain] = useState('')
   // 커스텀 이메일
-  const [customEmail, setCustomEmail]= useState('')
+  const [customEmail, setCustomEmail] = useState('')
   // 메시지
   const [error, setError] = useState('')
 
@@ -38,7 +39,7 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
   const [codeError, setCodeError] = useState('')
 
   //최종 이메일
-  const fullEmail = ():string =>{
+  const fullEmail = (): string => {
     // custom일때
     if (emailDomain === 'custom') return `${emailId}@${customEmail}`;
     // 값이 없을 때
@@ -48,33 +49,33 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
   }
 
   // 이메일 유효성 검사
-  const checkEmail = (email:string):boolean => {
+  const checkEmail = (email: string): boolean => {
     // const isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
   }
 
   // 값이 주어질 때마다 유효성 검사
-  useEffect(()=>{
+  useEffect(() => {
     //emailId@emailDomain 또는 customEmail값
     const email = fullEmail();
 
-    if(!emailId || (!emailDomain && !customEmail)){
+    if (!emailId || (!emailDomain && !customEmail)) {
       onChange('') // 이메일이 비어있거나 도메인이 선택되지 않은 경우
       setError('이메일을 입력해주세요') // 에러 메시지 초기화
       onValidChange?.(false) // 유효성 검사 실패
       return;
     }
-      //유효성 검사에 해당되어야 함
-      if(checkEmail(email)){
-        onChange(email)
-        setError('중복확인을 해주세요')
-        onValidChange?.(true) // 유효성 검사 성공
-      } else {
-        onChange('')
-        setError('유효하지 않은 이메일 형식입니다')
-        onValidChange?.(false) // 유효성 검사 실패
-      }
-  },[emailId, emailDomain, customEmail])
+    //유효성 검사에 해당되어야 함
+    if (checkEmail(email)) {
+      onChange(email)
+      setError('중복확인을 해주세요')
+      onValidChange?.(true) // 유효성 검사 성공
+    } else {
+      onChange('')
+      setError('유효하지 않은 이메일 형식입니다')
+      onValidChange?.(false) // 유효성 검사 실패
+    }
+  }, [emailId, emailDomain, customEmail])
 
 
   // const isDisabled = !emailId || (!emailDomain && !customEmail) || !checkEmail(fullEmail());
@@ -105,18 +106,6 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
       }
     }
   }
-  
-  // !이메일 인증번호 로직추가
-  const submitEmailCode = () => {
-    // 인증번호 전송 로직
-    console.log("인증번호 전송 클릭");
-  }
-
-  const submitEmailAuth = () => {
-    // 인증번호 확인 로직
-    console.log("인증번호 확인 클릭");
-  }
-
 
   return (
     <div>
@@ -124,7 +113,7 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
         name="emailLocal"
         placeholder="이메일"
         value={emailId}
-        onChange={(e) => {setEmailId(e.target.value) }}
+        onChange={(e) => { setEmailId(e.target.value) }}
       />
 
       <span>@</span>
@@ -133,14 +122,14 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
         name="emailDomain"
         option={emailDomains}
         value={emailDomain}
-        onChange={(e) => {setEmailDomain(e.target.value)}}
+        onChange={(e) => { setEmailDomain(e.target.value) }}
       />
 
       <Input
         type="text"
         label=""
         value={customEmail}
-        onChange={(e) => {setCustomEmail(e.target.value)}}
+        onChange={(e) => { setCustomEmail(e.target.value) }}
         disabled={emailDomain !== "custom"}
         name="customDomain"
         placeholder="직접 입력"
@@ -152,26 +141,10 @@ export function EmailField({value, onChange, onValidChange}: EmailFieldProps) {
         type="button"
         onClick={submitEmail}
       />
-      <Input
-        type="text"
-        label=""
-        placeholder="인증번호"
-        value={emailCode}
-        onChange={(e) => {setEmailCode(e.target.value)}}
-        name="emailAuth" />
-      
-      <Button
-        name='인증번호 전송'
-        type="button"
-        // disabled={isDisabled}
-        //! 이메일 인증번호 전송 로직
-        onClick={submitEmailCode}
-      />
-      {codeError && <p>{codeError}</p>}
-      <Button name='확인'
-        type="button"
-      //! 이메일 인증번호 확인 로직
-        onClick={submitEmailAuth}
+      {/* 이메일 인증코드 발급/검증 */}
+      <EmailVerification
+        email={fullEmail()}
+        onValidChange={onValidChange}
       />
     </div>
   );
