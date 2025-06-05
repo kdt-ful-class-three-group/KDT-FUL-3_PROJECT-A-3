@@ -4,14 +4,7 @@ import axios from "axios"
 import { Button } from "../common/Button"
 import { useRouter } from "next/navigation"
 import styles from './SimulationStyles.module.css'
-
-//타입
-type Account = {
-  id:number;
-  user_id:string;
-  account_number:string;
-  asset:string
-}
+import { Account } from "@/types/account"
 
 export default function AccountInfo(){
   const router = useRouter();

@@ -2,13 +2,16 @@
 // 주식관련
 import { useDispatch, useSelector } from "react-redux"
 import { getUserStatus } from "@/store/slices/userStatusSlice"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import type { RootState, AppDispatch } from "@/store"
 import { Button } from "../common/Button"
 import { useRouter } from "next/navigation"
+import { Account } from "@/types/account"
 
 export default function UserStatus(){
 
+  const [account, setAccount] = useState<Account | null>(null)
+  
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
   //상태값 가져오기

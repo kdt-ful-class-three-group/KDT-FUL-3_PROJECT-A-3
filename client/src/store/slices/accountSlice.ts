@@ -1,4 +1,4 @@
-//* 사용자의 회원가입 입력 정보를 Redux 전역상태로 관리하기 위해 작성
+//* 사용자의 정보를 Redux 전역상태로 관리하기 위해 작성
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
