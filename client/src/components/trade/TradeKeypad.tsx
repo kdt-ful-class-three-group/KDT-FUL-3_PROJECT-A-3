@@ -19,6 +19,11 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
   const havingSymbols = useSelector((state: RootState) => state.havingSymbol)
   const { account_number, asset } = useSelector((state: RootState) => state.account)
 
+  // * 자산의 정보를 변경하기 위한 코드를 축약한 함수
+  function dataChange(field: 'account_number' | 'asset', value: string) {
+    dispatch(setField({ field, value }))
+  }
+
   // * 보유 주식의 이름과 보유 주식 수를 판별하는 코드
   useEffect(() => {
     const checkSymbol = async () => {
@@ -32,6 +37,24 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
     }
     checkSymbol();
   },[])
+
+  // ! 구매, 판매 페이지에서 새로고침 할 경우 asset데이터를 가져오지 못하는 현상이 발생해, 거래 페이지에 들어가면 asset 정보를 변경하도록 만듦.
+  useEffect(() => {
+    axios.post('http://localhost:8008/account/check', {}, {
+      // * 쿠키를 포함해서 보낸다는 설정.
+      withCredentials: true, // 쿠키 전송
+    })
+      // * 응답이 제대로 오면, 계좌 있음 메시지를 표출하고, setHasAccount(true)로 변경
+      .then(res => {
+        // * 변수 값을 불러온 데이터로 변경.
+        dataChange('account_number', res.data.account_number);
+        dataChange('asset', res.data.asset);
+      })
+      // * 응답 오류가 발생하면, 계좌 없음 메시지 표출
+      .catch(err => {
+        console.log('계좌 없음.', err.data);
+      });
+  }, [])
 
   // * havingSymbol과 asset값을 확인 하기 위한 코드
   useEffect(() => {
@@ -146,7 +169,7 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
           value={amount}
           onChange={handleAmount}
         />
-        {/* 보유 풀이 부족하거나, 주식이 부족한 경우 표시하는 문구 */}
+      {/* 보유 풀이 부족하거나, 주식이 부족한 경우 표시하는 문구 */}
         {mode === 'buy' ? total >= Number(asset) ? <p className={styles.textRed}>보유한 풀이 부족합니다</p>: '' : ''}
         {mode === 'sell' ? Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0) ? <p className={styles.textRed}>보유한 주식이 부족합니다.</p>: '' : ''}
       </div>
