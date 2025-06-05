@@ -11,6 +11,14 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { stockList } from "@/components/stocks/StockList"
 
+export type HoldingItem={
+  symbol:string;
+  quantity:number; //매수 총량 - 매도 총량
+  avgPrice : number ; //평균 매수 단가
+  currentPrice: number //현재 주가 - 정의한 가격 사용
+}
+
+
 export default function portfolioPage(){
   //데이터
   const [tradeData, setTradeData]=useState([])
@@ -20,13 +28,14 @@ export default function portfolioPage(){
   // ! 종목 별 리스트
   // ? 현재가
   const [currentPrices, setCurrentPrices]= useState<Record<string,number>>({})
-  const holdingData = getHoidingWithAvg(tradeItems)
-
+  //보유 종목 계산
+  const [holdingData, setHoldingData]=useState<HoldingItem[]>([])
+  
   const router = useRouter()
-
+  
   //stocklist에서 symbol 뽑기
   const symbols:string[]= stockList.map(i=>i.symbol)
-
+  
   // ?현재가 가져오기
   useEffect(()=>{
     const fetchData=async()=>{
@@ -40,22 +49,34 @@ export default function portfolioPage(){
             axios.get(`http://localhost:8008/stocks/${symbol}`).then(res=>({symbol, price:res.data?.close || 0}))
           )
         )
-
+        
         // ?symbol:price 형태로 변환해서 상태 저장
         const prices : Record<string,number> = {}
         stockRes.forEach(item=>{
           prices[item.symbol]= item.price
         })
-
+        
         setCurrentPrices(prices)
+        
+        
       }
       catch(err){
         console.log('주식 데이터 가져오기 실패',err)
       }
     }
-
+    
     fetchData()
   },[])
+  
+  // 상태 받은 후 계산 따로 처리
+  useEffect(()=>{
+    if(tradeData.length>0 && Object.keys(currentPrices).length>0){
+      const holdingData = getHoidingWithAvg(tradeData,currentPrices)
+      setHoldingData(holdingData)
+      console.log('holding',holdingData)
+      
+    }
+  },[tradeData,currentPrices])
 
   return(
     <div>

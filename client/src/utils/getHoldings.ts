@@ -1,11 +1,7 @@
 // 거래 기록을 기반으로 종목별 보유 현황 구하기
 
-// !더미데이터 - 거래 기록 , 현재가
-import { currentPrices } from "@/components/portfolio/mocks/currentPrices";
-
 // 타입
 import { TradeItem } from "@/types/tradeItem";
-
 export type HoldingItem={
   symbol:string;
   quantity:number; //매수 총량 - 매도 총량
@@ -13,13 +9,15 @@ export type HoldingItem={
   currentPrice: number //현재 주가 - 정의한 가격 사용
 }
 
-export function getHoidingWithAvg(items:TradeItem[]):HoldingItem[]{
+export function getHoidingWithAvg(items:TradeItem[],currentPrices:Record<string, number>):HoldingItem[]{
 
   // 종목별 집계용 Map : 보유 수량, 총 매수 수량, 총 매수 금액
   const map = new Map<
   string,
   {quantity: number; totalBuy: number; buyAmount: number}
   >()
+
+  console.log('item',items, 'current',currentPrices)
 
   for(const item of items){
     const record = map.get(item.symbol) || {
