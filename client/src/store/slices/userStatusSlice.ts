@@ -1,8 +1,7 @@
 // 내정보에서 사용될 유저의 주식 관련 데이터
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TradeItem } from "@/types/tradeItem";
-// !더미 데이터
-import { tradeItems } from "@/components/portfolio/mocks/tradeItem";
+import axios from "axios";
 
 // 상태 타입
 interface UserStatusState {
@@ -24,7 +23,6 @@ const initialState : UserStatusState={
   error:null
 }
 
-//! 거래정보 계산 - 추후 axios로 가져오기
 //* createAsyncThunk = 비동기 작업을 위한 RTK 도구
 export const getUserStatus = createAsyncThunk(
   // *인자 - 첫번째 : 액션 이름
@@ -32,9 +30,12 @@ export const getUserStatus = createAsyncThunk(
   //* 인자 - 두번째 : 비동기 함수
   async(userId:string, thunkAPI)=>{
     try {
-      // ! axios로 가져오기, 더미데이터 사용
-      const tradeCount = tradeItems.length;
-      const tradeVolume = tradeItems.reduce(
+      const res = await axios.post('http://localhost:8008/userportfolio/history',{},{
+        withCredentials: true
+      })
+
+      const tradeCount = res.data.length;
+      const tradeVolume = res.data.reduce(
         (sum:number, item:any)=> sum+item.price*item.much,0
       )
 
@@ -43,7 +44,7 @@ export const getUserStatus = createAsyncThunk(
       // const successRate = tradeCount === 0 ? 0 : Math.round((successCount/tradeCount)*100)
 
       // 상위3개
-      const topTrades = [...tradeItems].sort((a,b)=>(b.price * b.much) - (a.price * a.much)).slice(0,3)
+      const topTrades = [...res.data].sort((a,b)=>(b.price * b.much) - (a.price * a.much)).slice(0,3)
 
 
       // * 성공 시 fulfilled , 실패시 rejected

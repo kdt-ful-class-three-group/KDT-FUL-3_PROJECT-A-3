@@ -3,8 +3,6 @@
 import ProfileCard from "@/components/mypage/ProfileCard"
 import UserStatus from "@/components/mypage/UserStatus"
 import BadgesSection from "@/components/mypage/BadgesSection"
-// ! 레벨 계산에 필요한 더미 데이터
-import { tradeItems } from "@/components/portfolio/mocks/tradeItem"
 // 레벨 계산 함수
 import { calcLevel } from "@/utils/calcLevel"
 import { useEffect } from "react"
