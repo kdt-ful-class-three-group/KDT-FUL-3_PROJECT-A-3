@@ -313,7 +313,7 @@ client
 ├─ next.config.ts
 ├─ package-lock.json
 ├─ package.json
-├─ postcss.config.mjs
+├─ postcss.config.js
 ├─ public
 │  ├─ file.svg
 │  ├─ globe.svg

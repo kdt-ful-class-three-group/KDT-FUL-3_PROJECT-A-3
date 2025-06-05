@@ -40,7 +40,7 @@ export default function Home() {
   
 
     return (
-      <PageWrapper>
+      <>
         <div>
           <AccountSection />
         </div>
@@ -48,7 +48,7 @@ export default function Home() {
         <div>
           <NewsSection />
         </div>
-      </PageWrapper>
+      </>
     )
   }
 
