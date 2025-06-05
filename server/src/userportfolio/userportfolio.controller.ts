@@ -30,9 +30,9 @@ export class UserPortfolioController {
     return this.TradeService.trade(dto, req.user);
   }
 
-  @Post('hitory')
+  @Post('history')
   @UseGuards(AuthGuard('jwt'))
-  async hitory(@Req() req: any) 
+  async history(@Req() req: any)
   {
     return this.HistoryPortfolio.history(req.user); // dto 제거
   }
