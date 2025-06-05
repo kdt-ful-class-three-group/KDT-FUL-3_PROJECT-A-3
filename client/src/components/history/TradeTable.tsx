@@ -16,8 +16,8 @@ export default function TradeTable({trades}:{trades:TradeItem[]}){
       {trades.map(item=>(
         <div key={item.id} style={{display:'grid', gridTemplateColumns:'repeat(6,1fr)', alignItems:'center'}}>
           <div>{item.date.split('T')[0]}</div>
-          <div>{item.buy_sale === true ? '구매':'판매'}</div>
-          <div>{item.stock_name}</div>
+          <div>{item.symbol}</div>
+          <div>{item.buy_sell === true ? '구매':'판매'}</div>
           <div>{item.price.toLocaleString()}풀</div>
           <div>{item.much}</div>
           <div>{(item.price*item.much).toLocaleString()}풀</div>

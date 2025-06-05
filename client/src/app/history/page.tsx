@@ -2,8 +2,6 @@
 import TradeList from "@/components/history/TradeList"
 import { Button } from "@/components/common/Button"
 import { useRouter } from "next/navigation"
-// !임시데이터
-import { tradeItems } from "@/components/portfolio/mocks/tradeItem"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
@@ -16,7 +14,13 @@ export default function historyPage(){
   useEffect(()=>{
     const fetchData = async()=>{
       try{
-        const res = await axios.get('http://localhost:8008/')
+        const res = await axios.post('http://localhost:8008/userportfolio/history',{},{
+          withCredentials:true,
+        })
+
+        setTradeData(res.data)
+        console.log(res.data)
+
       }
       catch(err){
         console.log('거래 내역 가져오기 실패',err)
@@ -27,13 +31,13 @@ export default function historyPage(){
     // 실행
     fetchData()
 
-  },[tradeData])
+  },[])
 
   return(
     <div>
       <h1>거래 내역</h1>
       <Button name='뒤로가기' onClick={()=>router.back()}/>
-      <TradeList trades={tradeItems} />
+      <TradeList trades={tradeData} />
     </div>
   )
 }

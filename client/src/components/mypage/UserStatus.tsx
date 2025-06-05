@@ -45,7 +45,7 @@ export default function UserStatus(){
       <div>
         <h3>거래 TOP3</h3>
         {topTrades.map(item=>(
-          <p key={item.id}>{item.stock_name}</p>
+          <p key={item.id}>{item.symbol}</p>
         ))}
       </div>
       {/* 포트폴리오 이동 버튼 */}
