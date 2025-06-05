@@ -116,17 +116,8 @@ export default function StockPage() {
             price={stockData.close}
         />
         <StockChart data={stockData.values} symbol={stockData.symbol} />
-    return (
-        <div>
-            <StockInfo
-                symbol={stockData.symbol} // 종목명
-                price={latest?.close} // 종가
-            />
+          <StockTradeButton symbol={stockData.symbol} price={Number(latest?.close)} /> {/* 매매 버튼 */}
 
-            <StockChart data={stockData.values} symbol={stockData.symbol} /> {/* 캔들 차트 */}
-
-            <StockTradeButton symbol={stockData.symbol} price={Number(latest?.close)} /> {/* 매매 버튼 */}
-        </div>
         </div>
         </div>
     );
