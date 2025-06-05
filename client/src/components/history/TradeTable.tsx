@@ -1,6 +1,6 @@
 // 거래내역 리스트
 //타입
-import { TradeItem, TradeType } from "@/types/tradeItem"
+import { TradeItem } from "@/types/tradeItem"
 
 export default function TradeTable({trades}:{trades:TradeItem[]}){
   return(
@@ -16,7 +16,7 @@ export default function TradeTable({trades}:{trades:TradeItem[]}){
       {trades.map(item=>(
         <div key={item.id} style={{display:'grid', gridTemplateColumns:'repeat(6,1fr)', alignItems:'center'}}>
           <div>{item.date.split('T')[0]}</div>
-          <div>{item.buy_sale === TradeType.Buy ? '구매':'판매'}</div>
+          <div>{item.buy_sale === true ? '구매':'판매'}</div>
           <div>{item.stock_name}</div>
           <div>{item.price.toLocaleString()}풀</div>
           <div>{item.much}</div>
