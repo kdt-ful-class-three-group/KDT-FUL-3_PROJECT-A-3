@@ -2,33 +2,42 @@
 // 등락률 - ((현재가 - 전일 종가) / 전일 종가) * 100
 
 import { stockList } from "../stocks/StockList"
-import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
+import { setHoldings, setInterest } from '@/store/slices/stockSlice'
+  
+import { useEffect } from "react"
 import StockCard from './StockCard'
 import axios from "axios"
 
 // RTK
-import { useSelector, UseSelector } from "react-redux"
+import { useSelector} from "react-redux"
 import { RootState } from "@/store"
-import { useGetStockBySymbolQuery } from "@/store/slices/stockApi"
-
 import { useRouter } from "next/navigation"
 
-type item = {
-  name: string;
-  current : number;
-  comparison: number;
-  change: number;
-}
 
 export default function StockShows  ({btnValue}:{btnValue:string}){
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    const fetchUserStockData = async () => {
+      try {
+        const res = await axios.get('http://localhost:8008/favorites/user');
+        dispatch(setHoldings(res.data.holdings));
+        dispatch(setInterest(res.data.interest));
+      } catch (err) {
+        console.error("유저 보유/관심 종목 불러오기 실패", err);
+      }
+    };
+
+    fetchUserStockData();
+  }, [dispatch]);
   // 전체 리스트
   const all = stockList.map(i=> i.symbol)
   // RTK 해당 데이터 가져오기
   const holdings = useSelector((state:RootState)=>state.stock.holdings)
   const interest = useSelector((state:RootState)=> state.stock.interest)
 
-  const router=useRouter()
+  const router = useRouter();
 
   // symbol
   let symbols:string[]=[]
