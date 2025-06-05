@@ -74,7 +74,7 @@ export default function MyAccount(){
 
         // * 포트폴리오 라는 변수에 위의 요청에 대한 응답을 담는다.
         // * 데이터의 형식은 { symbol: 뭐, much: n } 의 형태로 해당 심볼과 보유 주식이 몇개인지가 담김.
-        const portfolio = res.data 
+        const portfolio = res.data
 
         // * 총주식 가격의 초기값을 0으로 잡아두고 시작.
         let stockValue = 0
@@ -109,9 +109,9 @@ export default function MyAccount(){
     // * asset의 값은 갱신된 totalAsset값
     {date:'오늘',asset: totalAsset}, // 오늘
   ]
-  
+
   // console.log('총자산:',totalAsset);
-  
+
   //차트용 데이터
   const data = useMemo(()=>({
     labels: moneyData.map(item=>item.date),
@@ -124,7 +124,7 @@ export default function MyAccount(){
         fill : true,
         tension: 0.3,
         pointRadius:3,
-        
+
       }
     ]
   }),[moneyData])
@@ -162,20 +162,20 @@ export default function MyAccount(){
   }
 
   return (
-    <div>
-      <div>
+    <div className="justify-items-start w-full border-2 border-gray-300 rounded-lg p-4 mb-4">
+      <div className="">
         <p>내 계좌</p>
         <p>{account_number}</p>
       </div>
       <div>
         <p>{asset}</p>
         {/* 마이페이지로 이동 */}
-        <Button name='>' type='button' onClick={()=>router.push('/portfolio')}/> 
+        <Button name='>' type='button' onClick={()=>router.push('/portfolio')}/>
       </div>
       <div>
         <p>금액 변동률</p>
       </div>
-      <div className={styles.chart}>
+      <div className="flex item-center justify-center w-full max-w-[300px] p-4 bg-white rounded-lg shadow-md shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
         <Line data={data} options={options}/>
       </div>
     </div>
