@@ -40,7 +40,7 @@ export class FavoritesController {
     return this.FavoritesCheckService.check(dto, req.user);
   }
 
-  @Get('user')
+  @Post('user')
   @UseGuards(AuthGuard('jwt'))
   // * getAllUsers 메서드는 UsersService의 getAllUsers 메서드를 호출하여 모든 유저 정보를 가져온다.
   async user(@Body() dto:FavoritesDto, @Req()  req: any) {
