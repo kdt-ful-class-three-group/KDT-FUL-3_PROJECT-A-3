@@ -14,7 +14,7 @@ import { RootState } from "@/store"
 import { setField } from "@/store/slices/signupSlice"
 
 export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; password: string; name: string; email: string; birth: string }) => void }) {
-
+  const router = useRouter();
   //* Redux의 액션을 보낼 수 있게 준비하는 훅
   const dispatch = useDispatch()
   //* 전역 상태에서 상태 가져오기 -> 다른 컴포넌트에서 공유 가능
@@ -72,7 +72,10 @@ export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; pa
           onChange={(val) => handleChange("birth", val)}
           onValidChange={setBirthValid}
         />
-          <Button name="가입" type="submit" disabled={!isFormValid} />
+        <Button name="가입"
+          type="submit"
+          onClick={()=> router.push('/login')}
+          disabled={!isFormValid} />
       </form>
     </div>
   )

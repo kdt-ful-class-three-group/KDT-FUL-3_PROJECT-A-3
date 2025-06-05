@@ -3,7 +3,6 @@ import { Input } from "@/components/common/Input";
 import { useState } from "react";
 import axios from "axios";
 
-
 export function EmailVerification({
   email,
   onValidChange
@@ -59,7 +58,7 @@ export function EmailVerification({
         disabled={isVerified}
       />
       <Button name="인증번호 전송" type="button" onClick={submitEmailCode} />
-      <Button name="확인" type="button" onClick={submitEmailAuth} />
+      <Button name="인증번호 확인" type="button" onClick={submitEmailAuth} />
       {modalMessage && (
         <div style={{
           position: 'fixed',

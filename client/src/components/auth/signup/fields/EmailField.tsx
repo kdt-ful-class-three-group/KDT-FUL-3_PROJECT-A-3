@@ -33,11 +33,6 @@ export function EmailField({ value, onChange, onValidChange }: EmailFieldProps) 
   // 메시지
   const [error, setError] = useState('')
 
-  //이메일 인증번호
-  const [emailCode, setEmailCode] = useState('')
-  //인증번호 메시지
-  const [codeError, setCodeError] = useState('')
-
   //최종 이메일
   const fullEmail = (): string => {
     // custom일때

@@ -12,6 +12,9 @@ import { Response } from 'express';
 import { SendCodeDto } from './dto/sendCode.dto';
 import { VerifyCodeDto } from './dto/verifyCode.dto';
 import { BadRequestException } from '@nestjs/common';
+import { FindIdDto } from './dto/findIdPassword.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { NotFoundException } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
@@ -80,6 +83,20 @@ export class AuthController {
     return { message: '이메일 인증 완료' };
   }
 
+  @Post('find-id')
+  async findId(@Body() dto: FindIdDto) {
+    const userId = await this.authService.findUserId(dto.email);
+    if (!userId) {
+      throw new NotFoundException('해당 이메일로 가입된 사용자가 없습니다.');
+    }
+    return { user_id: userId };
+  }
+
+  @Post('reset-password')
+  async resetPassword(@Body() dto: ResetPasswordDto) {
+    await this.authService.resetPassword(dto.user_id, dto.password);
+    return { message: '비밀번호가 성공적으로 변경되었습니다.' };
+  }
   
   
   // * auth/refresh로 post요청이 들어오면
