@@ -23,7 +23,7 @@ export default function DoughnutChart({trades}:Props){
   const {labels, data} = DonutChartData(trades)
 
   //? 라벨에 퍼센트 표시
-  const total = data.reduce((sum, val)=>sum+val,0)
+  const total = data.reduce((sum, val)=>sum+val,0) ||1
   const percLabel = labels.map((label,i)=>{
     const perc = ((data[i]/total)*100).toFixed(1)
 
@@ -48,7 +48,7 @@ export default function DoughnutChart({trades}:Props){
           "#48CFAD",
           "#A0D468",
         ],
-        BsBorderWidth:1
+        borderWidth:1
       }
     ]
   }

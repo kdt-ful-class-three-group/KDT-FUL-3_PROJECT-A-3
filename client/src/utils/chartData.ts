@@ -9,9 +9,10 @@ export const DonutChartData = (items:TradeItem[])=>{
 
   // key : 종목 명 , value : 거래량 => {종목명: 거래량}
   // map에서 누적 거래량을 갖옴 - 합산된 값이 저장
+
   for(const item of items){
-    const current = map.get(item.stock_name)||0
-    map.set(item.stock_name, current + item.much) 
+    const current = map.get(item.symbol)||0
+    map.set(item.symbol, current + item.much) 
   }
 
   //도넛 차트용 데이터로 분리
