@@ -4,6 +4,7 @@ import { FavoritesController } from './favorites.controller';
 import { DbModule } from '../database/db.module';
 import { DeleteService } from './delete.service';
 import { FavoritesCheckService } from './check.service';
+import { FavoritesUserService } from './user.service';
 
 // * Module 데코레이터를 사용하여 UsersModule을 정의.
 @Module({
@@ -12,6 +13,6 @@ import { FavoritesCheckService } from './check.service';
   // * controllers 속성에 UsersController를 추가하여 이 모듈에서 사용할 컨트롤러를 정의한다.
   controllers: [FavoritesController],
   // * providers 속성에 UsersService를 추가하여 이 모듈에서 사용할 서비스를 정의한다.
-  providers: [FavoritesService, DeleteService, FavoritesCheckService],
+  providers: [FavoritesService, DeleteService, FavoritesCheckService, FavoritesUserService],
 })
-export class FavoritessModule {}
+export class FavoritesModule {}
