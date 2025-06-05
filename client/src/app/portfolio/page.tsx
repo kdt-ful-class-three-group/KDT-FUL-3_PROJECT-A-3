@@ -10,6 +10,7 @@ import { getHoidingWithAvg } from "@/utils/getHoldings"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { stockList } from "@/components/stocks/StockList"
+import { TradeItem } from "@/types/tradeItem"
 
 export type HoldingItem={
   symbol:string;
@@ -21,12 +22,12 @@ export type HoldingItem={
 
 export default function portfolioPage(){
   //데이터
-  const [tradeData, setTradeData]=useState([])
-  // ! 총 자산 더미데이터
-  const totalValue = 2000000
-  const invested = 1000000
+  const [tradeData, setTradeData]=useState<TradeItem[]>([])
+  // 자산 관련
+  const [totalValue, setTotalValue] =useState(0) //보유수량 X 현재가
+  const [invested, setInvested] = useState(0) // 매수수량 x 매수 단가
   //종목 별 리스트
-  // ? 현재가
+  //현재가
   const [currentPrices, setCurrentPrices]= useState<Record<string,number>>({})
   //보유 종목 계산
   const [holdingData, setHoldingData]=useState<HoldingItem[]>([])
@@ -36,21 +37,21 @@ export default function portfolioPage(){
   //stocklist에서 symbol 뽑기
   const symbols:string[]= stockList.map(i=>i.symbol)
   
-  // ?현재가 가져오기
+  //현재가 가져오기
   useEffect(()=>{
     const fetchData=async()=>{
       try{
         const tradeRes = await axios.post('http://localhost:8008/userportfolio/history',{},{withCredentials:true})
         setTradeData(tradeRes.data)
         
-        // ? 각 symbol에 대해 개별 요청 -> 병렬 처리
+        //각 symbol에 대해 개별 요청 -> 병렬 처리
         const stockRes = await Promise.all(
           symbols.map(symbol=>
             axios.get(`http://localhost:8008/stocks/${symbol}`).then(res=>({symbol, price:res.data?.close || 0}))
           )
         )
         
-        // ?symbol:price 형태로 변환해서 상태 저장
+        //symbol:price 형태로 변환해서 상태 저장
         const prices : Record<string,number> = {}
         stockRes.forEach(item=>{
           prices[item.symbol]= item.price
@@ -73,8 +74,21 @@ export default function portfolioPage(){
     if(tradeData.length>0 && Object.keys(currentPrices).length>0){
       const holdingData = getHoidingWithAvg(tradeData,currentPrices)
       setHoldingData(holdingData)
-      console.log('holding',holdingData)
-      
+
+      // 디버깅
+      // console.log('holding',holdingData)
+
+      // 총 자산 계산
+      const totalVal = holdingData.reduce((sum,h)=>sum+h.quantity*h.currentPrice,0)
+      setTotalValue(Math.round(totalVal))//소수점 제거
+
+      //투자금 계산
+      const investedVal = tradeData.filter((t:TradeItem)=>t.buy_sell===true).reduce((sum,t)=>{
+        const price = Number(t.price)
+        const much = Number(t.much)
+        return sum + price*much
+      },0)
+      setInvested(Math.round(investedVal))
     }
   },[tradeData,currentPrices])
 

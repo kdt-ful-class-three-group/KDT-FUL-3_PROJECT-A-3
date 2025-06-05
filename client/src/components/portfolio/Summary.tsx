@@ -12,7 +12,7 @@ export const Summary:React.FC<SummaryProps>=({totalValue, investedAmount})=>{
   // 수익
   const profit = totalValue - investedAmount;
   // 비율
-  const profitRate = ((profit/investedAmount)*100).toFixed(2)
+  const profitRate = investedAmount === 0 ? '0.00' :((profit/investedAmount)*100).toFixed(2)
 
   return(
     <div>
