@@ -131,13 +131,23 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
   // * 자산 부족이나, 보유주식량 부족시 핸들액션이 일어나지 않게 만드는 함수.
   const handleClickWithCheck = () => {
     if (mode === 'buy') {
-      if (total >= Number(asset)) return; // 자산 부족
+      if (total >= Number(asset)) {
+        setModalMessage(null)
+        return;
+      } // 자산 부족
+      else {
       handleAction();
+      }
     } else if (mode === 'sell') {
-      if (Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0)) return; // 주식 수량 부족
+      if (Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0)) {
+        setModalMessage(null)
+        return;
+      } // 주식 수량 부족
+      else {
       handleAction();
     }
   };
+}
 
   const modalClick = () => {
     setModalMessage(`정말로 거래 하시겠습니까?`)
@@ -197,7 +207,7 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
           <p>{`거래 수량 : ${amount}주`}</p>
           <p>{`현재가 : ${price}`}</p>
           <p>{`총 가격: ${total}`}</p>
-          <button onClick={() => {handleClickWithCheck}}> 확인 </button>
+          <button onClick={handleClickWithCheck}> 확인 </button>
           <button onClick={() => {setModalMessage(null)}}> 취소 </button>
           {mode === 'buy' ? total >= Number(asset) ? <p className={styles.textRed}>보유한 풀이 부족합니다</p>: '' : ''}
           {mode === 'sell' ? Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0) ? <p className={styles.textRed}>보유한 주식이 부족합니다.</p>: '' : ''}
