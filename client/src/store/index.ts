@@ -11,6 +11,7 @@ import { stockApi } from "./slices/stockApi";
 // 마이페이지 관련 
 import userReducer from './slices/userSlice'
 import UserStatusReducer from './slices/userStatusSlice'
+import havingSymbolReducer from './slices/havingSymbolSlice'
 
 // store
 export const store = configureStore({
@@ -22,7 +23,8 @@ export const store = configureStore({
     symbolPrice: symbolPriceReducer,
     [stockApi.reducerPath]:stockApi.reducer,
     userProfile:userReducer,
-    userStatus : UserStatusReducer
+    userStatus : UserStatusReducer,
+    havingSymbol : havingSymbolReducer,
   },
   middleware:(getDefaultMiddleWare)=> getDefaultMiddleWare().concat(stockApi.middleware)
 })

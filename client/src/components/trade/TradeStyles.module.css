@@ -134,3 +134,7 @@
 .sellButton:hover {
   background-color: #1c7ed6;
 }
+
+.textRed {
+  color: red;
+}
