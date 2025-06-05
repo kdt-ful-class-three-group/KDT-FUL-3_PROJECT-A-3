@@ -1,8 +1,11 @@
+@import "tailwindcss";
+
+
 body {
-  margin: 0 auto;
-  padding-left: 10vw;
-  padding-right: 10vw;
+  margin: 0;
+
+  /*루트 패딩 제거*/
+  /*padding-left: 10vw;*/
+  /*padding-right: 10vw;*/
   max-width: 100vw;
-  box-sizing: border-box;
-  justify-content: center;
 }
