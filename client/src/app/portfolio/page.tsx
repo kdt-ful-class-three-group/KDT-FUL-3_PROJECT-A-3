@@ -35,7 +35,19 @@ export default function portfolioPage(){
         setTradeData(tradeRes.data)
         
         // ? 각 symbol에 대해 개별 요청 -> 병렬 처리
-        const stockRes = axios.get(`http://localhost:8008/stocks/${symbol}`)
+        const stockRes = await Promise.all(
+          symbols.map(symbol=>
+            axios.get(`http://localhost:8008/stocks/${symbol}`).then(res=>({symbol, price:res.data?.close || 0}))
+          )
+        )
+
+        // ?symbol:price 형태로 변환해서 상태 저장
+        const prices : Record<string,number> = {}
+        stockRes.forEach(item=>{
+          prices[item.symbol]= item.price
+        })
+
+        setCurrentPrices(prices)
       }
       catch(err){
         console.log('주식 데이터 가져오기 실패',err)
