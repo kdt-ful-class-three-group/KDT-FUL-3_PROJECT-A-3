@@ -7,15 +7,43 @@ import {Summary} from "@/components/portfolio/Summary"
 import HoldingsList from "@/components/portfolio/HoldingsList"
 // ! 거래내역 -> 보유 자산 리스트
 import { getHoidingWithAvg } from "@/utils/getHoldings"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { stockList } from "@/components/stocks/StockList"
 
 export default function portfolioPage(){
+  //데이터
+  const [tradeData, setTradeData]=useState([])
   // ! 총 자산 더미데이터
   const totalValue = 2000000
   const invested = 1000000
   // ! 종목 별 리스트
+  // ? 현재가
+  const [currentPrices, setCurrentPrices]= useState<Record<string,number>>({})
   const holdingData = getHoidingWithAvg(tradeItems)
 
   const router = useRouter()
+
+  //stocklist에서 symbol 뽑기
+  const symbols:string[]= stockList.map(i=>i.symbol)
+
+  // ?현재가 가져오기
+  useEffect(()=>{
+    const fetchData=async()=>{
+      try{
+        const tradeRes = await axios.post('http://localhost:8008/userportfolio/history',{},{withCredentials:true})
+        setTradeData(tradeRes.data)
+        
+        // ? 각 symbol에 대해 개별 요청 -> 병렬 처리
+        const stockRes = axios.get(`http://localhost:8008/stocks/${symbol}`)
+      }
+      catch(err){
+        console.log('주식 데이터 가져오기 실패',err)
+      }
+    }
+
+    fetchData()
+  },[])
 
   return(
     <div>
