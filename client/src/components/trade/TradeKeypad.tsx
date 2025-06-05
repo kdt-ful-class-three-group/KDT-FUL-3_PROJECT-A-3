@@ -5,10 +5,39 @@ import { TradeContentProps } from "@/types/trade"
 import { TradeKeypadProps } from "@/types/trade"
 import styles from './TradeStyles.module.css'
 import axios from "axios"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "@/store"
+import { useEffect } from "react"
+import { setHavingSymbol } from "@/store/slices/havingSymbolSlice"
+import { setField } from "@/store/slices/accountSlice"
 
 export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeContentProps & TradeKeypadProps & { price: number }) {
   const total = Number(amount) * price;
-  
+
+  // * 리덕스 툴킷을 활용해 가지고있는 전역으로 보내는 주식의 보유 수, 자산의 정보를 가져오기 위한 코드
+  const dispatch = useDispatch()
+  const havingSymbols = useSelector((state: RootState) => state.havingSymbol)
+  const { account_number, asset } = useSelector((state: RootState) => state.account)
+
+  // * 보유 주식의 이름과 보유 주식 수를 판별하는 코드
+  useEffect(() => {
+    const checkSymbol = async () => {
+    const res = await axios.post('http://localhost:8008/userPortfolio/calc', {}, { withCredentials:true });
+
+    // dispatch(setHavingSymbol(res.data.map((item:any) => {item.symbol, item.much})))
+    // * 데이터에 들어있는 정보들을 havingSymbol에 담는 선언
+    res.data.forEach(({ symbol, much } : { symbol:string, much:number }) => {
+      dispatch(setHavingSymbol({ symbol, much }));
+    });
+    }
+    checkSymbol();
+  },[])
+
+  // * havingSymbol과 asset값을 확인 하기 위한 코드
+  useEffect(() => {
+    console.log(havingSymbols);
+    console.log('보유금액:',asset);
+  }, [havingSymbols, asset]);
   
   // 키패드 이벤트 지우기,0무시 등
   // ! 자기 자산이랑 연동해서 자산보다 많이 입력못하게 만들어야할거같음.
@@ -30,45 +59,58 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
     if (mode === 'sell') {
       // 판매 처리
       console.log(total);
-  Promise.all([
-    axios.patch(
-        'http://localhost:8008/account/trade',
-        { price: total, type: mode },
-        { withCredentials: true }
-      ),
-    axios.patch(
-        'http://localhost:8008/userportfolio/trade',
-        { type: mode, symbol: symbol, price: total, much: amount },
-        { withCredentials: true }
-      )
-      .then(() => {
-        window.location.href = '/home';
-      })
-      .catch((err) => {
-        console.error('거래 실패:', err);
-      })
-    ])
+        Promise.all([
+          axios.patch(
+              'http://localhost:8008/account/trade',
+              { price: total, type: mode },
+              { withCredentials: true }
+            ),
+          axios.patch(
+              'http://localhost:8008/userportfolio/trade',
+              { type: mode, symbol: symbol, price: total, much: amount },
+              { withCredentials: true }
+            )
+            .then(() => {
+              window.location.href = '/home';
+            })
+            .catch((err) => {
+              console.error('거래 실패:', err);
+            })
+          ])
+
     } else {
       // 구매 처리
       console.log(total);
-  Promise.all([
-    axios.patch(
-        'http://localhost:8008/account/trade',
-        { price: total, type: mode },
-        { withCredentials: true }
-      ),
-    axios.patch(
-        'http://localhost:8008/userportfolio/trade',
-        { type: mode, symbol:symbol, price:total, much: amount },
-        { withCredentials: true }
-      )
-      .then(() => {
-        window.location.href = '/home';
-      })
-      .catch((err) => {
-        console.error('거래 실패:', err);
-      }),
-    ])
+        Promise.all([
+          axios.patch(
+              'http://localhost:8008/account/trade',
+              { price: total, type: mode },
+              { withCredentials: true }
+            ),
+          axios.patch(
+              'http://localhost:8008/userportfolio/trade',
+              { type: mode, symbol:symbol, price:total, much: amount },
+              { withCredentials: true }
+            )
+            .then(() => {
+              window.location.href = '/home';
+            })
+            .catch((err) => {
+              console.error('거래 실패:', err);
+            }),
+          ])
+    } 
+  };
+
+
+  // * 자산 부족이나, 보유주식량 부족시 핸들액션이 일어나지 않게 만드는 함수.
+  const handleClickWithCheck = () => {
+    if (mode === 'buy') {
+      if (total >= Number(asset)) return; // 자산 부족
+      handleAction();
+    } else if (mode === 'sell') {
+      if (Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0)) return; // 주식 수량 부족
+      handleAction();
     }
   };
 
@@ -104,6 +146,9 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
           value={amount}
           onChange={handleAmount}
         />
+        {/* 보유 풀이 부족하거나, 주식이 부족한 경우 표시하는 문구 */}
+        {mode === 'buy' ? total >= Number(asset) ? <p className={styles.textRed}>보유한 풀이 부족합니다</p>: '' : ''}
+        {mode === 'sell' ? Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0) ? <p className={styles.textRed}>보유한 주식이 부족합니다.</p>: '' : ''}
       </div>
 
       <div className={styles.keypadGrid}>
@@ -119,7 +164,7 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
         <Button
           className={mode === 'sell' ? styles.sellButton : styles.buyButton}
           name={mode === 'sell' ? "판매하기" : "구매하기"}
-          onClick={handleAction}
+          onClick={handleClickWithCheck}
         />
       </div>
     </div>
