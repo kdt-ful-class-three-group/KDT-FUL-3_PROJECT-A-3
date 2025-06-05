@@ -20,7 +20,6 @@ export default function UserStatus(){
   // 유저
   const nick = useSelector((state:RootState)=> state.userProfile.nick)
   // 자산 - accountslice에 asset
-  // ! 가져오긴 했는데 값이 없어서 임의로 설정
   const asset = useSelector((state:RootState)=> state.account.asset)
   // ! 성공률 ? - 표시할 거 라면 따로 값 필요함
 
@@ -40,7 +39,7 @@ export default function UserStatus(){
       {error && <p>{error}</p>}
       {/* 투자횟수, 성공률, 보유 자산 */}
       <p>투자 횟수 : {tradeCount}</p>
-      <p>보유 자산 : {asset || 100000} </p>
+      <p>보유 자산 : {asset} </p>
       {/* 많이 거래한 내역 3개 */}
       <div>
         <h3>거래 TOP3</h3>

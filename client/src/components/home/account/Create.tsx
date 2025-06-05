@@ -3,6 +3,8 @@ import { Button } from "@/components/common/Button";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import { useDispatch } from "react-redux";
+import { setField } from "@/store/slices/accountSlice";
  
 
 type props = {
@@ -17,7 +19,7 @@ type props = {
 export default function Create({onClose}: props) {
   const {account_number, asset} = useSelector((state:RootState) => state.account)
 
-
+  const dispatch = useDispatch()
 
   /**
    * 계좌를 생성하는 함수
@@ -30,6 +32,11 @@ export default function Create({onClose}: props) {
     }).then(res => {
       console.log(res.data);
       // setAccountNumber(res.data.accountNumber); // 서버에서 받은 계좌 번호 설정
+      
+      // slice에 값 넣기
+      dispatch(setField({field:'account_number',value:account_number}))
+      dispatch(setField({field:'asset',value:asset}))
+
       if (onClose) onClose(); // 모달 닫기
       window.location.reload();
 

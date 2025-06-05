@@ -2,7 +2,7 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-//* 회원가입 타입 정의
+//* 타입 정의
 type AccountState = {
   account_number: string,
   asset: string,
