@@ -1,6 +1,6 @@
 // 거래 내역 필터에 적용할 훅
 import { useMemo, useState } from "react";
-import { TradeItem, TradeType } from "@/types/tradeItem";
+import { TradeItem} from "@/types/tradeItem";
 
 export function useTradeFilter(trades:TradeItem[]){
   // 상태
@@ -26,7 +26,7 @@ export function useTradeFilter(trades:TradeItem[]){
   const filtered = useMemo(()=>{
     return trades.filter(item=>{
       const date = item.date.split('T')[0] //날짜
-      const type = item.buy_sale===TradeType.Buy ? '구매' : '판매' //구매,판매
+      const type = item.buy_sale===true ? '구매' : '판매' //구매,판매
 
       // 시작날짜
       const afterStart = !startDate || date >= startDate

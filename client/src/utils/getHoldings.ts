@@ -29,7 +29,7 @@ export function getHoidingWithAvg(items:TradeItem[]):HoldingItem[]{
     }
 
     // 매수
-    if(item.buy_sale===1){
+    if(item.buy_sale===false){
       record.quantity += item.much;
       record.totalBuy += item.much;
       record.buyAmount += item.much * item.price
