@@ -72,46 +72,52 @@ export function NewsSection() {
   
 
   return (
-    <div className={styles.section}>
+    <div className="my-[5%] justify-items-center">
 
-      <div>
+      <div className="mb-4">
         <Button
-          className={`${styles.button} ${selectedNewsType === 'general' ? styles.active : ''}`}
+          className={`px-5 py-2 mr-2 rounded-full font-bold text-[0.95rem] transition-all duration-200 ease-in-out ${
+            selectedNewsType === 'general'
+              ? 'bg-green-700 text-white border-none'
+              : 'bg-white text-gray-800 border border-gray-300'
+          }`}
           name="실시간 뉴스"
           onClick={() => setSelectedNewsType('general')}
         />
 
         <Button
-          className={`${styles.button} ${selectedNewsType === 'interest' ? styles.active : ''}`}
+          className={`px-5 py-2 mr-2 rounded-full font-bold text-[0.95rem] transition-all duration-200 ease-in-out ${
+            selectedNewsType === 'interest'
+              ? 'bg-green-700 text-white border-none'
+              : 'bg-white text-gray-800 border border-gray-300'
+          }`}
           name="관심 뉴스"
           onClick={() => setSelectedNewsType('interest')}
         />
       </div>
 
       {selectedNewsType === 'general' && (
-        <Section
-          title="실시간 뉴스"
-          children={
-            <div>
-              {generalNews.length > 0 ? (
-                <NewsCard article={generalNews[index % generalNews.length]} />
-              ) : <p>뉴스 불러오는 중</p>}
-            </div>
-          }
-        />
+        <Section title="">
+          <div className="text-center">
+            {generalNews.length > 0 ? (
+              <NewsCard article={generalNews[index % generalNews.length]} />
+            ) : (
+              <p className="text-gray-500">뉴스 불러오는 중</p>
+            )}
+          </div>
+        </Section>
       )}
 
       {selectedNewsType === 'interest' && (
-        <Section
-          title="관심 뉴스"
-          children={
-            <div>
-              {interestNews.length > 0 ? (
-                <NewsCard article={interestNews[index % interestNews.length]} />
-              ) : <p>관심 뉴스 없음</p>}
-            </div>
-          }
-        />
+        <Section title="">
+          <div className="text-center">
+            {interestNews.length > 0 ? (
+              <NewsCard article={interestNews[index % interestNews.length]} />
+            ) : (
+              <p className="text-gray-500">관심 뉴스 없음</p>
+            )}
+          </div>
+        </Section>
       )}
     </div>
   )

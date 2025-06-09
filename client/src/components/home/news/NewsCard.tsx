@@ -1,18 +1,25 @@
 import type { Article } from "@/types/news";
-import styles from './NewsStyles.module.css'
 
 export function NewsCard({ article }: { article: Article }) {
   return (
-    <a className={styles.title} href={article.url} target="_blank" title="news">
+    <a
+      href={article.url}
+      target="_blank"
+      title="news"
+      className="block no-underline text-[#222] text-base font-bold mb-2 leading-snug hover:underline"
+    >
       {article.urlToImage ? (
         <img
-        className={styles.image}
-        src={article.urlToImage}
-        alt={article.content} />
+          src={article.urlToImage}
+          alt={article.content}
+          className="w-[500px] h-[200px] object-cover rounded-lg"
+        />
       ) : (
-        <div>이미지</div>
+        <div className="w-[500px] h-[200px] bg-gray-200 rounded-lg flex items-center justify-center text-sm text-gray-600">
+          이미지 없음
+        </div>
       )}
-      <p>{article.title}</p>
+      <p className="mt-2">{article.title}</p>
     </a>
   );
 }
