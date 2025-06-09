@@ -2,11 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { SearchBar } from "./SearchBar";
 import { SearchDropdown } from "./SearchDropdown";
 import { stockList } from "@/components/stocks/StockList";
 import { SearchContents } from "./SearchContents";
-import styles from "./SearchStyles.module.css";
+import { SearchBar } from "./SearchBar";
 
 export function SearchAutoComplete() {
   const [query, setQuery] = useState(""); // 검색 창 텍스트
@@ -41,16 +40,15 @@ export function SearchAutoComplete() {
 
 
   return (
-    <div className={styles.wrapper} ref={wrapperRef}>
-      <div>
-        <h1>어떤 종목을 찾고 계신가요?</h1>
+    <div className="w-full max-w-md px-4 mx-auto" ref={wrapperRef}>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">무엇을 찾으시나요?</h1>
+        <SearchBar
+          value={query}
+          onChange={setQuery}
+          onFocus={() => query && filteredResults.length >= 0 && setShowDropdown(true)}
+        />
       </div>
-
-      <SearchBar
-        value={query}
-        onChange={setQuery}
-        onFocus={() => query && filteredResults.length >= 0 && setShowDropdown(true)}
-      />
       {showDropdown && filteredResults.length > 0 && (
         <SearchDropdown
           results={filteredResults}

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Button } from "../common/Button";
-import styles from './SearchStyles.module.css'
 
 interface Props {
   onClose: () => void;
@@ -17,12 +16,18 @@ export function SearchOverlay({ onClose, children }: Props) {
   }, []);
 
   return (
-    <div className={styles.overlay}>
-      <div>
-        <Button name="닫기" onClick={onClose} />
-      </div>
-      <div>
-      {children}
+    <div className="fixed inset-0 bg-white z-50 flex justify-center items-start pt-10 overflow-auto">
+      <div className="w-full max-w-md px-4">
+        <div className="mb-4">
+          <Button
+            icon="back"
+            onClick={onClose}
+            className="hover:bg-gray-100 transition-colors p-2 rounded-full"
+          />
+        </div>
+        <div>
+          {children}
+        </div>
       </div>
     </div>
   )
