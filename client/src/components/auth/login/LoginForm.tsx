@@ -44,15 +44,20 @@ export function LoginForm() {
   
   return (
     // 로그인 폼
-    <form onSubmit={handleSubmit}>
-      <Input label="" type="text" name="id" placeholder="아이디" value={id} onChange={e => setId(e.target.value)}/>
-      <Input label="" type="password" name="password" placeholder="비밀번호" value={pw} onChange={e=>setPw(e.target.value)}/>
+    <form onSubmit={handleSubmit} className="w-full flex-col flex gap-3" >
+      <Input label="" type="text" name="id" placeholder="아이디" value={id} onChange={e => setId(e.target.value)}
+      className="w-full p-3 bg-[#B0DB9C]/40 rounded"
+      />
+      <Input label="" type="password" name="password" placeholder="비밀번호" value={pw} onChange={e=>setPw(e.target.value)}
+      className="w-full p-3  bg-[#B0DB9C]/40 rounded"
+      />
       {/* 아이디찾기, 비밀번호 찾기, 회원가입으로 이동 */}
-      <div>
-        <Link href='/find'>아이디/비밀번호 찾기</Link>
-        <Link href='/signup'>회원가입</Link>
+      <div className="text-center flex justify-center gap-1 items-center">
+        <Link href='/find' className="text-gray-400   hover:text-black text-sm" >아이디/비밀번호 찾기</Link>
+        <p className="font-bold text-gray-400">|</p>
+        <Link href='/signup' className="text-gray-400 hover:text-black text-sm">회원가입</Link>
       </div>
-      <Button type="submit" name="로그인"/>
+      <Button type="submit" name="로그인" className="bg-[#B0DB9C] rounded p-3"/>
     </form>
   )
 }

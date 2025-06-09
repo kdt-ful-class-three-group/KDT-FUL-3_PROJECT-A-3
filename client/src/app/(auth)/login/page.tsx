@@ -37,15 +37,16 @@ export default function LoginPage(){
   // ✅ 인증 성공
   if (authStatus === 'ok') {
     return (
-    <div>
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="w-full max-w-md p-8">
       {/* 페이지 이름 */}
-      <h1>로그인</h1>
+      <h1 className="text-4xl font-bold mb-15">로그인</h1>
       {/* 로그인폼 */}
-      <LoginForm />    
+      <LoginForm/>    
       {/* 간편로그인 */}
-      <div>
-        <p>간편로그인_추가</p>
+      <div className="mt-8">
         <AuthButton />
+      </div>
       </div>
     </div>
     );

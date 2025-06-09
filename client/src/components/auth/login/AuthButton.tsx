@@ -3,6 +3,7 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "@/components/common/Button";
 
+
 export function AuthButton() {
   const { data: session, status } = useSession();
 
@@ -31,10 +32,10 @@ export function AuthButton() {
             <Button type="button" onClick={logout} name="로그아웃" />
         </>
       ) : (
-          <div>
-            <Button type="button" onClick={() => signIn("google", { prompt: "select_account" })} name="구글 로그인" />
-            <Button type="button" onClick={() => signIn("kakao")} name="카카오 로그인" />
-            <Button type="button" onClick={() => signIn("naver")} name="네이버 로그인" />
+          <div className="w-full flex justify-center gap-7">
+            <Button type="button" onClick={() => signIn("google", { prompt: "select_account" })} icon="google" className="bg-[#E83B2F] flex items-center justify-center w-[40px] h-[40px] rounded-3xl"/>
+            <Button type="button" onClick={() => signIn("kakao")} icon="kakao" className="bg-[#FFE513] flex justify-center flex items-center justify-center w-[40px] h-[40px] rounded-3xl" />
+            <Button type="button" onClick={() => signIn("naver")} icon="naver" className="bg-[#00BB00] flex items-center justify-center w-[40px] h-[40px] rounded-3xl"/>
           </div>
       )}
     </div>
