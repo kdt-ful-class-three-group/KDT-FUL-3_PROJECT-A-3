@@ -14,9 +14,9 @@ export function Button({ name, icon, ...props }: ButtonProps) {
   const renderIcon = () => {
     switch (icon) {
       case 'search':
-        return <CiSearch style={{ marginRight: '0.5rem', width:'30', height:'30'}} />;
+        return <CiSearch style={{ margin: '0 auto', fontSize: '30px' }} />;
       case 'hamburger':
-        return <RxHamburgerMenu style={{ marginRight: '0.5rem', width:'25', height:'25'}} />;
+        return <RxHamburgerMenu style={{ margin: '0 auto', fontSize: '30px' }} />;
       case 'plus':
         return <FaPlus style={{marginRight: '0.5rem'}}/>
       case 'close':
