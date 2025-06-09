@@ -9,7 +9,7 @@ import { SiNaver } from "react-icons/si";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   name?: string;
-  icon?: 'search' | 'hamburger' | 'plus' | 'minus' | 'edit' | 'delete' | 'close' | 'chevron'|'google'|'kakao'|'naver';
+  icon?: 'search' | 'hamburger' | 'plus' | 'minus' | 'edit' | 'delete' | 'close' | 'chevron'|'google'|'kakao'|'naver'| 'back';
   variant?: 'default' | 'icon';
   href?: string;
 }
