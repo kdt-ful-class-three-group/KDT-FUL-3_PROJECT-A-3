@@ -9,6 +9,7 @@ import { Chart as ChartJS, TimeScale, Tooltip, Legend, CategoryScale, LinearScal
 import { CandlestickController, CandlestickElement } from 'chartjs-chart-financial';
 import { ChartOptions } from 'chart.js';
 import 'chartjs-adapter-date-fns';
+import {iconMap} from './StockIconMaps';
 
 ChartJS.register(
   CategoryScale,
@@ -46,12 +47,11 @@ export default function StockChart({ data, symbol }: { data: StockValue[], symbo
     // 차트 인스턴스 초기화
     const chart = echarts.init(chartRef.current);
 
+
+
     // 차트 옵션 구성
     const option = {
-      title: {
-        text: `${symbol} 차트`, // 차트 제목
-        left: 'center' // 가운데 정렬
-      },
+
       tooltip: {
         trigger: 'axis', // X축 기준으로 툴팁 표시
         axisPointer: {
@@ -114,5 +114,14 @@ export default function StockChart({ data, symbol }: { data: StockValue[], symbo
   console.log("차트용 데이터:", data); // 디버깅용 로그 출력
 
   // 차트가 렌더링될 DOM 요소
-  return <div ref={chartRef} style={{ width: '100%', height: '500px' }} />;
+  return (
+      <div className="w-full">
+        <div className="flex items-center justify-center gap-2 mb-4">
+          {(iconMap[symbol] || (() => <span>{symbol}</span>))()}
+          <h2 className="text-lg font-semibold">{symbol}</h2>
+        </div>
+
+        <div ref={chartRef} style={{ width: '100%', height: '500px' }} />
+      </div>
+  );
   }
