@@ -119,7 +119,7 @@ export function MyAccount() {
         label: '자산',
         data: moneyData.map(item => item.asset),
         borderColor: '#000',
-        backgroundColor: 'rgba(0,0,0,0.6)',
+        backgroundColor: 'rgba(0,0,0,0.05)',
         fill: true,
         tension: 0.3,
         pointRadius: 3,
@@ -149,7 +149,7 @@ export function MyAccount() {
       },
       y: {
         ticks: {
-          callback: (value: string | number) => value === 1000000 ? '1,000,000' : ''
+          callback: () => ''
         },
         min: 0,
         max: 1200000,
@@ -161,21 +161,24 @@ export function MyAccount() {
   }
 
   return (
-    <div className="justify-items-start w-full max-w-[500px] border-2 border-gray-300 rounded-lg p-4 mb-4">
-      <div className="">
-        <p>내 계좌</p>
-        <p>{account_number}</p>
+    <div className="w-full max-w-full sm:max-w-md min-w-0 px-4 mx-auto border-2 border-gray-300 rounded-lg p-4 mb-4">
+      <div className="mb-4">
+        <h2 className="text-lg font-semibold mb-1">내 계좌</h2>
+        <p className="text-sm text-gray-600 mb-1">{account_number}</p>
+        <p className="text-base font-bold text-gray-800 mb-2">{asset.toLocaleString()}풀</p>
+        <Button
+          icon="chevron"
+          className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 hover:text-black transition"
+          onClick={() => router.push('/portfolio')}
+        />
       </div>
-      <div>
-        <p>{asset}</p>
-        {/* 마이페이지로 이동 */}
-        <Button name='>' type='button' onClick={() => router.push('/portfolio')} />
+      <div className="mb-2">
+        <h3 className="text-md font-medium text-gray-700">금액 변동률</h3>
       </div>
-      <div>
-        <p>금액 변동률</p>
-      </div>
-      <div className="flex item-center justify-center w-full p-4 bg-white rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
-        <Line data={data} options={options} />
+      <div className="w-full p-4 bg-white rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.05)] overflow-x-auto">
+        <Line data={data}
+          options={options}
+        />
       </div>
     </div>
   )

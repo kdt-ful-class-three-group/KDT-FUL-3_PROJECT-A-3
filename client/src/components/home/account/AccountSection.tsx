@@ -54,7 +54,7 @@ export function AccountSection() {
   // const money : string = `1,000,000`;
 
   return (
-      <div className="my-[5%] w-full max-w-[500px] mx-auto">
+<div className="my-[5%] w-full max-w-screen-sm px-4 mx-auto">
           <Section
               title=""
               // description="주식 시장의 최신 동향과 정보를 확인하세요."

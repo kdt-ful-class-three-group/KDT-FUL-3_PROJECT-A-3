@@ -1,12 +1,11 @@
-
 import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { FaPlus } from 'react-icons/fa'
+import { FaPlus, FaEdit, FaTrash, FaChevronRight } from 'react-icons/fa'
 import { IoClose } from "react-icons/io5";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   name?: string;
-  icon?: 'search' | 'hamburger' | 'plus' | 'minus' | 'edit' | 'delete' | 'close';
+  icon?: 'search' | 'hamburger' | 'plus' | 'minus' | 'edit' | 'delete' | 'close' | 'chevron';
   variant?: 'default' | 'icon';
   href?: string;
 }
@@ -22,6 +21,12 @@ export function Button({ name, icon, ...props }: ButtonProps) {
         return <FaPlus style={{marginRight: '0.5rem'}}/>
       case 'close':
         return <IoClose style={{marginRight: '0.5rem'}}/>
+      case 'edit':
+        return <FaEdit style={{ marginRight: '0.5rem' }} />;
+      case 'delete':
+        return <FaTrash style={{ marginRight: '0.5rem' }} />;
+      case 'chevron':
+        return <FaChevronRight style={{ marginRight: '0.5rem' }} />;
       default:
         return null;
     }
