@@ -11,6 +11,11 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { stockList } from "@/components/stocks/StockList"
 import { TradeItem } from "@/types/tradeItem"
+import {MdKeyboardArrowLeft} from "react-icons/md";
+import {setSelectedTab} from "@/store/slices/stockSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "@/store";
+import StockShow from "@/components/simulation/StockShow";
 
 export type HoldingItem={
   symbol:string;
@@ -21,6 +26,12 @@ export type HoldingItem={
 
 
 export default function portfolioPage(){
+
+
+  const dispatch = useDispatch()
+  const selectedTab = useSelector((state:RootState)=>state.stock.selectedTab)
+
+
   //데이터
   const [tradeData, setTradeData]=useState<TradeItem[]>([])
   // 자산 관련
@@ -95,16 +106,28 @@ export default function portfolioPage(){
   return(
     <div>
       {/* 뒤로가기 */}
-      <Button name="뒤로가기" onClick={()=> router.back()}/>
+      <MdKeyboardArrowLeft className="w-10 h-10 cursor-pointer" name="뒤로가기" onClick={()=>router.back()}/>
       {/* 총 자산 요약 */}
+      <div className="flex flex-col-reverse w-80% m-3 px-2 shadow-lg rounded-lg p-4 justify-between items-center">
       <Summary totalValue={totalValue} investedAmount={invested}/>
       {/* 도넛 차트 */}
-      <div style={{width:'50%'}}>
-        <h1>거래량</h1>
+      <div className="w-[50%] ">
         <DoughnutChart trades={tradeData}/>
       </div>
-      {/* 보유 종목 리스트  + 거래내역 이동*/}
-      <HoldingsList items={holdingData}/>
+      </div>
+
+      {/*<HoldingsList items={holdingData}/>*/}
+
+      <Button
+          name="보유"
+          onClick={() => dispatch(setSelectedTab('보유'))}
+          className={`w-28 py-1 rounded-full text-sm font-medium mx-2 ${
+              selectedTab === '보유'
+                  ? 'bg-gray-800 text-white'
+                  : 'bg-white border border-gray-300 text-gray-700'
+          }`}
+      />
+      <StockShow btnValue={selectedTab} />
     </div>
   )
 }
