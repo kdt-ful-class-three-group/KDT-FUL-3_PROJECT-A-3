@@ -24,7 +24,8 @@ export const Summary: React.FC<SummaryProps> = ({ totalValue, investedAmount }) 
         <SummaryRow
             label="수익률"
             value={
-              <span className={profit >= 0 ? 'text-red-500' : 'text-blue-500'}>({profitRate}%)</span>
+              <span className={profit >= 0 ? 'text-red-500' : 'text-blue-500'}>
+                ({profitRate}%)</span>
             }
         />
         </div>
