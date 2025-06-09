@@ -49,28 +49,34 @@ export function BirthField({ value , onChange, onValidChange }: BirthFieldProps)
   return (
     <div>
       <div>
-        <label htmlFor="birth">생년월일</label>
-        <Select
-          name="year"
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-          option={years.map((y) => ({ name: y === "" ? "년" : y, value: y }))}
-        />
-        <Select
-          name="month"
-          value={month}
-          onChange={(e) => setMonth(e.target.value)}
-          option={months.map((m) => ({ name: m === "" ? "월" : m, value: m }))}
-        />
-        <Select
-          name="day"
-          value={day}
-          onChange={(e) => setDay(e.target.value)}
-          option={days.map((d) => ({ name: d === "" ? "일" : d, value: d }))}
-        />
+        <label htmlFor="birth" className="text-sm">생년월일</label>
+        <div className="flex w-full gap-5">
+          <Select
+            name="year"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            option={years.map((y) => ({ name: y === "" ? "년" : y, value: y }))}
+            className="p-2 border-2 rounded border-[#B0DB9C]/30"
+          />
+          <Select
+            name="month"
+            value={month}
+            onChange={(e) => setMonth(e.target.value)}
+            option={months.map((m) => ({ name: m === "" ? "월" : m, value: m }))}
+            className="p-2 border-2 rounded border-[#B0DB9C]/30"
+          />
+          <Select
+            name="day"
+            value={day}
+            onChange={(e) => setDay(e.target.value)}
+            option={days.map((d) => ({ name: d === "" ? "일" : d, value: d }))}
+            className="p-2 border-2 rounded border-[#B0DB9C]/30"
+          />
+
+        </div>
       </div>
       {/* 에러 메시지 */}
-      {error && <p>{error}</p>}
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   );
 }

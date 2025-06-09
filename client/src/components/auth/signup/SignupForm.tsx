@@ -72,10 +72,15 @@ export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; pa
           onChange={(val) => handleChange("birth", val)}
           onValidChange={setBirthValid}
         />
-        <Button name="가입"
+        <Button
+          name="가입"
           type="submit"
-          onClick={()=> router.push('/login')}
-          disabled={!isFormValid} />
+          onClick={() => router.push('/login')}
+          disabled={!isFormValid}
+          className={`cursor-pointer rounded p-2 ${
+        isFormValid ? 'bg-[#B0DB9C]' : 'bg-gray-200'
+          }`}
+        />
       </form>
     </div>
   )

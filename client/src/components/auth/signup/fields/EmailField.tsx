@@ -149,7 +149,7 @@ export function EmailField({ value, onChange, onValidChange }: EmailFieldProps) 
         type="button"
         onClick={submitEmail}
         className="cursor-pointer 
-         bg-[#B0DB9C] rounded p-2 w-full mt-2 mb-2"
+         bg-[#B0DB9C] rounded p-2 w-full mt-2 mb-5"
       />
       {/* 이메일 인증코드 발급/검증 */}
       <EmailVerification

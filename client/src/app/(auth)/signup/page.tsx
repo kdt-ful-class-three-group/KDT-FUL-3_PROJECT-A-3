@@ -32,8 +32,8 @@ export default function SignupPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="w-full max-w-md p-4 flex items-center justify-center flex-col">
-        <h1 className="text-4xl font-bold mb-15">회원가입</h1>
+      <div className="w-full max-w-md p-4 flex flex-col">
+        <h1 className="text-4xl font-bold mb-15 ">회원가입</h1>
         <SignupForm onSignup={handleSignup} />
       </div>
     </div>
