@@ -14,7 +14,7 @@ export default function BadgesSection(){
   return(
     <div className="w-full p-6">
       {/* 배지, 업적 */}
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap gap-5 justify-center">
         {
           badges.map(item=>(
             <BadgeCard badge={item}  key={item.id}/>

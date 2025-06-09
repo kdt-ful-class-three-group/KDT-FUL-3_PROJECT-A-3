@@ -70,13 +70,13 @@ export default function MyPage() {
   
   return (
 
-    <div className="flex flex-col w-full justify-center">
+    <div className="flex flex-col w-full justify-center items-center">
       <ProfileCard />
       <UserStatus />
       <BadgesSection />
-      <div>
-        <Button name='포트폴리오' onClick={()=>router.push('/portfolio')}/>
-        <Button name='메인' onClick={()=>router.push('/home')}/>
+      <div className="w-full flex justify-around">
+        <Button name='포트폴리오' onClick={()=>router.push('/portfolio')} className="bg-[#B0DB9C] w-1/3 rounded p-3 cursor-pointer"/>
+        <Button name='메인' onClick={()=>router.push('/home')} className="bg-[#B0DB9C] rounded p-3 w-1/3 cursor-pointer"/>
       </div>
     </div>
   )
