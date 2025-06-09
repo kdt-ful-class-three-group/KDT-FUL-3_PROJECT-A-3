@@ -105,28 +105,27 @@ export function EmailField({ value, onChange, onValidChange }: EmailFieldProps) 
   return (
     <div className="w-full">
       <p className="text-sm">이메일</p>
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 w-full items-center">
         <Input
           name="emailLocal"
           placeholder="이메일"
           value={emailId}
           onChange={(e) => { setEmailId(e.target.value) }}
-          className="p-2 bg-[#B0DB9C]/30 rounded"
+          className="p-2 bg-[#B0DB9C]/30 rounded flex-shrink min-w-0 w-full"
+          divClassname="flex-shrink min-w-0"
         />
+          <p className="font-bold flex-shrink-0">@</p>
 
-
-        <div className="flex gap-2 items-center">
-          <p className="font-bold">@</p>
-        
           {emailDomain!=='custom' ?(
-
+            <div className="felx-shrink min-w-0 ">
             <Select
               name="emailDomain"
               option={emailDomains}
               value={emailDomain}
               onChange={(e) => { setEmailDomain(e.target.value) }}
-              className="p-2 border-2 rounded border-[#B0DB9C]/30"
+              className="p-2 border-2 rounded border-[#B0DB9C]/30 flex-shrink min-w-0 "
             />
+            </div>
           ) :
             <Input
               type="text"
@@ -136,10 +135,10 @@ export function EmailField({ value, onChange, onValidChange }: EmailFieldProps) 
               disabled={emailDomain !== "custom"}
               name="customDomain"
               placeholder="직접 입력"
-              className="p-2 bg-[#B0DB9C]/30 rounded"
+              className="p-2 bg-[#B0DB9C]/30 rounded flex-shrink min-w-0 w-full"
+              divClassname="flex-shrink min-w-0 "
             />
           }
-        </div>
       </div>
 
       {error && <p className="text-sm text-red-500 ml-1">{error}</p>}

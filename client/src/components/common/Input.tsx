@@ -15,7 +15,7 @@ export function Input({name,label,divClassname, ...props }: InputProps) {
   return (
     <div className={divClassname}>
       <label htmlFor={name}>{label}</label>
-    <input {...props} className={props.className}/>
+    <input {...props}/>
     </div>
   )
 }

@@ -60,7 +60,8 @@ export function EmailVerification({
         onChange={(e) => setEmailCode(e.target.value)}
         name="emailAuth"
         disabled={isVerified}
-        className="p-2 bg-[#B0DB9C]/30 rounded"
+        className="p-2 bg-[#B0DB9C]/30 rounded w-full"
+        divClassname="flex-1"
       />
       {
         isSend ? <Button name="인증번호 확인" type="button" onClick={submitEmailAuth} className="cursor-pointer 

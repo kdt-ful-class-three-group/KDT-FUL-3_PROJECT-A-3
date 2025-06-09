@@ -56,21 +56,21 @@ export function BirthField({ value , onChange, onValidChange }: BirthFieldProps)
             value={year}
             onChange={(e) => setYear(e.target.value)}
             option={years.map((y) => ({ name: y === "" ? "년" : y, value: y }))}
-            className="p-2 border-2 rounded border-[#B0DB9C]/30"
+            className="p-2 border-2 rounded border-[#B0DB9C]/30 w-1/3"
           />
           <Select
             name="month"
             value={month}
             onChange={(e) => setMonth(e.target.value)}
             option={months.map((m) => ({ name: m === "" ? "월" : m, value: m }))}
-            className="p-2 border-2 rounded border-[#B0DB9C]/30"
+            className="p-2 border-2 rounded border-[#B0DB9C]/30 w-1/3"
           />
           <Select
             name="day"
             value={day}
             onChange={(e) => setDay(e.target.value)}
             option={days.map((d) => ({ name: d === "" ? "일" : d, value: d }))}
-            className="p-2 border-2 rounded border-[#B0DB9C]/30"
+            className="p-2 border-2 rounded border-[#B0DB9C]/30 w-1/3"
           />
 
         </div>
