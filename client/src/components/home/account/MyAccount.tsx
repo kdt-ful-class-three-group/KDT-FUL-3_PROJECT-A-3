@@ -161,7 +161,7 @@ export function MyAccount() {
   }
 
   return (
-    <div className="w-full max-w-full sm:max-w-md min-w-0 px-4 mx-auto border-2 border-gray-300 rounded-lg p-4 mb-4">
+    <div className="w-full max-w-full sm:max-w-lg min-w-0 px-4 mx-auto rounded-lg p-4 mb-4 border border-gray-200">
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-1">내 계좌</h2>
         <p className="text-sm text-gray-600 mb-1">{account_number}</p>
@@ -173,7 +173,7 @@ export function MyAccount() {
         />
       </div>
       <div className="mb-2">
-        <h3 className="text-md font-medium text-gray-700">금액 변동률</h3>
+        <h3 className="text-md font-semibold text-gray-800 mb-2">금액 변동률</h3>
       </div>
       <div className="w-full p-4 bg-white rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.05)] overflow-x-auto">
         <Line data={data}

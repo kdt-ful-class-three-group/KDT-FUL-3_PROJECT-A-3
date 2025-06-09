@@ -56,7 +56,7 @@ export default function Voca() {
   
   
   return (
-    <div className="w-full max-w-5xl mx-auto px-4">
+    <div className="w-full max-w-xl mx-auto px-6">
       <VocaToolBar
         value={query}
         onChange={setQuery}

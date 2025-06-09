@@ -43,7 +43,7 @@ export default function SearchVoca({value, onChange, data, onSelect}:Props){
         />
         <Button
           name="검색"
-          className="px-4 py-2 bg-green-200 text-white rounded-r-xl hover:bg-green-300 transition"
+          className="px-4 py-2 bg-green-400 text-white rounded-r-xl hover:bg-green-500 transition"
         />
       </div>
       {value && search.length > 0 && (

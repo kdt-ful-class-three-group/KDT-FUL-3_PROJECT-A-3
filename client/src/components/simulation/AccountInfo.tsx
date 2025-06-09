@@ -34,7 +34,7 @@ export default function AccountInfo(){
   },[])
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-sm mx-auto">
+    <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-lg mx-auto">
       <div className="mb-4">
         <p className="text-sm text-gray-500">내 계좌</p>
         <h3 className="text-lg font-semibold text-gray-800">{account?.account_number}</h3>
