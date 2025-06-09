@@ -33,22 +33,31 @@ export default function UserStatus(){
   },[dispatch,nick])
 
   return(
-    <div>
+    <div className="p-6 max-w-md mx-auto w-full">
       {/* 로딩, 에러 */}
       {loading && <p>로딩 중 ...</p>}
       {error && <p>{error}</p>}
       {/* 투자횟수, 성공률, 보유 자산 */}
-      <p>투자 횟수 : {tradeCount}</p>
-      <p>보유 자산 : {asset} </p>
+      <div className="flex justify-around w-full">
+        <div className="w-1/2 p-1 rounded">
+          <p className="p-1 text-sm">투자 횟수</p>
+          <p className="text-center py-5 text-3xl font-bold">{tradeCount}</p>
+        </div>
+        <div className="w-1/2 p-1 rounded">
+          <p className="p-1 text-sm">보유 자산</p>
+          <p className="text-center py-5 text-3xl font-bold">{asset} </p>
+        </div>
+      </div>
       {/* 많이 거래한 내역 3개 */}
       <div>
-        <h3>거래 TOP3</h3>
-        {topTrades.map(item=>(
-          <p key={item.id}>{item.symbol}</p>
-        ))}
+        <h3 className="p-1 text-sm">거래 TOP3</h3>
+        <div className="flex justify-around">
+          {topTrades.map(item=>(
+            <p key={item.id} className="text-2xl font-bold py-5">{item.symbol}</p>
+          ))}
+
+        </div>
       </div>
-      {/* 포트폴리오 이동 버튼 */}
-      <Button name='포트폴리오' onClick={()=>router.push('/portfolio')}/>
     </div>
   )
 }

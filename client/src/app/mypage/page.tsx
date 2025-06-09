@@ -11,10 +11,13 @@ import { setUser } from "@/store/slices/userSlice"
 import axios from "axios"
 import type { RootState } from "@/store"
 import { useSelector } from "react-redux"
+import { Button } from "@/components/common/Button"
+import { useRouter } from "next/navigation"
 
 export default function MyPage() {
 
   const dispatch = useDispatch()
+  const router = useRouter()
 
   // 아직 준비되지 않았을 때를 대비한 기본값 설정
   const {tradeCount =0, tradeVolume=0} = useSelector((state:RootState)=> state.userStatus)
@@ -67,10 +70,14 @@ export default function MyPage() {
   
   return (
 
-    <div>
+    <div className="flex flex-col w-full justify-center">
       <ProfileCard />
       <UserStatus />
       <BadgesSection />
+      <div>
+        <Button name='포트폴리오' onClick={()=>router.push('/portfolio')}/>
+        <Button name='메인' onClick={()=>router.push('/home')}/>
+      </div>
     </div>
   )
 }

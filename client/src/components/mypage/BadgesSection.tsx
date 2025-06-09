@@ -12,13 +12,16 @@ export default function BadgesSection(){
   const badges = evaluateBadges({tradeCount, tradeVolume, level})
 
   return(
-    <div>
+    <div className="w-full p-6">
       {/* 배지, 업적 */}
-      {
-        badges.map(item=>(
-          <BadgeCard badge={item}  key={item.id}/>
-        ))
-      }
+      <div className="flex flex-wrap">
+        {
+          badges.map(item=>(
+            <BadgeCard badge={item}  key={item.id}/>
+          ))
+        }
+
+      </div>
     </div>
   )
 }
