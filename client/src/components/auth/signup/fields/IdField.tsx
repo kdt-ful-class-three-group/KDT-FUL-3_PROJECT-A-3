@@ -56,20 +56,29 @@ export function IdField({value = "", onChange, onValidChange}: InputProps) {
   }
   return (
     <div>
-      <Input 
-        name="id"
-        label="아이디"
-        placeholder="아이디"
-        value={value}
-        onChange={handleChange}
-      />
-      {/* 유효성 검사 메시지 */}
-      {error && <p>{error}</p>}
-      <Button
-        name="중복확인"
-        type="button"
-        onClick={submitId}
-      /> 
+      <p className="text-sm">아이디</p>
+      <div className="flex justify-between">
+        <Input 
+          name="id"
+          // label="아이디"
+          placeholder="아이디"
+          value={value}
+          onChange={handleChange}
+          className="p-2 bg-[#B0DB9C]/30 rounded"
+        />
+        <Button
+          name="중복 확인"
+          type="button"
+          onClick={submitId}
+          className="cursor-pointer 
+         bg-[#B0DB9C] rounded p-2"
+        /> 
+        
+      </div>
+      <div>
+        {/* 유효성 검사 메시지 */}
+        {error && <p className="text-sm text-red-500 ml-1">{error}</p>}
+      </div>
     </div>
   ) 
   }

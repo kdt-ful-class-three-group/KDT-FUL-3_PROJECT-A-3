@@ -55,27 +55,36 @@ export function PasswordField({value, onChange, onValidChange}: InputProps) {
   
   
   return (
-    <div>
-      <Input
-        name="password"
-        label="비밀번호"
-        placeholder="비밀번호"
-        value={value}
-        type="password"
-        onChange={handleChange}
-      />
-      {/* 유효성 검사 메시지 */}
-      {pwError && <p>{pwError}</p>}
-      <Input
-        name="password-check"
-        label="비밀번호확인"
-        placeholder="비밀번호확인"
-        type="password"
-        value={pwCheck}
-        onChange={handleCheck}
-      />
-      {/* 비밀번호 확인 메시지 */}
-      {checkError && <p>{checkError}</p>}
+    <div className="flex flex-col gap-3">
+      <div>
+        <p className="text-sm">비밀번호</p>
+        <Input
+          name="password"
+          // label="비밀번호"
+          placeholder="비밀번호"
+          value={value}
+          type="password"
+          onChange={handleChange}
+          className="w-full p-2 bg-[#B0DB9C]/30 rounded"
+        />
+        {/* 유효성 검사 메시지 */}
+        {pwError && <p className="text-sm text-red-500 ml-1">{pwError}</p>}
+      </div>
+      <div>
+        <p className="text-sm">비밀번호 확인</p>
+        <Input
+          name="password-check"
+          // label="비밀번호확인"
+          placeholder="비밀번호확인"
+          type="password"
+          value={pwCheck}
+          onChange={handleCheck}
+           className="w-full p-2 bg-[#B0DB9C]/30 rounded"
+        />
+        {/* 비밀번호 확인 메시지 */}
+        {checkError && <p className="text-sm text-red-500 ml-1">{checkError}</p>}
+
+      </div>
     </div>
   );
 }
