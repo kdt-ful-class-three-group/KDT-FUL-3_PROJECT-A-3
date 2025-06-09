@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { stockList } from "@/components/stocks/StockList"
 import { TradeItem } from "@/types/tradeItem"
+import {MdKeyboardArrowLeft} from "react-icons/md";
 
 export type HoldingItem={
   symbol:string;
@@ -95,13 +96,14 @@ export default function portfolioPage(){
   return(
     <div>
       {/* 뒤로가기 */}
-      <Button name="뒤로가기" onClick={()=> router.back()}/>
+      <MdKeyboardArrowLeft className="w-10 h-10 cursor-pointer" name="뒤로가기" onClick={()=>router.back()}/>
       {/* 총 자산 요약 */}
+      <div className=" flex-row-reverse w-80% m-3 px-2 shadow-md border-2 border-gray-500 rounded-lg p-4 flex justify-between items-center">
       <Summary totalValue={totalValue} investedAmount={invested}/>
       {/* 도넛 차트 */}
-      <div style={{width:'50%'}}>
-        <h1>거래량</h1>
+      <div className="w-[50%] ">
         <DoughnutChart trades={tradeData}/>
+      </div>
       </div>
       {/* 보유 종목 리스트  + 거래내역 이동*/}
       <HoldingsList items={holdingData}/>
