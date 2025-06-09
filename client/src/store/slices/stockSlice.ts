@@ -9,7 +9,7 @@ interface HoldingItem {
 interface StockState{
   holdings : HoldingItem[]
   interest : string[]
-  selectedTab : '보유' | '관심' | '실시간 순위'
+  selectedTab : '보유' | '관심' | '실시간 정보'
 }
 
 // 초기값
@@ -30,7 +30,7 @@ const stockSlice = createSlice({
     setInterest:(state, action:PayloadAction<string[]>)=>{
       state.interest = action.payload
     },
-    setSelectedTab: (state, action:PayloadAction<'보유'|'관심'|'실시간 순위'>)=>{
+    setSelectedTab: (state, action:PayloadAction<'보유'|'관심'|'실시간 정보'>)=>{
       state.selectedTab=action.payload
     }
   }

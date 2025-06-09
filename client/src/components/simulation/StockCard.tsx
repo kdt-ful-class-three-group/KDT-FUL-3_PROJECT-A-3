@@ -30,7 +30,6 @@ export default function StockCard({ symbol, much }: Props) {
   const total = much !== undefined ? current * much : current;
   const item = { name, current: total, comparison, change };
 
-
   return (
     <div className="flex items-center justify-between w-full px-4 py-3 border-b last:border-none">
       <div className="flex items-center gap-3">
