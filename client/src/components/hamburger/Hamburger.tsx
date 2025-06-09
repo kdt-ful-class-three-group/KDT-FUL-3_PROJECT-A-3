@@ -28,7 +28,9 @@ export function Hamburger({ onClose }: props) {
       />
       <div className={`fixed top-0 h-full bg-white rounded-l-lg shadow-xl z-50 transform ${show ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}
         style={{ width: '188px', right: 'calc((100vw - 534px) / 2 - 10px)' }}>
-        <Button variant="icon" icon="close" onClick={onClose} />
+        <div className="flex justify-end pr-3 pt-3">
+          <Button variant="icon" icon="close" onClick={onClose} className="w-10 h-10" />
+        </div>
         <div className="h-full flex flex-col justify-between px-4 py-6">
           <ul className="space-y-3">
             <li><Link href="/mypage" onClick={onClose} className="block px-3 py-2 rounded-md hover:bg-gray-100 text-sm font-medium">내 정보</Link></li>

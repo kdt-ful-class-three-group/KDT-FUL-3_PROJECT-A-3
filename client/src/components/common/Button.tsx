@@ -24,7 +24,7 @@ export function Button({ name, icon, ...props }: ButtonProps) {
       case 'plus':
         return <FaPlus style={{marginRight: '0.5rem'}}/>
       case 'close':
-        return <IoClose style={{marginRight: '0.5rem'}}/>
+        return <IoClose style={{ margin: '0 auto', fontSize: '20px' }}/>
       case 'edit':
         return <FaEdit style={{ marginRight: '0.5rem' }} />;
       case 'delete':

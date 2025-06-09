@@ -71,7 +71,7 @@ export default function StockShows({ btnValue }: { btnValue: string }) {
 
   if (btnValue === '관심') {
     symbols = interest;
-  } else if (btnValue === '실시간 순위') {
+  } else if (btnValue === '실시간 정보') {
     symbols = all;
   }
 
