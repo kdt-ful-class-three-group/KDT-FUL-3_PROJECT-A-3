@@ -24,11 +24,11 @@ export function PasswordField({value, onChange, onValidChange}: InputProps) {
 
     console.log(pw)
     
-    //! 입력값이 없을 때
+    // 입력값이 없을 때
     if(pw.length === 0 ){
       setPwError('비밀번호를 입력해주세요')
     }
-    // !입력값 있음 + 유효성 검사
+    // 입력값 있음 + 유효성 검사
     else if(!isPwValid){
         setPwError('8-50자 이내 영문, 숫자, 특수문자 포함해야합니다');  
     } 
@@ -36,7 +36,7 @@ export function PasswordField({value, onChange, onValidChange}: InputProps) {
         setPwError('')
     }
 
-    // ! 비밀번호 확인 값과 비교
+    //비밀번호 확인 값과 비교
     if(pwCheck.length===0){
       setCheckError('동일한 비밀번호를 입력해주세요')
     }
@@ -56,7 +56,7 @@ export function PasswordField({value, onChange, onValidChange}: InputProps) {
     const pwCheckValue = e.target.value;
     setPwCheck(pwCheckValue)
 
-    // ! 비밀번호 확인
+    //비밀번호 확인
     if(pwCheckValue.length===0){
       setCheckError('동일한 비밀번호를 입력해주세요')
     }

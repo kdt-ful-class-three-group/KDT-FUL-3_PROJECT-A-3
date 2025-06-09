@@ -16,39 +16,40 @@ export function IdFindForm() {
         email
       });
   
-      setModalMessage(`가입된 아이디: ${res.data.user_id}`);
+      setModalMessage(`${res.data.user_id}`);
     } catch (err) {
       setModalMessage("일치하는 정보가 없습니다.");
     }
   };
 
   return (
-    <div>
+    <div >
       <form onSubmit={handleSubmit}>
-        <Input
-          label="이메일"
-          name="email"
-          placeholder="이메일 주소"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Button type="submit" name="확인"/>
+        <p className="text-sm">이메일</p>
+        <div className="flex gap-5">
+          <Input
+            // label="이메일"
+            name="email"
+            placeholder="이메일 주소"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 bg-[#B0DB9C]/40 rounded"
+            divClassname="flex-1"
+          />
+          <Button type="submit" name="확인" className="bg-[#B0DB9C] rounded p-3 cursor-pointer"/>
+
+        </div>
       </form>
       {modalMessage && (
-        <div style={{
-          position: 'fixed',
-          top: '40%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: 'white',
-          padding: '20px',
-          borderRadius: '8px',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-          zIndex: 1000,
-          textAlign: 'center'
-        }}>
-          <p>{modalMessage}</p>
-          <Button name="닫기" type="button" onClick={() => setModalMessage(null)} />
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-xl z-50 text-center flex flex-col gap-5 px-20">
+          <p className="text-sm">가입된 아이디</p>
+          <p className="text-lg font-bold">{modalMessage}</p>
+          <Button
+            name="닫기"
+            type="button"
+            onClick={() => setModalMessage(null)}
+            className="bg-[#B0DB9C] rounded p-1 cursor-pointer"
+          />
         </div>
       )}
     </div>

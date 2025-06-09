@@ -36,41 +36,46 @@ export function PwFindForm() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <Input
-          label="아이디"
-          name="id"
-          placeholder="아이디"
-          onChange={(e) => setId(e.target.value)}
-        />
-        <Input
-          label="이메일"
-          name="email"
-          placeholder="이메일"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <EmailVerification
-          email={email}
-          onValidChange={setShowPasswordResetModal}
-        />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <div>
+          <p className="text-sm">아이디</p>
+          <Input
+            // label="아이디"
+            name="id"
+            placeholder="아이디"
+            onChange={(e) => setId(e.target.value)}
+            className="w-full p-3 bg-[#B0DB9C]/40 rounded"
+            divClassname="flex-1"
+          />
+        </div>
+
+        <div>
+          <p className="text-sm">이메일</p>
+          <Input
+            // label="이메일"
+            name="email"
+            placeholder="이메일"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 bg-[#B0DB9C]/40 rounded"
+            divClassname="flex-1"
+          />
+
+        </div>
+        <div>
+          <p className="text-sm">인증번호</p>
+          <EmailVerification
+            email={email}
+            onValidChange={setShowPasswordResetModal}
+
+          />
+        </div>
         <Button
           name="확인"
-          type="submit" />
+          type="submit" className="bg-[#B0DB9C] rounded p-3 cursor-pointer"/>
       </form>
       {modalMessage && (
-        <div style={{
-          position: 'fixed',
-          top: '40%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: 'white',
-          padding: '20px',
-          borderRadius: '8px',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-          zIndex: 1000,
-          textAlign: 'center'
-        }}>
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/5 bg-white p-5 rounded-lg shadow-xl z-[1000] text-center">
           <p>{modalMessage}</p>
 
         </div>
