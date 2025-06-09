@@ -52,7 +52,7 @@ export function EmailVerification({
   };
 
   return (
-    <div className="flex justify-between">
+    <div className="flex items-center gap-2">
       <Input
         type="text"
         placeholder="인증번호"

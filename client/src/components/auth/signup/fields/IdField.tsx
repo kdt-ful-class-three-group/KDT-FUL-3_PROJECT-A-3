@@ -57,14 +57,15 @@ export function IdField({value = "", onChange, onValidChange}: InputProps) {
   return (
     <div>
       <p className="text-sm">아이디</p>
-      <div className="flex justify-between">
+      <div className="flex items-center gap-2 w-full">
         <Input 
           name="id"
           // label="아이디"
           placeholder="아이디"
           value={value}
           onChange={handleChange}
-          className="p-2 bg-[#B0DB9C]/30 rounded"
+          className="p-2 bg-[#B0DB9C]/30 rounded min-w-0 w-full"
+          divClassname="flex-1"
         />
         <Button
           name="중복 확인"
