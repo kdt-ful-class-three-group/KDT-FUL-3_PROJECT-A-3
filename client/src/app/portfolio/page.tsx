@@ -103,31 +103,32 @@ export default function portfolioPage(){
     }
   },[tradeData,currentPrices])
 
-  return(
-    <div>
-      {/* 뒤로가기 */}
-      <MdKeyboardArrowLeft className="w-10 h-10 cursor-pointer" name="뒤로가기" onClick={()=>router.back()}/>
-      {/* 총 자산 요약 */}
-      <div className="flex flex-col-reverse w-80% m-3 px-2 shadow-lg rounded-lg p-4 justify-between items-center">
-      <Summary totalValue={totalValue} investedAmount={invested}/>
-      {/* 도넛 차트 */}
-      <div className="w-[50%] ">
-        <DoughnutChart trades={tradeData}/>
-      </div>
-      </div>
+  return (
+      <div className="w-full max-w-xs md:max-w-lg lg:max-w-lg mx-auto">
+        {/* 뒤로가기 */}
+        <MdKeyboardArrowLeft className="w-10 h-10 cursor-pointer" name="뒤로가기" onClick={() => router.back()}/>
+        {/* 총 자산 요약 */}
+        <div
+            className="flex flex-col-reverse w-full m-3 px-2 shadow-lg rounded-lg p-4 justify-between items-center md:flex-row md:space-x-8">
+          <Summary totalValue={totalValue} investedAmount={invested}/>
+          {/* 도넛 차트 */}
+          <div className="w-full max-w-xs mx-auto md:max-w-sm">
+            <DoughnutChart trades={tradeData}/>
+          </div>
+        </div>
 
-      {/*<HoldingsList items={holdingData}/>*/}
+        {/*<HoldingsList items={holdingData}/>*/}
 
-      <Button
-          name="보유"
-          onClick={() => dispatch(setSelectedTab('보유'))}
-          className={`w-28 py-1 rounded-full text-sm font-medium mx-2 ${
-              selectedTab === '보유'
-                  ? 'bg-gray-800 text-white'
-                  : 'bg-white border border-gray-300 text-gray-700'
-          }`}
-      />
-      <StockShow btnValue={selectedTab} />
-    </div>
+        <Button
+            name="보유"
+            onClick={() => dispatch(setSelectedTab('보유'))}
+            className={`w-28 py-1 rounded-full text-sm font-medium mx-2 ${
+                selectedTab === '보유'
+                    ? 'bg-gray-800 text-white'
+                    : 'bg-white border border-gray-300 text-gray-700'
+            }`}
+        />
+        <StockShow btnValue={selectedTab}/>
+      </div>
   )
 }
