@@ -67,12 +67,17 @@ export default function DoughnutChart({trades}:Props){
         },
         color:'#fff',
         font : {
-          weight: 'bold' as const,
-          size: 14,
+          weight: 'bold',
+          size: 13,
         }
       },
       legend:{
-        position:'bottom' as const
+        position:'bottom' as const,
+        labels:{
+          usePointStyle: true,
+          pointStyle: 'circle' as const,
+        }
+
       }
     }
   }
