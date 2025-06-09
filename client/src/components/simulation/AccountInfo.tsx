@@ -41,7 +41,11 @@ export default function AccountInfo(){
       </div>
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold text-green-600">{account?.asset}풀</h1>
-        <Button name=">" onClick={() => router.push('/portfolio')} />
+        <Button
+          icon="chevron"
+          className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 hover:text-black transition"
+          onClick={() => router.push('/portfolio')}
+        />
       </div>
     </div>
   )

@@ -26,7 +26,7 @@ export function Button({ name, icon, ...props }: ButtonProps) {
       case 'delete':
         return <FaTrash style={{ marginRight: '0.5rem' }} />;
       case 'chevron':
-        return <FaChevronRight style={{ marginRight: '0.5rem' }} />;
+        return <FaChevronRight style={{ margin: '0 auto', color: '#4B5563', fontSize: '14px' }}/>;
       default:
         return null;
     }
