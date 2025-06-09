@@ -14,14 +14,17 @@ export default function Card({vocaObj}:props){
 
   const [click, isClick] = useState(false)
 
-  return(
-    // 검색 했을 때 스크롤 이동을 위한 id 추가 - 공백 없어야함 > replace 사용
-    <div onClick={()=>isClick(!click)} id={`card-${vocaObj.voca.replace(/\s/g,'')}`}>
-      <h1>{vocaObj?.voca}</h1>
-      <p>{vocaObj?.name}</p>
-      <div style={click ? {display:'block'}: {display:'none'}}>
-        <p>{vocaObj?.description}</p>
-        <p>{vocaObj?.formula}</p>
+  return (
+    <div
+      onClick={() => isClick(!click)}
+      id={`card-${vocaObj.voca.replace(/\s/g, '')}`}
+      className="bg-blue-100 rounded-lg p-4 mb-4 shadow cursor-pointer transition hover:shadow-md"
+    >
+      <h1 className="text-xl font-bold text-black">{vocaObj.voca}</h1>
+      <p className="text-md font-semibold text-sky-600">{vocaObj.name}</p>
+      <div className={`${click ? 'block' : 'hidden'} mt-2`}>
+        <p className="text-sm text-gray-700">{vocaObj.description}</p>
+        {vocaObj.formula && <p className="text-sm text-gray-500 mt-1">{vocaObj.formula}</p>}
       </div>
     </div>
   )

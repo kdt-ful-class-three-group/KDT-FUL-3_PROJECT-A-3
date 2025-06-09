@@ -4,6 +4,7 @@ import './globals.css'
 import SessionWrapper from "@/components/session/SessionWrapper";
 //*RTK store를 하위컴포넌트에 전달
 import { ReduxProvider } from "./provider";
+import {Nav} from "@/components/common/menu/Nav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +30,14 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ReduxProvider>
           <SessionWrapper>
+            <Nav/>
             {children}
           </SessionWrapper>
         </ReduxProvider>

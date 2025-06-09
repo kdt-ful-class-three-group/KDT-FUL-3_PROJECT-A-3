@@ -4,12 +4,11 @@ import { Section } from "../../common/Section";
 //계좌 생성 버튼
 import CreateAccount from './CreateAccount';
 import { Modal } from "./Modal";
-import MyStock from "./MyAccount";
+import { MyAccount } from "./MyAccount";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
 import axios from "axios";
 import { setField } from "@/store/slices/accountSlice";
-import styles from './AccountStyles.module.css'
 
 export function AccountSection() {
 
@@ -55,12 +54,11 @@ export function AccountSection() {
   // const money : string = `1,000,000`;
 
   return (
-      <div className="my-[5%] justify-items-center">
-
+<div className="my-[5%] w-full max-w-screen-sm px-4 mx-auto">
           <Section
               title=""
               // description="주식 시장의 최신 동향과 정보를 확인하세요."
-              children={hasAccount ? <MyStock/> : <CreateAccount onClick={() => setShowModal(true)}/>}
+              children={hasAccount ? <MyAccount/> : <CreateAccount onClick={() => setShowModal(true)}/>}
           />
           {showModal && <Modal type='create'/>}
       </div>
