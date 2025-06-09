@@ -1,5 +1,3 @@
-import styles from './SearchStyles.module.css';
-
 // 나중에 Stock interface 수정
 export interface Stock {
   name: string;
@@ -13,19 +11,23 @@ interface Props {
 }
 
 export function SearchDropdown({ results, onSelect, visible }: Props) {
-  const dropdownClass = visible ? `${styles.dropdown} ${styles.dropdownVisible}` : styles.dropdown;
+  const dropdownClass = `absolute left-0 right-0 z-50 mt-1 bg-white border border-gray-200 rounded-md shadow-md max-h-60 overflow-auto ${
+    visible ? 'block' : 'hidden'
+  }`;
 
   return (
-    <ul className={dropdownClass}>
-      {results.map((stock) => (
-        <li
-          key={stock.symbol}
-          className={styles.item}
-          onClick={() => onSelect(stock.symbol)}
-        >
-          {stock.name} ({stock.symbol})
-        </li>
-      ))}
-    </ul>
+    <div className="relative w-full">
+      <ul className={dropdownClass}>
+        {results.map((stock) => (
+          <li
+            key={stock.symbol}
+            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+            onClick={() => onSelect(stock.symbol)}
+          >
+            {stock.name} ({stock.symbol})
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
