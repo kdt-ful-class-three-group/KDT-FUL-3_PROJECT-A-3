@@ -57,7 +57,7 @@ export function LoginForm() {
         <p className="font-bold text-gray-400">|</p>
         <Link href='/signup' className="text-gray-400 hover:text-black text-sm">회원가입</Link>
       </div>
-      <Button type="submit" name="로그인" className="bg-[#B0DB9C] rounded p-3"/>
+      <Button type="submit" name="로그인" className="bg-[#B0DB9C] rounded p-3 cursor-pointer"/>
     </form>
   )
 }
