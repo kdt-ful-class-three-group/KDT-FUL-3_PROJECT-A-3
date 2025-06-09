@@ -1,5 +1,4 @@
 import { Button } from "../../common/Button"
-import styles from './AccountStyles.module.css'
 //차트
 import { Line } from "react-chartjs-2"
 import {
@@ -21,7 +20,7 @@ import { setSymbolPrice } from "@/store/slices/symbolPriceSlice"
 //차트 요소 등록
 ChartJS.register(LineElement, CategoryScale,LinearScale, PointElement, Tooltip, Legend, Filler)
 
-export default function MyAccount(){
+export function MyAccount() {
   const dispatch = useDispatch()
   const { account_number, asset } = useSelector((state: RootState) => state.account)
   const symbolPrices = useSelector((state: RootState) => state.symbolPrice)
@@ -96,73 +95,73 @@ export default function MyAccount(){
     }
 
     getStockAsset()
-  // * 위의 함수는 asset값과 symbolPrices값이 변경 될 때마다 갱신 된다.
+    // * 위의 함수는 asset값과 symbolPrices값이 변경 될 때마다 갱신 된다.
   }, [asset, symbolPrices])
 
 
-    const router = useRouter()
+  const router = useRouter()
 
   //!차트데이터 (임시)
   // date, money (asset)
   const moneyData = [
-    {date:'계좌만든 날',asset:1000000}, // 계좌 생성 직후
+    { date: '계좌만든 날', asset: 1000000 }, // 계좌 생성 직후
     // * asset의 값은 갱신된 totalAsset값
-    {date:'오늘',asset: totalAsset}, // 오늘
+    { date: '오늘', asset: totalAsset }, // 오늘
   ]
 
   // console.log('총자산:',totalAsset);
 
   //차트용 데이터
-  const data = useMemo(()=>({
-    labels: moneyData.map(item=>item.date),
-    datasets:[
+  const data = useMemo(() => ({
+    labels: moneyData.map(item => item.date),
+    datasets: [
       {
-        label:'자산',
-        data:moneyData.map(item=>item.asset),
-        borderColor:'#000',
-        backgroundColor:'rgba(0,0,0,0.6)',
-        fill : true,
+        label: '자산',
+        data: moneyData.map(item => item.asset),
+        borderColor: '#000',
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        fill: true,
         tension: 0.3,
-        pointRadius:3,
+        pointRadius: 3,
 
       }
     ]
-  }),[moneyData])
+  }), [moneyData])
 
   //차트옵션
   const options = {
-    responsive:true,
-    plugins:{
-      legend:{
-        display:false,
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
       },
-      tooltip:{
-        callbacks:{
-          label:(ctx:any)=>`${ctx.parsed.y.toLocaleString()}풀`
+      tooltip: {
+        callbacks: {
+          label: (ctx: any) => `${ctx.parsed.y.toLocaleString()}풀`
         }
       }
     },
-    scales:{
-      x:{
+    scales: {
+      x: {
         // x축 범위 설정
-        min:0, //시작은 첫 데이터
-        max: Math.max(4,moneyData.length-1),//최소 5칸 확보
+        min: 0, //시작은 첫 데이터
+        max: Math.max(4, moneyData.length - 1),//최소 5칸 확보
       },
-      y:{
-        ticks:{
-          callback:(value:string|number)=> value===1000000 ? '1,000,000':''
+      y: {
+        ticks: {
+          callback: (value: string | number) => value === 1000000 ? '1,000,000' : ''
         },
-        min:0,
-        max:1200000,
-        grid:{
-          display:false //격자 안보이게 처리
+        min: 0,
+        max: 1200000,
+        grid: {
+          display: false //격자 안보이게 처리
         }
       }
     }
   }
 
   return (
-    <div className="justify-items-start w-full border-2 border-gray-300 rounded-lg p-4 mb-4">
+    <div className="justify-items-start w-full max-w-[500px] border-2 border-gray-300 rounded-lg p-4 mb-4">
       <div className="">
         <p>내 계좌</p>
         <p>{account_number}</p>
@@ -170,13 +169,13 @@ export default function MyAccount(){
       <div>
         <p>{asset}</p>
         {/* 마이페이지로 이동 */}
-        <Button name='>' type='button' onClick={()=>router.push('/portfolio')}/>
+        <Button name='>' type='button' onClick={() => router.push('/portfolio')} />
       </div>
       <div>
         <p>금액 변동률</p>
       </div>
-      <div className="flex item-center justify-center w-full max-w-[300px] p-4 bg-white rounded-lg shadow-md shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
-        <Line data={data} options={options}/>
+      <div className="flex item-center justify-center w-full p-4 bg-white rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+        <Line data={data} options={options} />
       </div>
     </div>
   )
