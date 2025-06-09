@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useState } from "react"
+
 import axios from "axios"
+import { GoStarFill } from "react-icons/go";
 
 interface FavoriteButtonProps {
   symbol: string
@@ -61,8 +63,15 @@ export function FavoriteButton({ symbol }: FavoriteButtonProps) {
   }
 
   return (
-    <button onClick={toggleFavorite}>
-      {isFavorite ? `${symbol} 관심해제` : `${symbol} 관심등록`}
+    <button className="flex items-center gap-1 cursor-pointer" onClick={toggleFavorite}>
+      <span className="flex items-center gap-1">
+        {symbol}
+        {isFavorite ? (
+          <GoStarFill style={{ color: "#FFCC33" }} />
+        ) : (
+          <GoStarFill color="gray" />
+        )}
+      </span>
     </button>
   )
 }
