@@ -3,7 +3,6 @@
 import Card from "@/components/voca/Card";
 import { useEffect, useState } from "react";
 import VocaToolBar from "@/components/voca/VocaToolBar";
-import PageWrapper from "@/components/page/PageWrapper";
 import axios from "axios";
 
 //초성 순으로 정렬
@@ -57,44 +56,41 @@ export default function Voca() {
   
   
   return (
-    <PageWrapper>
-      <div>
-        <h2>용어 사전</h2>
-        <VocaToolBar
-          value={query}
-          onChange={setQuery}
-          data={list}
-          onSelect={(item) => {
-            setSelected(item)
-            //스크롤 이동
-            const id = `card-${item.voca.replace(/\s/g, '')}`
+    <div className="w-full max-w-5xl mx-auto px-4">
+      <VocaToolBar
+        value={query}
+        onChange={setQuery}
+        data={list}
+        onSelect={(item) => {
+          setSelected(item)
+          //스크롤 이동
+          const id = `card-${item.voca.replace(/\s/g, '')}`
+          const el = document.getElementById(id)
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            setQuery('')//선택 후 입력내용 초기화
+          }
+        }}
+        onScroll={(keyword) => {
+          //일치하는 리스트 찾기
+          const findVoca = list.find(item => {
+            const first = getFirstChar(item.voca || item.name)
+            return first === keyword
+          })
+          //찾았다면
+          if (findVoca) {
+            const id = `card-${findVoca.voca.replace(/\s/g, '')}`
             const el = document.getElementById(id)
             if (el) {
               el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-              setQuery('')//선택 후 입력내용 초기화
             }
-          }}
-          onScroll={(keyword) => {
-            //일치하는 리스트 찾기
-            const findVoca = list.find(item => {
-              const first = getFirstChar(item.voca || item.name)
-              return first === keyword
-            })
-            //찾았다면
-            if (findVoca) {
-              const id = `card-${findVoca.voca.replace(/\s/g, '')}`
-              const el = document.getElementById(id)
-              if (el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-              }
-            }
-          }}
-        />
-        {/* 여기에 단어장 컴포넌트나 기능을 추가할 수 있습니다. */}
-        {list.map((item, index) => (
-          <Card key={index} vocaObj={item} />
-        ))}
-      </div>
-    </PageWrapper>
+          }
+        }}
+      />
+      {/* 여기에 단어장 컴포넌트나 기능을 추가할 수 있습니다. */}
+      {list.map((item, index) => (
+        <Card key={index} vocaObj={item} />
+      ))}
+    </div>
   );
 }

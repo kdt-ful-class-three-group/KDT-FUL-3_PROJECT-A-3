@@ -24,7 +24,7 @@ type Props<T> = {
 export default function VocaToolBar<T extends {voca?:string; name:string;}>({value, onChange, data, onSelect, onScroll}:Props<T>){
 
   return(
-    <div className={styles.voca}>
+    <div className="sticky top-4 left-4 flex flex-col gap-4 items-center z-50 backdrop-blur-sm bg-white/30 rounded-md p-2">
       <SearchVoca
         value={value}
         onChange={onChange}

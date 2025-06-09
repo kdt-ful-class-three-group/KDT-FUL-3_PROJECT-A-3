@@ -31,21 +31,36 @@ export default function SearchVoca({value, onChange, data, onSelect}:Props){
     )
   },[value,data])
 
-  return(
-    <div style={{position:'relative'}}>
-      <div style={{display:'flex'}}>
-        <Input name='voca' type="search" value={value} onChange={(e)=>onChange(e.target.value)}/>
-        <Button name='검색'/>
+  return (
+    <div className="relative w-full max-w-xl mx-auto mt-4">
+      <div className="flex justify-center">
+        <Input
+          name="voca"
+          type="search"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="flex-1 bg-green-50 text-gray-800 px-4 py-2 rounded-l-xl focus:outline-none border-none"
+        />
+        <Button
+          name="검색"
+          className="px-4 py-2 bg-green-200 text-white rounded-r-xl hover:bg-green-300 transition"
+        />
       </div>
-      <div style={{position:'absolute', backgroundColor:'#fff', width:'100%'}}>
-        {
-        value && search.length>0 && (
+      {value && search.length > 0 && (
+        <div className="absolute z-10 bg-white w-full shadow-md rounded-md mt-1">
           <ul>
-            {search.map((i,index)=><li key={index} onClick={()=>onSelect(i)}>{i.voca}</li>)}
+            {search.map((i, index) => (
+              <li
+                key={index}
+                onClick={() => onSelect(i)}
+                className="px-4 py-2 hover:bg-green-100 cursor-pointer text-sm"
+              >
+                {i.voca}
+              </li>
+            ))}
           </ul>
-        )
-        }
-      </div>
+        </div>
+      )}
     </div>
   )
 }
