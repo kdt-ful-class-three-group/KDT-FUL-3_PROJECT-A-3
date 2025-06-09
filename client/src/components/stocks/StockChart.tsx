@@ -36,6 +36,7 @@ export default function StockChart({ data, symbol }: { data: StockValue[], symbo
     // 차트 DOM 요소나 데이터가 없으면 중단
     if (!chartRef.current || !data || data.length === 0) return;
 
+
     // 보여줄 데이터만 추출하고 정렬 (시간 오름차순)
     const slicedData = data.slice(0, visibleDataCount);
     const sortedData = [...slicedData].filter(item => item && item.datetime).sort((a, b) =>
