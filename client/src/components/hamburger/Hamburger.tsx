@@ -7,39 +7,42 @@ type props = {
   onClose : ()=>void
 }
 
-export function Hamburger({onClose}:props){
+export function Hamburger({ onClose }: props) {
 
   const [show, setShow] = useState(false);
   useEffect(() => {
-      setShow(true);
-      // search 화면 나왔을 때 배경 스크롤 방지
-      document.body.style.overflow = 'hidden';
-      // search 화면 사라질 때 원래대로 복구
-      return () => { document.body.style.overflow = 'auto'; };
-    }, []);
+    setShow(true);
+    // search 화면 나왔을 때 배경 스크롤 방지
+    document.body.style.overflow = 'hidden';
+    // search 화면 사라질 때 원래대로 복구
+    return () => { document.body.style.overflow = 'auto'; };
+  }, []);
 
   // ! 마이페이지 이동 & 로그아웃 기능 추가
 
   return (
     <>
       <div
-        className={`fixed inset-0 z-40 ${show ? '' : 'pointer-events-none'}`}
+        className={`fixed inset-0 bg-white/10 backdrop-blur-sm z-40 transition-opacity duration-300 ${show ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={onClose}
       />
-      <div className={`fixed top-0 right-[20%] h-full w-1/2 bg-[#b8c2a5] z-50 transform ${show ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
-        <Button variant="icon" icon="close" onClick={onClose}/>
-        <div>
-          <ul>
-            <li><Link href={'/mypage'}>내 정보</Link></li>
-            <li><Link href={'/portfolio'}>포트폴리오</Link></li>
-            <li><Link href={'/history'}>거래 내역</Link></li>
-            <li>알림</li>
-            <li>이벤트</li>
-            <li>설정</li>
-            <li>고객센터</li>
+      <div className={`fixed top-0 h-full bg-white rounded-l-lg shadow-xl z-50 transform ${show ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}
+        style={{ width: '188px', right: 'calc((100vw - 534px) / 2 - 10px)' }}>
+        <Button variant="icon" icon="close" onClick={onClose} />
+        <div className="h-full flex flex-col justify-between px-4 py-6">
+          <ul className="space-y-3">
+            <li><Link href="/mypage" onClick={onClose} className="block px-3 py-2 rounded-md hover:bg-gray-100 text-sm font-medium">내 정보</Link></li>
+            <li><Link href="/portfolio" onClick={onClose} className="block px-3 py-2 rounded-md hover:bg-gray-100 text-sm font-medium">포트폴리오</Link></li>
+            <li><Link href="/history" onClick={onClose} className="block px-3 py-2 rounded-md hover:bg-gray-100 text-sm font-medium">거래 내역</Link></li>
+            <li className="px-3 py-2 rounded-md hover:bg-gray-100 text-sm font-medium cursor-pointer">알림</li>
+            <li className="px-3 py-2 rounded-md hover:bg-gray-100 text-sm font-medium cursor-pointer">이벤트</li>
+            <li className="px-3 py-2 rounded-md hover:bg-gray-100 text-sm font-medium cursor-pointer">설정</li>
+            <li className="px-3 py-2 rounded-md hover:bg-gray-100 text-sm font-medium cursor-pointer">고객센터</li>
           </ul>
+          <div className="flex justify-center mb-4">
+            <LogoutButton />
+          </div>
         </div>
-        <LogoutButton />        
       </div>
     </>
   )

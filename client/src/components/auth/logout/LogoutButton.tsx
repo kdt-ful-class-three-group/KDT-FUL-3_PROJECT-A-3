@@ -18,11 +18,12 @@ export function LogoutButton() {
   }
 
   return (
-    <div>
+    <>
       <Button
         name="로그아웃"
         onClick={handleLogout}
+        className="bg-[#B0DB9C] rounded px-6 py-2 cursor-pointer"
       />
-    </div>
+    </>
   )
 }
