@@ -116,12 +116,12 @@ export default function StockChart({ data, symbol }: { data: StockValue[], symbo
   // 차트가 렌더링될 DOM 요소
   return (
       <div className="w-full">
-        <div className="flex items-center justify-center gap-2 mb-4">
+        <div className="flex items-center justify-center mb-4">
           {(iconMap[symbol] || (() => <span>{symbol}</span>))()}
           <h2 className="text-lg font-semibold">{symbol}</h2>
         </div>
 
-        <div ref={chartRef} style={{ width: '100%', height: '500px' }} />
+        <div ref={chartRef} style={{ width: '100%', height: '480px' }} />
       </div>
   );
   }
