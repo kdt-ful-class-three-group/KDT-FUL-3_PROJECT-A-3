@@ -12,17 +12,38 @@ export default function StockTab(){
   const dispatch = useDispatch()
   const selectedTab = useSelector((state:RootState)=>state.stock.selectedTab)
 
-  return(
-    <div>
-      {/* 버튼 - 구매 종목, 관심 종목, 실시간 순위*/}
-      <div>
-        <Button name='보유' onClick={()=>dispatch(setSelectedTab('보유'))} style={{backgroundColor : selectedTab==='보유' ? '#aaa' : undefined}}/>
-        <Button name='관심' onClick={()=>dispatch(setSelectedTab('관심'))} style={{backgroundColor : selectedTab ==='관심' ? '#aaa' : undefined}}/>
-        <Button name='실시간 순위' onClick={()=>dispatch(setSelectedTab('실시간 순위'))} style={{backgroundColor : selectedTab ==='실시간 순위' ? '#aaa' : undefined}}/>
+  return (
+    <div className="mt-6 px-4">
+      <div className="flex justify-center gap-2 mb-4">
+        <Button
+          name="보유"
+          onClick={() => dispatch(setSelectedTab('보유'))}
+          className={`w-28 py-1 rounded-full text-sm font-medium ${
+            selectedTab === '보유'
+              ? 'bg-gray-800 text-white'
+              : 'bg-white border border-gray-300 text-gray-700'
+          }`}
+        />
+        <Button
+          name="관심"
+          onClick={() => dispatch(setSelectedTab('관심'))}
+          className={`w-28 py-1 rounded-full text-sm font-medium ${
+            selectedTab === '관심'
+              ? 'bg-gray-800 text-white'
+              : 'bg-white border border-gray-300 text-gray-700'
+          }`}
+        />
+        <Button
+          name="실시간 순위"
+          onClick={() => dispatch(setSelectedTab('실시간 순위'))}
+          className={`w-28 py-1 rounded-full text-sm font-medium ${
+            selectedTab === '실시간 순위'
+              ? 'bg-gray-800 text-white'
+              : 'bg-white border border-gray-300 text-gray-700'
+          }`}
+        />
       </div>
-      {/* 버튼에 따라 보여줄 화면 */}
-      <p>{selectedTab}</p>
-      <StockShow btnValue={selectedTab}/> 
+      <StockShow btnValue={selectedTab} />
     </div>
   )
 }

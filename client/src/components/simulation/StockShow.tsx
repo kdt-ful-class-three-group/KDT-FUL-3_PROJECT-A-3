@@ -78,15 +78,23 @@ export default function StockShows({ btnValue }: { btnValue: string }) {
   // ! all -> 순위 로직 필요함
 
   return (
-    <div>
+    <div className="space-y-2">
       {btnValue === '보유'
         ? holdings.map((item, index) => (
-          <div key={index} style={{ cursor: 'pointer' }} onClick={() => router.push(`stocks/${item.symbol}`)}>
+          <div
+            key={index}
+            className="cursor-pointer"
+            onClick={() => router.push(`stocks/${item.symbol}`)}
+          >
             <StockCard symbol={item.symbol} much={item.much} />
           </div>
         ))
         : symbols.map((item, index) => (
-          <div key={index} style={{ cursor: 'pointer' }} onClick={() => router.push(`stocks/${item}`)}>
+          <div
+            key={index}
+            className="cursor-pointer"
+            onClick={() => router.push(`stocks/${item}`)}
+          >
             <StockCard symbol={item} />
           </div>
         ))}

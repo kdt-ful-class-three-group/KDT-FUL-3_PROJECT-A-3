@@ -3,7 +3,6 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { Button } from "../common/Button"
 import { useRouter } from "next/navigation"
-import styles from './SimulationStyles.module.css'
 import { Account } from "@/types/account"
 
 export default function AccountInfo(){
@@ -34,15 +33,15 @@ export default function AccountInfo(){
     fetchAccount()
   },[])
 
-  return(
-    <div className={styles.info}>
-      <div>
-        <p>내 계좌</p>
-        <h3>{account?.account_number}</h3>
+  return (
+    <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-sm mx-auto">
+      <div className="mb-4">
+        <p className="text-sm text-gray-500">내 계좌</p>
+        <h3 className="text-lg font-semibold text-gray-800">{account?.account_number}</h3>
       </div>
-      <div style={{display:'flex'}}>
-        <h1>{account?.asset}풀</h1>
-        <Button name='>' onClick={() => router.push('/portfolio')} />
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-bold text-green-600">{account?.asset}풀</h1>
+        <Button name=">" onClick={() => router.push('/portfolio')} />
       </div>
     </div>
   )
