@@ -48,8 +48,8 @@ export function SignupForm({ onSignup }: { onSignup: (userData: { id: string; pa
   }
 
   return (
-    <div>
-      <form onSubmit={signupSubmit} className="flex flex-col gap-5">
+    <div className="w-full">
+      <form onSubmit={signupSubmit} className="flex flex-col gap-3">
         <IdField
           value={id}
           onChange={(e) => handleChange("id", e.target.value)}

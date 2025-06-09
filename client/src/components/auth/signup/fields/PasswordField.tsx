@@ -71,7 +71,6 @@ export function PasswordField({value, onChange, onValidChange}: InputProps) {
         {pwError && <p className="text-sm text-red-500 ml-1">{pwError}</p>}
       </div>
       <div>
-        <p className="text-sm">비밀번호 확인</p>
         <Input
           name="password-check"
           // label="비밀번호확인"

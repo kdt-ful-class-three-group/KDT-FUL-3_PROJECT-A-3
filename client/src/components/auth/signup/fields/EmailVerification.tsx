@@ -14,6 +14,9 @@ export function EmailVerification({
   const [modalMessage, setModalMessage] = useState<string | null>(null);
   const [isVerified, setIsVerified] = useState(false);
 
+  // 버튼 조절
+  const [isSend, setIsSend]= useState(false)
+
   const closeModal = () => setModalMessage(null);
 
 
@@ -23,6 +26,7 @@ export function EmailVerification({
       const res = await axios.post("http://localhost:8008/auth/sendCode", { email });
       if (res.status >= 200 && res.status < 300) {
         setModalMessage("인증번호가 이메일로 전송되었습니다.");
+        setIsSend(true)
       }
     } catch {
       setModalMessage("인증번호 전송 실패: 이메일 주소를 확인해주세요.");
@@ -48,7 +52,7 @@ export function EmailVerification({
   };
 
   return (
-    <div>
+    <div className="flex justify-between">
       <Input
         type="text"
         placeholder="인증번호"
@@ -56,22 +60,18 @@ export function EmailVerification({
         onChange={(e) => setEmailCode(e.target.value)}
         name="emailAuth"
         disabled={isVerified}
+        className="p-2 bg-[#B0DB9C]/30 rounded"
       />
-      <Button name="인증번호 전송" type="button" onClick={submitEmailCode} />
-      <Button name="인증번호 확인" type="button" onClick={submitEmailAuth} />
+      {
+        isSend ? <Button name="인증번호 확인" type="button" onClick={submitEmailAuth} className="cursor-pointer 
+         bg-[#B0DB9C] rounded p-2" />
+        : <Button name="인증번호 전송" type="button" onClick={submitEmailCode} className="cursor-pointer 
+         bg-[#B0DB9C] rounded p-2"/>
+      }
+      
+      
       {modalMessage && (
-        <div style={{
-          position: 'fixed',
-          top: '40%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: 'white',
-          padding: '20px',
-          borderRadius: '8px',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-          zIndex: 1000,
-          textAlign: 'center'
-        }}>
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/5 bg-white p-5 rounded-lg shadow-lg z-[1000] text-center">
           <p>{modalMessage}</p>
           <Button name="닫기" type="button" onClick={closeModal} />
         </div>

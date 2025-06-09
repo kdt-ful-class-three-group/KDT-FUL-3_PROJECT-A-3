@@ -40,15 +40,17 @@ export function NameField({value, onChange, onValidChange}: InputProps) {
  
   return (
     <div>
+      <p className="text-sm">이름</p>
       <Input 
         name="name"
-        label="이름"
+        // label="이름"
         placeholder="이름"
         value={value}
         onChange={handleChange}
+        className="w-full p-2 bg-[#B0DB9C]/30 rounded"
       />
       {/* 유효성 검사 메시지 */}
-      {error && <p>{error}</p>}
+      {error && <p className="text-sm text-red-500 ml-1">{error}</p>}
     </div>
   ) 
 }

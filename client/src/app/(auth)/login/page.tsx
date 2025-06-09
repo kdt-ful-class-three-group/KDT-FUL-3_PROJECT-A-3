@@ -38,7 +38,7 @@ export default function LoginPage(){
   if (authStatus === 'ok') {
     return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="w-full max-w-md p-8">
+      <div className="w-full max-w-md p-4">
       {/* 페이지 이름 */}
       <h1 className="text-4xl font-bold mb-15">로그인</h1>
       {/* 로그인폼 */}

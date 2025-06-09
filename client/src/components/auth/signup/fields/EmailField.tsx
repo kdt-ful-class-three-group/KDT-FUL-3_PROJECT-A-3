@@ -56,7 +56,7 @@ export function EmailField({ value, onChange, onValidChange }: EmailFieldProps) 
 
     if (!emailId || (!emailDomain && !customEmail)) {
       onChange('') // 이메일이 비어있거나 도메인이 선택되지 않은 경우
-      setError('이메일을 입력해주세요') // 에러 메시지 초기화
+      setError('') // 에러 메시지 초기화
       onValidChange?.(false) // 유효성 검사 실패
       return;
     }
@@ -103,38 +103,53 @@ export function EmailField({ value, onChange, onValidChange }: EmailFieldProps) 
   }
 
   return (
-    <div>
-      <Input
-        name="emailLocal"
-        placeholder="이메일"
-        value={emailId}
-        onChange={(e) => { setEmailId(e.target.value) }}
-      />
+    <div className="w-full">
+      <p className="text-sm">이메일</p>
+      <div className="flex gap-2 flex-wrap">
+        <Input
+          name="emailLocal"
+          placeholder="이메일"
+          value={emailId}
+          onChange={(e) => { setEmailId(e.target.value) }}
+          className="p-2 bg-[#B0DB9C]/30 rounded"
+        />
 
-      <span>@</span>
 
-      <Select
-        name="emailDomain"
-        option={emailDomains}
-        value={emailDomain}
-        onChange={(e) => { setEmailDomain(e.target.value) }}
-      />
+        <div className="flex gap-2 items-center">
+          <p className="font-bold">@</p>
+        
+          {emailDomain!=='custom' ?(
 
-      <Input
-        type="text"
-        label=""
-        value={customEmail}
-        onChange={(e) => { setCustomEmail(e.target.value) }}
-        disabled={emailDomain !== "custom"}
-        name="customDomain"
-        placeholder="직접 입력"
-      />
-      {error && <p>{error}</p>}
+            <Select
+              name="emailDomain"
+              option={emailDomains}
+              value={emailDomain}
+              onChange={(e) => { setEmailDomain(e.target.value) }}
+              className="p-2 border-2 rounded border-[#B0DB9C]/30"
+            />
+          ) :
+            <Input
+              type="text"
+              label=""
+              value={customEmail}
+              onChange={(e) => { setCustomEmail(e.target.value) }}
+              disabled={emailDomain !== "custom"}
+              name="customDomain"
+              placeholder="직접 입력"
+              className="p-2 bg-[#B0DB9C]/30 rounded"
+            />
+          }
+        </div>
+      </div>
+
+      {error && <p className="text-sm text-red-500 ml-1">{error}</p>}
       
       <Button
         name="중복확인"
         type="button"
         onClick={submitEmail}
+        className="cursor-pointer 
+         bg-[#B0DB9C] rounded p-2 w-full mt-2 mb-2"
       />
       {/* 이메일 인증코드 발급/검증 */}
       <EmailVerification
