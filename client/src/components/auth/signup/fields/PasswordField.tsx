@@ -2,54 +2,69 @@ import { Input, InputProps } from "@/components/common/Input"
 import { useState } from "react"
 
 export function PasswordField({value, onChange, onValidChange}: InputProps) {
-  // 비밀번호 상태 관리
+  // 비밀번호 - value
+  // 비밀번호 확인 - pwCheck
   const [pwCheck, setPwCheck] = useState('')
-  // 메시지
+  // 비밀번호 유효성 메시지
   const [pwError, setPwError] = useState('')
+  // 비밀번호 확인 메시지
   const [checkError, setCheckError]=useState('')
 
-  // 비밀번호,비밀번호확인 일치확인 로직 추가
 
-  // 영문 숫자 특수문자 포함 8글자 이상 50자 미만
+  // 유효성 - 영문 숫자 특수문자 포함 8글자 이상 50자 미만
   const checkPw = (pw:string):boolean=>{
-    // const isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,50}$/.test(pw);
     return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,50}$/.test(pw);
   }
 
   // 비밀번호 유효성 검사 -> 상태반영
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pw = e.target.value;
-    const isValid = checkPw(pw)&& pwCheck.length > 0 && pwCheck === pw;
+    // const isValid = checkPw(pw)&& pwCheck.length > 0; // pw 유효성 검사
+    const isPwValid = checkPw(pw); // pw 유효성 검사
+
+    console.log(pw)
     
-    // 유효성 검사
-    if (!isValid)
-      setPwError('8-50자 이내 영문, 숫자, 특수문자 포함해야합니다');
+    //! 입력값이 없을 때
+    if(pw.length === 0 ){
+      setPwError('비밀번호를 입력해주세요')
+    }
+    // !입력값 있음 + 유효성 검사
+    else if(!isPwValid){
+        setPwError('8-50자 이내 영문, 숫자, 특수문자 포함해야합니다');  
+    } 
     else {
-      setPwError('')
+        setPwError('')
     }
 
-        //비밀번호 확인 값이 있으면 일치 여부 
-    if(pwCheck.length>0 && pwCheck===pw){
+    // ! 비밀번호 확인 값과 비교
+    if(pwCheck.length===0){
+      setCheckError('동일한 비밀번호를 입력해주세요')
+    }
+    else if(pw===pwCheck){
       setCheckError('일치합니다')
-    } else {
-      setCheckError('비밀번호가 일치하지 않습니다')
+    }
+    else {
+      setCheckError('일치하지 않습니다')
     }
 
-    onValidChange?.(isValid);
+    onValidChange?.(isPwValid && pwCheck===pw &&pwCheck.length>0);
     onChange?.(e);
   }
 
   //비밀번호 확인
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const pwCheck = e.target.value;
-    setPwCheck(pwCheck)
+    const pwCheckValue = e.target.value;
+    setPwCheck(pwCheckValue)
 
-    //일치하는지 확인
-    if(pwCheck ===value){
+    // ! 비밀번호 확인
+    if(pwCheckValue.length===0){
+      setCheckError('동일한 비밀번호를 입력해주세요')
+    }
+    else if(pwCheckValue===value && checkPw(value)){
       setCheckError('일치합니다')
-    } 
-    if(pwCheck!==value || pwCheck.length===0){
-      setCheckError('비밀번호가 일치하지 않습니다');
+    }
+    else{
+      setCheckError('일치하지 않습니다')
     }
   }
   
