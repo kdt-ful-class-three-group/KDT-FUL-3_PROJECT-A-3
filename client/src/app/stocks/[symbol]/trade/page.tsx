@@ -26,31 +26,56 @@ export default function TradePage() {
     const startGuide = sessionStorage.getItem('start-trade-guide')
     // 값이 있으면
     if(startGuide){
-      // 가이드 관련 값 삭제
-      sessionStorage.removeItem('start-trade-guide')
+      
+      // dom요소가 렌더링 될때를 시점으로 설정
+      const interval = setInterval(()=>{
+        const stockEl = document.querySelector('#stock')
+        const valueEl = document.querySelector('#value')
+        const buttonEl = document.querySelector('#button')
+        
+        // 다 로드 되었을때
+        if(stockEl && valueEl && buttonEl){
+          clearInterval(interval)
+          
+          // 가이드 내용
+          intro.setOptions({
+            steps:[
+              {
+                element:'#stock',
+                intro:'해당 주식의 정보 입니다'
+              },{
+                element:'#value',
+                intro: '원하는 수량을 입력하면 총 가격이 계산됩니다'
+              },{
+                element:'#button',
+                intro:'버튼을 누르면 거래가 진행됩니다'
+              }
+            ],
+            showProgress: true,
+            exitOnOverlayClick: false,
+            nextLabel: '다음',
+            prevLabel: '이전',
+            doneLabel: '완료',
+          }).start()
 
-      // 가이드 내용
-      intro.setOptions({
-        steps:[
-          {
-            element:'#stock',
-            intro:'해당 주식의 정보 입니다'
-          },{
-            element:'#value',
-            intro: '원하는 수량을 입력하면 총 가격이 계산됩니다'
-          },{
-            element:'#button',
-            intro:'버튼을 누르면 거래가 진행됩니다'
-          }
-        ],
-        showProgress: true,
-        exitOnOverlayClick: false,
-        nextLabel: '다음',
-        prevLabel: '이전',
-        doneLabel: '완료',
-      }).start()
+          //완료시
+          intro.oncomplete(()=>{
+            // 가이드 관련 값 삭제
+            sessionStorage.removeItem('start-trade-guide')
+          })
+
+          //중단
+          intro.onexit(()=>{
+            sessionStorage.removeItem('start-trade-guide')
+          })
+        }
+      },100)
+
+      // 언마운트시 정리
+      return ()=>clearInterval(interval)
+      
     }
-  })
+  },[])
 
   // redux에서 저장했지만 새로고침하면 초기화되기때문에 다시 서버에 요청
   useEffect(() => {
