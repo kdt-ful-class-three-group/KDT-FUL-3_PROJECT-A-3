@@ -19,21 +19,26 @@ export default function StockPage() {
   const latest = stockData.values.slice(-1)[0]; // 마지막 데이터 추출 (최근 종가 등)
 
   return (
-    <div className="flex flex-col items-center justify-center  p-4 w-full">
-          <div className="flex items-center w-full gap-2">
+    <div className="flex flex-col items-center justify-center  p-4 w-full" >
+          <div className="flex items-center w-full gap-2" id='favorite'>
               <FavoriteButton symbol={symbol}/>
           </div>
-        <div className="flex flex-col items-start justify-start gap-2 w-full">
+        <div className="flex flex-col items-start justify-start gap-2 w-full"id='stock-info'>
           <StockInfo
               symbol={stockData.symbol ?? 'UNKNOWN'}
               price={stockData.close}
           />
         </div>
+        <div className="w-full" id='stock-chart'>
           <StockChart data={stockData.values} symbol={stockData.symbol}/>
+
+        </div>
+        <div className="w-full" id='stock-button'>
           <StockTradeButton
               symbol={stockData.symbol}
               price={Number(latest?.close)}
           />
+        </div>
       </div>
   )
 }
