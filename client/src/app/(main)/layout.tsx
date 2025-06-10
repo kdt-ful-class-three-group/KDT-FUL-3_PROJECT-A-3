@@ -1,6 +1,4 @@
-// app/(main)/layout.tsx
 import { Header } from "@/components/common/menu/Header";
-import startIntro from "./utils/startIntro";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
 

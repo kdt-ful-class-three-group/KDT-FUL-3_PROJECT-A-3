@@ -5,7 +5,6 @@ import { AccountSection } from "@/components/home/account/AccountSection";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import PageWrapper from "@/components/page/PageWrapper";
 
 export default function Home() {
   // * 쿠키의 존재를 상탯값으로 처리 들어가는 항목은 로딩, 오케이, 노 => 기본값은 로딩.
