@@ -16,7 +16,7 @@ interface StockState{
 const initialState : StockState = {
   holdings:[],
   interest:[],
-  selectedTab:'보유'
+  selectedTab:'실시간 정보'
 }
 
 // 슬라이스 생성
@@ -30,7 +30,7 @@ const stockSlice = createSlice({
     setInterest:(state, action:PayloadAction<string[]>)=>{
       state.interest = action.payload
     },
-    setSelectedTab: (state, action:PayloadAction<'보유'|'관심'|'실시간 정보'>)=>{
+    setSelectedTab: (state, action:PayloadAction<'실시간 정보'|'관심'|'보유'>)=>{
       state.selectedTab=action.payload
     }
   }

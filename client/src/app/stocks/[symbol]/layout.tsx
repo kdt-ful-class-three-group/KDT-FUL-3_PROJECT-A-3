@@ -1,12 +1,13 @@
 'use client'
 
-import { Button } from "@/components/common/Button"
+// import { GuideButton } from "@/components/guide/GuideButton";
 import { useRouter } from "next/navigation"
 import { MdKeyboardArrowLeft } from "react-icons/md";
 // * 어떤 가이드를 보여줄지 구별하기 위한 모듈
 import { usePathname } from "next/navigation";
 import introJS from 'intro.js'
 import 'intro.js/introjs.css'
+import { Button } from "@/components/common/Button";
 
 
 
