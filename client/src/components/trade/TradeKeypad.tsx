@@ -3,7 +3,7 @@ import { Button } from "../common/Button"
 import { keypadNumbers } from "./KeypadNumbers"
 import { TradeContentProps } from "@/types/trade"
 import { TradeKeypadProps } from "@/types/trade"
-import styles from './TradeStyles.module.css'
+
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/store"
@@ -173,63 +173,84 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
 
   return (
     <div>
-      <div className={styles.amountBox}>
-        <div className={styles.totalPrice}>
+      <div className="bg-[#f1f3f5] justify-center items-center rounded-xl p-4 mx-auto mb-5 max-w-[320px]">
+        <div className="mt-2 font-bold text-[15px] text-[#212529] text-center w-full">
           <p>{title}</p>
-          <p className={styles.totalPriceValue}>
+          <p className="min-h-[24px] text-center font-bold text-[20px] text-[#212529]">
             {amount ? `${total}풀` : '\u00A0'}
           </p>
         </div>
         <Input
-          className={styles.amountInput}
-          label=""
-          placeholder={mode === 'sell' ? '몇 주 판매할까요?' : '몇 주 구매할까요?'}
-          value={amount}
-          onChange={handleAmount}
+          className="text-[20px] font-semibold text-[#212529] bg-transparent border-none w-full py-2 outline-none"
+
+            label=""
+            placeholder={mode === 'sell' ? '몇 주 판매할까요?' : '몇 주 구매할까요?'}
+            disabled={modalMessage !== null}
+            value={amount}
+            onChange={handleAmount}
         />
-      {/* 보유 풀이 부족하거나, 주식이 부족한 경우 표시하는 문구 */}
-        {mode === 'buy' ? total >= Number(asset) ? <p className={styles.textRed}>보유한 풀이 부족합니다</p>: '' : ''}
-        {mode === 'sell' ? Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0) ? <p className={styles.textRed}>보유한 주식이 부족합니다.</p>: '' : ''}
+        {/* 보유 풀이 부족하거나, 주식이 부족한 경우 표시하는 문구 */}
+        {mode === 'buy' ? total >= Number(asset) ? <p className="text-red-600">보유한 풀이 부족합니다</p> : '' : ''}
+        {mode === 'sell' ? Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0) ?
+            <p className="text-red-600">보유한 주식이 부족합니다.</p> : '' : ''}
 
         {modalMessage && (
-        <div style={{
-          position: 'fixed',
-          top: '40%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: 'white',
-          padding: '10%',
-          borderRadius: '8px',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-          zIndex: 1000,
-          textAlign: 'center'
-        }}>
-          <p>{modalMessage}</p>
-          <h1>{`종목 명 : ${symbol}`}</h1>
-          <p>{`거래 수량 : ${amount}주`}</p>
-          <p>{`현재가 : ${price}`}</p>
-          <p>{`총 가격: ${total}`}</p>
-          <button onClick={handleClickWithCheck}> 확인 </button>
-          <button onClick={() => {setModalMessage(null)}}> 취소 </button>
-          {mode === 'buy' ? total >= Number(asset) ? <p className={styles.textRed}>보유한 풀이 부족합니다</p>: '' : ''}
-          {mode === 'sell' ? Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0) ? <p className={styles.textRed}>보유한 주식이 부족합니다.</p>: '' : ''}
-        </div>)}
+            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-6 py-8 rounded-2xl shadow-lg z-50 w-full max-w-sm text-center">
+              <div className="mb-4 text-sm text-gray-500">{modalMessage}</div>
+
+              <h2 className="text-lg font-semibold mb-2">{`종목 명: ${symbol}`}</h2>
+              <p className="mb-1">{`거래 수량: ${amount}주`}</p>
+              <p className="mb-1">{`현재가: ${price}`}</p>
+              <p className="mb-4 font-bold">{`총 가격: ${total}`}</p>
+
+
+              {mode === 'buy' && total >= Number(asset) && (
+                  <p className="text-red-600 mb-2">보유한 풀이 부족합니다</p>
+              )}
+              {mode === 'sell' && Number(amount) >= Number(havingSymbols[symbol]?.much ?? 0) && (
+                  <p className="text-red-600 mb-2">보유한 주식이 부족합니다.</p>
+              )}
+
+
+              <div className="flex justify-between gap-4 mt-4">
+                <button
+                    onClick={() => setModalMessage(null)}
+                    className="flex-1 py-3 rounded-xl bg-blue-100 text-blue-700 font-semibold cursor-pointer"
+                >
+                  취소
+                </button>
+                <button
+                    onClick={handleClickWithCheck}
+                    className="flex-1 py-3 rounded-xl bg-blue-500 text-white font-semibold hover:bg-blue-600 cursor-pointer"
+                >
+                  확인
+                </button>
+              </div>
+            </div>
+        )}
       </div>
 
-      <div className={styles.keypadGrid}>
+      <div className="grid grid-cols-3 gap-3 mt-4 p-3 bg-white rounded-lg justify-items-center max-w-[320px] mx-auto">
         {keypadNumbers.map((num) => (
-          <Button
-            className={styles.keypadButton}
-            key={num}
-            name={num} onClick={() => handleKeypadClick(num)} />
+            <Button
+                key={num}
+                name={num}
+                onClick={() => handleKeypadClick(num)}
+                className="w-16 h-16 text-[24px] text-[#333] bg-transparent border-none rounded-lg cursor-pointer flex items-center justify-center text-center active:bg-[#eee]"
+            />
         ))}
       </div>
 
-      <div className={styles.tradeButton}>
+      <div className="max-w-[320px] w-full mt-5 mx-auto">
         <Button
-          className={mode === 'sell' ? styles.sellButton : styles.buyButton}
-          name={mode === 'sell' ? "판매하기" : "구매하기"}
-          onClick={modalClick}
+            name={mode === 'sell' ? "판매하기" : "구매하기"}
+            onClick={modalClick}
+            disabled={modalMessage !== null}
+            className={`w-full py-[14px] text-[16px] font-bold text-white rounded-[12px] border-none cursor-pointer
+    ${mode === 'sell'
+                ? 'bg-[#228be6] hover:bg-[#1c7ed6]'
+                : 'bg-[#fa5252] hover:bg-[#e64949]'
+            }`}
         />
       </div>
     </div>

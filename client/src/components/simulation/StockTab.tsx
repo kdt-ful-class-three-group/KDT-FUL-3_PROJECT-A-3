@@ -34,10 +34,10 @@ export default function StockTab(){
           }`}
         />
         <Button
-          name="실시간 순위"
-          onClick={() => dispatch(setSelectedTab('실시간 순위'))}
+          name="실시간 정보"
+          onClick={() => dispatch(setSelectedTab('실시간 정보'))}
           className={`w-28 py-1 rounded-full text-sm font-medium ${
-            selectedTab === '실시간 순위'
+            selectedTab === '실시간 정보'
               ? 'bg-gray-800 text-white'
               : 'bg-white border border-gray-300 text-gray-700'
           }`}

@@ -20,7 +20,7 @@ export function StockTradeButton({ symbol, price }: Props) {
   }
 
   return (
-    <div className="flex w-full  justify-center items-center  py-4">
+    <div className="flex w-full justify-center items-center ">
       <Button className=" w-1/2 h-12 rounded-xl bg-[#228be6] text-white hover:bg-[#1c7ed6]/90 mx-3"
         name="판매하기"
         onClick={() => handleTrade('sell')}
