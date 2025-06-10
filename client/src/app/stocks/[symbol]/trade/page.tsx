@@ -9,6 +9,7 @@ import axios from 'axios'
 // *가이드
 import introJS from 'intro.js'
 import 'intro.js/introjs.css'
+import { handleTradeGuide } from '@/utils/guide'
 
 export default function TradePage() {
   const params = useParams();
@@ -21,11 +22,8 @@ export default function TradePage() {
 
   // *가이드 - sessionStorage start-trade-guide
   useEffect(()=>{
-    const intro = introJS()
-
-    const startGuide = sessionStorage.getItem('start-trade-guide')
     // 값이 있으면
-    if(startGuide){
+    // if(!loading){
       
       // dom요소가 렌더링 될때를 시점으로 설정
       const interval = setInterval(()=>{
@@ -37,44 +35,14 @@ export default function TradePage() {
         if(stockEl && valueEl && buttonEl){
           clearInterval(interval)
           
-          // 가이드 내용
-          intro.setOptions({
-            steps:[
-              {
-                element:'#stock',
-                intro:'해당 주식의 정보 입니다'
-              },{
-                element:'#value',
-                intro: '원하는 수량을 입력하면 총 가격이 계산됩니다'
-              },{
-                element:'#button',
-                intro:'버튼을 누르면 거래가 진행됩니다'
-              }
-            ],
-            showProgress: true,
-            exitOnOverlayClick: false,
-            nextLabel: '다음',
-            prevLabel: '이전',
-            doneLabel: '완료',
-          }).start()
-
-          //완료시
-          intro.oncomplete(()=>{
-            // 가이드 관련 값 삭제
-            sessionStorage.removeItem('start-trade-guide')
-          })
-
-          //중단
-          intro.onexit(()=>{
-            sessionStorage.removeItem('start-trade-guide')
-          })
+          handleTradeGuide()
         }
       },100)
 
       // 언마운트시 정리
       return ()=>clearInterval(interval)
       
-    }
+    
   },[])
 
   // redux에서 저장했지만 새로고침하면 초기화되기때문에 다시 서버에 요청
