@@ -20,7 +20,7 @@ export default function StocksLayout({ children }: { children: React.ReactNode }
     const handleGuide = ()=>{
         const intro = introJS()
 
-        if(pathname?.includes('/stocks')){
+        if(pathname?.includes('/stocks') && !pathname?.includes('/trade')){
             intro.setOptions({
                 steps:[
                     {
@@ -45,8 +45,35 @@ export default function StocksLayout({ children }: { children: React.ReactNode }
                 doneLabel: '완료',
             }).oncomplete(()=>{
                 // session 정보로 파악
-                sessionStorage.setItem('start-trade-guide','true')
+                sessionStorage.setItem('start-trade-guide','true');
+                // 버튼 클릭 시뮬레이션 (children 내부 버튼이 렌더링된 후에 실행 필요)
+                setTimeout(() => {
+                    const tradeButton = document.querySelector('#stock-button button');
+                    if (tradeButton) {
+                        (tradeButton as HTMLButtonElement).click();
+                    }
+                }, 100); // 렌더링 타이밍에 따라 조정 필요
             }).start()
+        } else if(pathname?.includes('/trade')){
+            intro.setOptions({
+            steps:[
+              {
+                element:'#stock',
+                intro:'해당 주식의 정보 입니다'
+              },{
+                element:'#value',
+                intro: '원하는 수량을 입력하면 총 가격이 계산됩니다'
+              },{
+                element:'#button',
+                intro:'버튼을 누르면 거래가 진행됩니다'
+              }
+            ],
+            showProgress: true,
+            exitOnOverlayClick: false,
+            nextLabel: '다음',
+            prevLabel: '이전',
+            doneLabel: '완료',
+          }).start()
         }
     }
 
