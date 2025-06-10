@@ -19,7 +19,7 @@ export function TradeContent({ mode }: TradeContentProps) {
 
   return (
       <div>
-        <div className="bg-[#f1f3f5] justify-center items-center rounded-xl p-4 mx-auto mb-5 max-w-[320px]">
+        <div className="bg-[#f1f3f5] justify-center items-center rounded-xl p-4 mx-auto mb-5 max-w-[320px]" id='stock'>
           <h1 className="text-[30px] font-bold text-center mb-1">
     <span className="flex items-center justify-center gap-2">
       {(iconMap[symbol] || (() => <span>{symbol}</span>))()} {symbol}

@@ -188,6 +188,7 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
             disabled={modalMessage !== null}
             value={amount}
             onChange={handleAmount}
+            id='value'
         />
         {/* 보유 풀이 부족하거나, 주식이 부족한 경우 표시하는 문구 */}
         {mode === 'buy' ? total >= Number(asset) ? <p className="text-red-600">보유한 풀이 부족합니다</p> : '' : ''}
@@ -241,7 +242,7 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
         ))}
       </div>
 
-      <div className="max-w-[320px] w-full mt-5 mx-auto">
+      <div className="max-w-[320px] w-full mt-5 mx-auto" id='button'>
         <Button
             name={mode === 'sell' ? "판매하기" : "구매하기"}
             onClick={modalClick}
