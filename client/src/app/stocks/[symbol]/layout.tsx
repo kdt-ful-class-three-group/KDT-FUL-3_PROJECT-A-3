@@ -35,7 +35,7 @@ export default function StocksLayout({ children }: { children: React.ReactNode }
                         intro:'마우스를 올리면 해당 시기의 정보를 볼 수 있습니다'
                     },{
                         element:'#stock-button',
-                        intro:'판매, 구매와 관련된 가이드를 보고 싶으면 버튼을 눌러주세요'
+                        intro:'판매, 구매와 관련된 가이드를 보고 싶으면 완료 버튼을 눌러주세요'
                     }
                 ],
                 showProgress: true,
