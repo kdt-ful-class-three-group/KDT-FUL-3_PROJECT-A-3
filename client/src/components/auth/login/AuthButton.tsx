@@ -34,7 +34,7 @@ export function AuthButton() {
       ) : (
           <div className="w-full flex justify-center gap-7">
             <Button type="button" onClick={() => signIn("google", { prompt: "select_account" })} icon="google" className="bg-[#E83B2F] flex items-center justify-center w-[40px] h-[40px] rounded-3xl cursor-pointer"/>
-            <Button type="button" onClick={() => signIn("kakao")} icon="kakao" className="bg-[#FFE513] flex justify-center flex items-center justify-center w-[40px] h-[40px] rounded-3xl cursor-pointer" />
+            <Button type="button" onClick={() => signIn("kakao")} icon="kakao" className="bg-[#FFE513] flex items-center justify-center w-[40px] h-[40px] rounded-3xl cursor-pointer" />
             <Button type="button" onClick={() => signIn("naver")} icon="naver" className="bg-[#00BB00] flex items-center justify-center w-[40px] h-[40px] rounded-3xl cursor-pointer"/>
           </div>
       )}
