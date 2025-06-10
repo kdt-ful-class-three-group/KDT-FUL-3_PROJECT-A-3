@@ -17,7 +17,7 @@ export function LoginForm() {
   const checkLogin = async (id: string, pw: string) => {
     try {
       const res = await axios.post(
-        "http://localhost:8008/auth/login",
+        `${process.env.NEXT_PUBLIC_URL}/auth/login`,
         {
           user_id: id,
           password: pw

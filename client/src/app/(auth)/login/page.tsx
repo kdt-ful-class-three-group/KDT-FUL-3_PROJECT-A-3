@@ -12,7 +12,7 @@ export default function LoginPage(){
   const [authStatus, setAuthStatus] = useState<'loading' | 'ok' | 'no'>('loading');
 
   useEffect(() => {
-    axios.post('http://localhost:8008/auth/refresh', {}, {
+    axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/refresh`, {}, {
       withCredentials: true,
     })
     .then(res => {
