@@ -35,14 +35,15 @@ export default function AccountInfo(){
 
   return (
     <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-lg mx-auto">
-      <div className="mb-4">
+      <div id="myAccount"className="mb-4 ">
         <p className="text-sm text-gray-500">내 계좌</p>
         <h3 className="text-lg font-semibold text-gray-800">{account?.account_number}</h3>
       </div>
-      <div className="flex items-center justify-between">
+      <div id="myAsset" className="flex items-center justify-between">
         <h1 className="text-xl font-bold text-green-600">{account?.asset}풀</h1>
         <Button
           icon="chevron"
+          id="goToPortfolio"
           className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 hover:text-black transition"
           onClick={() => router.push('/portfolio')}
         />
