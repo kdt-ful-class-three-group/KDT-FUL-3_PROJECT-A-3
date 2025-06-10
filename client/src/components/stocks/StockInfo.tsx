@@ -2,17 +2,13 @@ import { StockInfoProps } from "@/types/stock";
 import { getKoreanSymbol } from "./StockList";
 import { IoSearchSharp } from "react-icons/io5";
 
-import { FaMeta } from "react-icons/fa6";
-
-import styles from './StockStyles.module.css'
-
 export function StockInfo({ symbol, price }: StockInfoProps) {
 
   const koSymbol = getKoreanSymbol(symbol);
 
   return (
     <div className="flex justify-center">
-        <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center">
             <h1 className="flex font-bold items-center text-2xl text-gray-800">
                 {koSymbol}
                 <span

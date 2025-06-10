@@ -4,10 +4,8 @@ import * as echarts from 'echarts';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import { StockValue } from '@/types/stock';
 import { format } from 'date-fns';
-import { Chart } from 'react-chartjs-2';
 import { Chart as ChartJS, TimeScale, Tooltip, Legend, CategoryScale, LinearScale } from 'chart.js';
 import { CandlestickController, CandlestickElement } from 'chartjs-chart-financial';
-import { ChartOptions } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 import {iconMap} from './StockIconMaps';
 
@@ -20,8 +18,6 @@ ChartJS.register(
   CandlestickController,
   CandlestickElement
 );
-
-import styles from './StockStyles.module.css'
 
 // 차트 컴포넌트 정의. props로 주식 데이터 배열과 심볼을 받음
 export default function StockChart({ data, symbol }: { data: StockValue[], symbol: string }) {
@@ -115,7 +111,8 @@ export default function StockChart({ data, symbol }: { data: StockValue[], symbo
 
   // 차트가 렌더링될 DOM 요소
   return (
-      <div className="w-full">
+    <div
+      className="w-full">
         <div className="flex items-center justify-center mb-4">
           {(iconMap[symbol] || (() => <span>{symbol}</span>))()}
           <h2 className="text-lg font-semibold">{symbol}</h2>

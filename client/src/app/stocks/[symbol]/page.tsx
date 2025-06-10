@@ -23,7 +23,8 @@ export default function StockPage() {
           <div className="flex items-center w-full gap-2">
               <FavoriteButton symbol={symbol}/>
           </div>
-        <div className="flex flex-col items-start justify-start gap-2 w-full">
+      <div
+        className="flex flex-col items-start justify-start gap-2 w-full">
           <StockInfo
               symbol={stockData.symbol ?? 'UNKNOWN'}
               price={stockData.close}
