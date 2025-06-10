@@ -70,14 +70,14 @@ export default function MyPage() {
   
   return (
 
-    <div className="flex flex-col w-full justify-center items-center">
+    <div className="flex flex-col w-full gap-5 justify-center items-center">
+      <div className="w-full relative flex justify-center items-center">
+        <Button icon="back" onClick={() => router.push('/home')} className="absolute left-4 top-6" />
+        <h1 className="text-2xl font-semibold text-center mt-4 ">내 정보</h1>
+      </div>
       <ProfileCard />
       <UserStatus />
       <BadgesSection />
-      <div className="w-full flex justify-around">
-        <Button name='포트폴리오' onClick={()=>router.push('/portfolio')} className="bg-[#B0DB9C] w-1/3 rounded p-3 cursor-pointer"/>
-        <Button name='메인' onClick={()=>router.push('/home')} className="bg-[#B0DB9C] rounded p-3 w-1/3 cursor-pointer"/>
-      </div>
     </div>
   )
 }

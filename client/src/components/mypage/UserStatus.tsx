@@ -7,6 +7,7 @@ import type { RootState, AppDispatch } from "@/store"
 import { Button } from "../common/Button"
 import { useRouter } from "next/navigation"
 import { Account } from "@/types/account"
+import Link from "next/link"
 
 export default function UserStatus(){
 
@@ -50,7 +51,10 @@ export default function UserStatus(){
       </div>
       {/* 많이 거래한 내역 3개 */}
       <div className="shadow-md">
-        <h3 className="p-1 text-sm">거래 TOP3</h3>
+        <div className="flex justify-between items-center">
+          <h3 className="p-1 text-sm">거래 TOP3</h3>
+          <Link href='/portfolio' className=" text-2xl"> {`>`}</Link>
+        </div>
         <div className="flex justify-around">
           {topTrades.map(item=>(
             <p key={item.id} className="text-2xl font-bold py-5">{item.symbol}</p>

@@ -25,7 +25,7 @@ export default function ProfileCard(){
       <div className="flex items-center space-x-4 mb-4 justify-between">
         <div className="flex flex-col gap-4">
           <h2 className="text-3xl font-bold">{user.nick}</h2>
-          <p className={`bg-white/50 rounded-2xl text-center py-1 text-sm`}>{user.level.name}</p>
+          <p className={`bg-white/50 rounded-2xl text-center px-3 py-1 text-sm`}>{user.level.name}</p>
         </div>
         <div className={`w-[30%] h-[120px] rounded-full shadow-md ${color} flex justify-center items-center`}>
           <p className="text-4xl">{user.level.level}</p>
