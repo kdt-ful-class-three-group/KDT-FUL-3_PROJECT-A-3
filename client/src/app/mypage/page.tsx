@@ -72,7 +72,7 @@ export default function MyPage() {
 
     <div className="flex flex-col w-full gap-5 justify-center items-center">
       <div className="w-full relative flex justify-center items-center">
-        <Button icon="back" onClick={() => router.push('/home')} className="absolute left-4 top-6" />
+        <Button icon="back" onClick={() => router.push('/home')} className="absolute left-4 top-6 cursor-pointer" />
         <h1 className="text-2xl font-semibold text-center mt-4 ">내 정보</h1>
       </div>
       <ProfileCard />
