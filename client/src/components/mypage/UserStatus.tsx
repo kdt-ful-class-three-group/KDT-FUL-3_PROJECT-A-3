@@ -33,23 +33,23 @@ export default function UserStatus(){
   },[dispatch,nick])
 
   return(
-    <div className="p-6 max-w-md mx-auto w-full">
+    <div className=" max-w-md mx-auto w-full">
       {/* 로딩, 에러 */}
       {loading && <p>로딩 중 ...</p>}
       {error && <p>{error}</p>}
       {/* 투자횟수, 성공률, 보유 자산 */}
-      <div className="flex justify-around w-full">
-        <div className="w-1/2 p-1 rounded">
+      <div className="flex justify-between gap-5 w-full">
+        <div className="w-1/2 p-1 rounded shadow-md">
           <p className="p-1 text-sm">투자 횟수</p>
           <p className="text-center py-5 text-3xl font-bold">{tradeCount}</p>
         </div>
-        <div className="w-1/2 p-1 rounded">
+        <div className="w-1/2 p-1 rounded shadow-md">
           <p className="p-1 text-sm">보유 자산</p>
           <p className="text-center py-5 text-3xl font-bold">{asset} </p>
         </div>
       </div>
       {/* 많이 거래한 내역 3개 */}
-      <div>
+      <div className="shadow-md">
         <h3 className="p-1 text-sm">거래 TOP3</h3>
         <div className="flex justify-around">
           {topTrades.map(item=>(
