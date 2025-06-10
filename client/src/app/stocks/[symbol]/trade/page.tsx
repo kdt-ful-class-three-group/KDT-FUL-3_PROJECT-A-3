@@ -10,6 +10,7 @@ import axios from 'axios'
 import introJS from 'intro.js'
 import 'intro.js/introjs.css'
 import { runGuide, waitElements } from '@/utils/makeGuide'
+import { useIsLoginCheck } from '@/hooks/useIsLoginCheck'
 
 export default function TradePage() {
   const params = useParams();
@@ -19,6 +20,10 @@ export default function TradePage() {
   const dispatch = useDispatch()
   const router = useRouter()
   const [loading, setLoading] = useState(true)
+  const [authStatus, setAuthStatus] = useState<'loading' | 'ok' | 'no'>('loading');
+
+      // * 페이지에 진입하면,
+    useIsLoginCheck({authStatus, setAuthStatus});
 
   // *가이드 - sessionStorage start-trade-guide
   useEffect(()=>{
@@ -80,6 +85,14 @@ export default function TradePage() {
 
   if (loading) return <p>가격 정보를 불러오는 중입니다...</p>
 
+      // * 상탯값이 변경 되기전에는 로딩중 화면이 뜨게 만듦.
+    if (authStatus === 'loading') {
+      return <div>로딩 중...</div>;
+    }
+  
+    // * 상탯값이 ok일 경우 홈페이지 화면이 뜨게 만듦.
+    if (authStatus === 'ok') {
+
   return (
     <div className=''>
       {['buy', 'sell'].includes(tradeType || '') && (
@@ -87,4 +100,6 @@ export default function TradePage() {
       )}
     </div>
   )
+}
+  return null;
 }

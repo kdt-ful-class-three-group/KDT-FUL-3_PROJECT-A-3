@@ -1,9 +1,23 @@
 'use client'
 import { SignupForm } from "@/components/auth/signup/SignupForm";
+import { useNotLoginCheck } from "@/hooks/useNotLoginCheck";
 import axios from "axios";
+import { useState } from "react";
 // import { SignupForm } from "@/components/signup/SignupForm"
 
 export default function SignupPage() {
+
+    const [authStatus, setAuthStatus] = useState<'loading' | 'ok' | 'no'>('loading');
+  
+    useNotLoginCheck({authStatus, setAuthStatus});
+  
+    // ✅ 아직 판단 중
+    if (authStatus === 'loading') {
+      return <div>로딩 중...</div>;
+    }
+  
+    // ✅ 인증 성공
+    if (authStatus === 'ok') {
 
   const handleSignup = async (userData: {
     id: string;
@@ -38,4 +52,6 @@ export default function SignupPage() {
       </div>
     </div>
   )
+}
+  return null;
 }
