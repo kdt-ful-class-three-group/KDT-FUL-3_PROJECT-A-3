@@ -70,6 +70,22 @@ export default function StockChart({ data, symbol }: { data: StockValue[], symbo
         scale: true, // 자동 스케일
         splitArea: { show: true } // 배경을 구역으로 나눔
       },
+      dataZoom: [
+        {
+          type: 'inside', // 내부 줌 (휠 확대/드래그 등)
+          start: 80,      // 처음 로딩 시 80% ~ 100% 구간만 보이게
+          end: 100,
+          zoomOnMouseWheel: true,   // 마우스 휠 확대
+          moveOnMouseMove: true,    // 마우스 이동 스크롤
+          moveOnMouseWheel: true
+        },
+        {
+          type: 'slider', // 아래 슬라이더도 표시
+          show: false,
+          start: 80,
+          end: 100
+        }
+      ],
       series: [
         {
           name: symbol,
