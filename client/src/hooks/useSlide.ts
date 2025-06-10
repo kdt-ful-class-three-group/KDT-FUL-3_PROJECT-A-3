@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { pageOrder } from '../(main)/utils/pageOrder';
+import { pageOrder } from '../app/(main)/utils/pageOrder';
 
 let prevPath = '/voca';
 

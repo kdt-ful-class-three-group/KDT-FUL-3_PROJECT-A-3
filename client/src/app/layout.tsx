@@ -26,7 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReduxProvider>
           <SessionWrapper>
-            <ClientLayout>{children}</ClientLayout>
+              <ClientLayout>
+                {children}
+              </ClientLayout>
           </SessionWrapper>
         </ReduxProvider>
       </body>

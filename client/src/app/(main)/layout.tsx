@@ -4,7 +4,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
 
     return (
-    <div id="simulation" className="max-w-xl w-full mx-auto px-4 mt-[5%]">
+    <div id="simulation" className="max-w-xl w-full mx-auto px-4 mt-[2%]">
       <Header />
       {children}
     </div>

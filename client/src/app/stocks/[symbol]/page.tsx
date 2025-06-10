@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation"
 import StockChart from "@/components/stocks/StockChart"
 import { StockInfo } from "@/components/stocks/StockInfo"
-import { useStockData } from "@/app/hooks/useStockData"
+import { useStockData } from "@/hooks/useStockData"
 import { StockTradeButton } from "@/components/stocks/StockTradeButton"
 import { FavoriteButton } from "@/components/stocks/FavoriteButton"
 
