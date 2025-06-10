@@ -15,7 +15,6 @@ export default function Simulation() {
   const dispatch = useDispatch();
   const selectedTab = useSelector((state:RootState)=>state.stock.selectedTab);
 
-
   return (
     <div id="simlation" className="max-w-xl w-full mx-auto px-4 mt-[5%]">
         <div className="flex justify-end mb-3">
