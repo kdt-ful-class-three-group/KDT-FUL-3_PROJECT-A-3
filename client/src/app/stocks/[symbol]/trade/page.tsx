@@ -9,6 +9,7 @@ import axios from 'axios'
 // *가이드
 import introJS from 'intro.js'
 import 'intro.js/introjs.css'
+import { runGuide, waitElements } from '@/utils/makeGuide'
 
 export default function TradePage() {
   const params = useParams();
@@ -28,18 +29,9 @@ export default function TradePage() {
     if(startGuide){
       
       // dom요소가 렌더링 될때를 시점으로 설정
-      const interval = setInterval(()=>{
-        const stockEl = document.querySelector('#stock')
-        const valueEl = document.querySelector('#value')
-        const buttonEl = document.querySelector('#button')
-        
-        // 다 로드 되었을때
-        if(stockEl && valueEl && buttonEl){
-          clearInterval(interval)
-          
-          // 가이드 내용
-          intro.setOptions({
-            steps:[
+      const clear = waitElements(['#stock','#value','#button'],()=>{
+        runGuide({
+          steps:[
               {
                 element:'#stock',
                 intro:'해당 주식의 정보 입니다'
@@ -51,28 +43,12 @@ export default function TradePage() {
                 intro:'버튼을 누르면 거래가 진행됩니다'
               }
             ],
-            showProgress: true,
-            exitOnOverlayClick: false,
-            nextLabel: '다음',
-            prevLabel: '이전',
-            doneLabel: '완료',
-          }).start()
-
-          //완료시
-          intro.oncomplete(()=>{
-            // 가이드 관련 값 삭제
-            sessionStorage.removeItem('start-trade-guide')
-          })
-
-          //중단
-          intro.onexit(()=>{
-            sessionStorage.removeItem('start-trade-guide')
-          })
-        }
-      },100)
-
-      // 언마운트시 정리
-      return ()=>clearInterval(interval)
+            onComplete:()=> sessionStorage.removeItem('start-trade-guide'),
+            onExit:()=>sessionStorage.removeItem('start-trade-guide')
+        })
+      })
+      
+      return clear
       
     }
   },[])

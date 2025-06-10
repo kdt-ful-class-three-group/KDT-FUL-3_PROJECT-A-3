@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation"
 import { MdKeyboardArrowLeft } from "react-icons/md";
 // * 어떤 가이드를 보여줄지 구별하기 위한 모듈
 import { usePathname } from "next/navigation";
-import introJS from 'intro.js'
 import 'intro.js/introjs.css'
 import { Button } from "@/components/common/Button";
+import { runGuide } from "@/utils/makeGuide";
 
 
 
@@ -18,10 +18,9 @@ export default function StocksLayout({ children }: { children: React.ReactNode }
 
     //* 가이드 작성 > 모의투자에도 사용됨 > pathname으로 구별
     const handleGuide = ()=>{
-        const intro = introJS()
 
-        if(pathname?.includes('/stocks')){
-            intro.setOptions({
+        if(pathname?.includes('/stocks') && !pathname?.includes('/trade')){
+            runGuide({
                 steps:[
                     {
                         element:'#stock-info',
@@ -35,18 +34,35 @@ export default function StocksLayout({ children }: { children: React.ReactNode }
                         intro:'마우스를 올리면 해당 시기의 정보를 볼 수 있습니다'
                     },{
                         element:'#stock-button',
-                        intro:'판매, 구매와 관련된 가이드를 보고 싶으면 버튼을 눌러주세요'
+                        intro:'판매, 구매와 관련된 가이드를 보고 싶으면 완료 버튼을 눌러주세요'
                     }
                 ],
-                showProgress: true,
-                exitOnOverlayClick: false,
-                nextLabel: '다음',
-                prevLabel: '이전',
-                doneLabel: '완료',
-            }).oncomplete(()=>{
-                // session 정보로 파악
-                sessionStorage.setItem('start-trade-guide','true')
-            }).start()
+                onComplete:()=>{
+                    sessionStorage.setItem('start-trade-guide','true');
+                // 버튼 클릭 시뮬레이션 (children 내부 버튼이 렌더링된 후에 실행 필요)
+                setTimeout(() => {
+                    const tradeButton = document.querySelector('#stock-button button');
+                    if (tradeButton) {
+                        (tradeButton as HTMLButtonElement).click();
+                    }
+                }, 100); // 렌더링 타이밍에 따라 조정 필요
+                }
+            })
+        } else if(pathname?.includes('/trade')){
+            runGuide({
+                steps:[
+              {
+                element:'#stock',
+                intro:'해당 주식의 정보 입니다'
+              },{
+                element:'#value',
+                intro: '원하는 수량을 입력하면 총 가격이 계산됩니다'
+              },{
+                element:'#button',
+                intro:'버튼을 누르면 거래가 진행됩니다'
+              }
+            ],
+            })
         }
     }
 
