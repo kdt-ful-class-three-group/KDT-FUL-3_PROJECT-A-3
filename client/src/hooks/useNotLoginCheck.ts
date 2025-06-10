@@ -26,7 +26,7 @@ export function useNotLoginCheck({authStatus, setAuthStatus}:any){
 
   useEffect(() => {
     if (authStatus === 'no') {
-      router.push('login/islogin')
+      router.push('/login/islogin')
     }
   })
 

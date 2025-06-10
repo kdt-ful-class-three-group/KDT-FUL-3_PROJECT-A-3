@@ -6,11 +6,26 @@ import { StockInfo } from "@/components/stocks/StockInfo"
 import { useStockData } from "@/app/hooks/useStockData"
 import { StockTradeButton } from "@/components/stocks/StockTradeButton"
 import { FavoriteButton } from "@/components/stocks/FavoriteButton"
+import { useIsLoginCheck } from "@/hooks/useIsLoginCheck"
+import { useState } from "react"
 
 export default function StockPage() {
   const params = useParams();
   const symbol = (params?.symbol ?? '') as string;
+  const [authStatus, setAuthStatus] = useState<'loading' | 'ok' | 'no'>('loading');
   
+    // * 페이지에 진입하면,
+    useIsLoginCheck({authStatus, setAuthStatus});
+  
+  
+    // * 상탯값이 변경 되기전에는 로딩중 화면이 뜨게 만듦.
+    if (authStatus === 'loading') {
+      return <div>로딩 중...</div>;
+    }
+  
+    // * 상탯값이 ok일 경우 홈페이지 화면이 뜨게 만듦.
+    if (authStatus === 'ok') {
+    
   // hook/useStockData.ts 커스텀 훅으로 만듬 useEffect 등등
   const { stockData } = useStockData(symbol);
   // 데이터 없을 경우 로딩 문구 표시
@@ -36,4 +51,6 @@ export default function StockPage() {
           />
       </div>
   )
+}
+  return null;
 }
