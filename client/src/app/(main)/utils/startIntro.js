@@ -50,8 +50,8 @@ export function startIntro() {
     ],
     showBullets: false,
     showProgress: true,
-    exitOnEsc: true,
-    exitOnOverlayClick: true
+    exitOnEsc: false,
+    exitOnOverlayClick: false
   });
   intro.start();
 }
