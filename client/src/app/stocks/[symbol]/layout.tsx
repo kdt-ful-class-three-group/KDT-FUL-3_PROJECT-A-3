@@ -1,6 +1,6 @@
 'use client'
 
-import { GuideButton } from "@/components/guide/GuideButton";
+// import { GuideButton } from "@/components/guide/GuideButton";
 import { useRouter } from "next/navigation"
 import { MdKeyboardArrowLeft } from "react-icons/md";
 
@@ -14,7 +14,7 @@ export default function StocksLayout({ children }: { children: React.ReactNode }
                 {/* 버튼 영역 */}
                 <div className="flex justify-between items-center py-4">
                     <MdKeyboardArrowLeft className="w-10 h-10 cursor-pointer" name="뒤로가기" onClick={() => router.back()} />
-                    <GuideButton />
+                    {/* <GuideButton /> */}
                 </div>
 
                 {/* 콘텐츠 */}
