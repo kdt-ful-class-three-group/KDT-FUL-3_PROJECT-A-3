@@ -5,6 +5,8 @@ import { TradeContentProps } from "@/types/trade";
 import { TradeKeypad } from "./TradeKeypad";
 import styles from './TradeStyles.module.css'
 import {iconMap} from '../stocks/StockIconMaps';
+import { useEffect } from 'react';
+import { handleTradeGuide } from '@/utils/guide';
 
 export function TradeContent({ mode }: TradeContentProps) {
   const { symbol, price } = useSelector((state: RootState) => state.trade)
@@ -16,6 +18,30 @@ export function TradeContent({ mode }: TradeContentProps) {
   } else if (mode === 'buy') {
     title = '구매할 가격';
   }
+
+    // *가이드 - sessionStorage start-trade-guide
+    useEffect(()=>{
+      // 값이 있으면
+      if(sessionStorage.getItem('start-trade-guide')){
+        
+        // dom요소가 렌더링 될때를 시점으로 설정
+        const interval = setInterval(()=>{
+          const stockEl = document.querySelector('#stock')
+          const valueEl = document.querySelector('#value')
+          // const buttonEl = document.querySelector('#button')
+          
+          // 다 로드 되었을때
+          if(stockEl && valueEl){
+            clearInterval(interval)
+            handleTradeGuide()
+          }
+        },100)
+  
+        // 언마운트시 정리
+        return ()=>clearInterval(interval)
+        
+      }
+    },[])
 
   return (
       <div>
@@ -29,7 +55,7 @@ export function TradeContent({ mode }: TradeContentProps) {
             <span>시장가: {price}풀</span>
           </div>
         </div>
-        <div>
+        <div id='value'>
           <TradeKeypad
               symbol={symbol}
               amount={amount}

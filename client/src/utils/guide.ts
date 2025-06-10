@@ -41,9 +41,6 @@ import introJS from 'intro.js'
               },{
                 element:'#value',
                 intro: '원하는 수량을 입력하면 총 가격이 계산됩니다'
-              },{
-                element:'#button',
-                intro:'버튼을 누르면 거래가 진행됩니다'
               }
             ],
             showProgress: true,

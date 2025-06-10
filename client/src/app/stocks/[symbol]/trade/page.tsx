@@ -20,30 +20,7 @@ export default function TradePage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
 
-  // *가이드 - sessionStorage start-trade-guide
-  useEffect(()=>{
-    // 값이 있으면
-    // if(!loading){
-      
-      // dom요소가 렌더링 될때를 시점으로 설정
-      const interval = setInterval(()=>{
-        const stockEl = document.querySelector('#stock')
-        const valueEl = document.querySelector('#value')
-        const buttonEl = document.querySelector('#button')
-        
-        // 다 로드 되었을때
-        if(stockEl && valueEl && buttonEl){
-          clearInterval(interval)
-          
-          handleTradeGuide()
-        }
-      },100)
 
-      // 언마운트시 정리
-      return ()=>clearInterval(interval)
-      
-    
-  },[])
 
   // redux에서 저장했지만 새로고침하면 초기화되기때문에 다시 서버에 요청
   useEffect(() => {
