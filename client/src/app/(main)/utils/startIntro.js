@@ -1,7 +1,7 @@
 import introJs from "intro.js";
 import "intro.js/introjs.css";
 
-export function startIntro() {
+export function startIntro(dispatch, setSelectedTab) {
   const intro = introJs();
   intro.setOptions({
     steps: [
@@ -52,6 +52,25 @@ export function startIntro() {
     showProgress: true,
     exitOnEsc: false,
     exitOnOverlayClick: false
+    
   });
+  
+  intro.onafterchange(function () {
+  const currentStep = intro._currentStep;
+
+  if (currentStep === 2) {
+    // 두 번째 스텝에 도달했을 때 실행할 이벤트
+    dispatch(setSelectedTab('실시간 정보'));
+  }
+
+  if (currentStep === 3) {
+    dispatch(setSelectedTab('관심'));
+  }
+
+    if (currentStep === 4) {
+    dispatch(setSelectedTab('보유'));
+  }  
+  });
+
   intro.start();
 }
