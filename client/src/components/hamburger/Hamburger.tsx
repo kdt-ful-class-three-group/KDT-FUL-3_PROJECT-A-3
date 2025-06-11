@@ -26,7 +26,7 @@ export function Hamburger({ onClose }: props) {
         className={`fixed inset-0 bg-white/10 backdrop-blur-sm z-40 transition-opacity duration-300 ${show ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={onClose}
       />
-      <div className={`fixed top-0 h-full right-0 w-[188px] bg-white rounded-l-lg shadow-xl z-50 transform ${show ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
+      <div className={`fixed top-0 h-full right-0 w-[188px]l bg-white rounded-l-lg shadow-xl z-50 transform ${show ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
         <div className="flex justify-end">
           <Button variant="icon" icon="close" onClick={onClose} className="w-10 h-10" />
         </div>
@@ -40,7 +40,7 @@ export function Hamburger({ onClose }: props) {
             <li className="px-3 py-2 rounded-md hover:bg-gray-100 text-sm font-medium cursor-pointer">설정</li>
             <li className="px-3 py-2 rounded-md hover:bg-gray-100 text-sm font-medium cursor-pointer">고객센터</li>
           </ul>
-          <div className="flex justify-center mb-10">
+          <div className="flex justify-center mb-7">
             <LogoutButton />
           </div>
         </div>
