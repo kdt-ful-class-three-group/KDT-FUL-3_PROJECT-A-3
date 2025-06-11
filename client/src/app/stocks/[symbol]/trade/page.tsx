@@ -49,7 +49,10 @@ export default function TradePage() {
               }
             ],
             onComplete:()=> sessionStorage.removeItem('start-trade-guide'),
-            onExit:()=>sessionStorage.removeItem('start-trade-guide')
+            onExit:()=>{
+              sessionStorage.removeItem('start-trade-guide');
+              router.back();
+            }
         })
       })
       
