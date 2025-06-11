@@ -13,6 +13,7 @@ export default function StockPage() {
   const params = useParams();
   const symbol = (params?.symbol ?? '') as string;
   const [authStatus, setAuthStatus] = useState<'loading' | 'ok' | 'no'>('loading');
+  const { stockData } = useStockData(symbol);
   
     // * 페이지에 진입하면,
     useIsLoginCheck({authStatus, setAuthStatus});
@@ -27,7 +28,7 @@ export default function StockPage() {
     if (authStatus === 'ok') {
     
   // hook/useStockData.ts 커스텀 훅으로 만듬 useEffect 등등
-  const { stockData } = useStockData(symbol);
+  
   // 데이터 없을 경우 로딩 문구 표시
   if (!stockData || stockData.values.length === 0) return <div>주식불러오는중...</div>;
 

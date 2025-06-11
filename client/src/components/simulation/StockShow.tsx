@@ -21,7 +21,8 @@ export default function StockShows({ btnValue }: { btnValue: string }) {
   useEffect(() => {
     const fetchUserHoldingData = async () => {
       try {
-        const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/userportfolio/calc`, {}, { withCredentials: true });
+        console.log(process.env.NEXT_PUBLIC_URL);
+        const res = await axios.post(`http://localhost:8008/userportfolio/calc`, {}, { withCredentials: true });
   
         const holdingData = res.data.map((item: any) => ({
           symbol: item.symbol,
@@ -42,7 +43,7 @@ export default function StockShows({ btnValue }: { btnValue: string }) {
   useEffect(() => {
     const fetchUserInterestData = async () => {
       try {
-        const res = await axios.post('${process.env.NEXT_PUBLIC_URL}/favorites/user', {}, { withCredentials: true });
+        const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/favorites/user`, {}, { withCredentials: true });
         const interestData = res.data.map((item: any) => item.symbol)
         
         console.log(interestData);

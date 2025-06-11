@@ -8,7 +8,7 @@ interface StockApiResponse{
 
 export const stockApi = createApi({
   reducerPath: 'stockApi',
-  baseQuery: fetchBaseQuery({baseUrl:'${process.env.NEXT_PUBLIC_URL}/'}),
+  baseQuery: fetchBaseQuery({baseUrl:`${process.env.NEXT_PUBLIC_URL}/`}),
   endpoints: (builder)=>({
     getStockBySymbol: builder.query<StockApiResponse, string>({
       query:(symbol:string)=> `stocks/${symbol}`

@@ -27,7 +27,7 @@ export default function MyPage() {
     const fetchSet = async()=>{
       try{
         //로그인 유저
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_CLIENT_URL}/me`,{
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/me`,{
           withCredentials:true
         })
   

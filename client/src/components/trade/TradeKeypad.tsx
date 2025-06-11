@@ -42,7 +42,7 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
 
   // ! 구매, 판매 페이지에서 새로고침 할 경우 asset데이터를 가져오지 못하는 현상이 발생해, 거래 페이지에 들어가면 asset 정보를 변경하도록 만듦.
   useEffect(() => {
-    axios.post('${process.env.NEXT_PUBLIC_URL}/account/check', {}, {
+    axios.post(`${process.env.NEXT_PUBLIC_URL}/account/check`, {}, {
       // * 쿠키를 포함해서 보낸다는 설정.
       withCredentials: true, // 쿠키 전송
     })
@@ -86,12 +86,12 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
       console.log(total);
         Promise.all([
           axios.patch(
-              '${process.env.NEXT_PUBLIC_URL}/account/trade',
+              `${process.env.NEXT_PUBLIC_URL}/account/trade`,
               { price: total, type: mode },
               { withCredentials: true }
             ),
           axios.patch(
-              '${process.env.NEXT_PUBLIC_URL}/userportfolio/trade',
+              `${process.env.NEXT_PUBLIC_URL}/userportfolio/trade`,
               { type: mode, symbol: symbol, price: total, much: amount },
               { withCredentials: true }
             )
@@ -108,12 +108,12 @@ export function TradeKeypad({ symbol, mode, amount, setAmount, price }: TradeCon
       console.log(total);
         Promise.all([
           axios.patch(
-              '${process.env.NEXT_PUBLIC_URL}/account/trade',
+              `${process.env.NEXT_PUBLIC_URL}/account/trade`,
               { price: total, type: mode },
               { withCredentials: true }
             ),
           axios.patch(
-              '${process.env.NEXT_PUBLIC_URL}/userportfolio/trade',
+              `${process.env.NEXT_PUBLIC_URL}/userportfolio/trade`,
               { type: mode, symbol:symbol, price:total, much: amount },
               { withCredentials: true }
             )
