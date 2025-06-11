@@ -28,7 +28,7 @@ export default function SignupPage() {
   }) => {
     try {
       const res = await axios.post(
-        "http://localhost:8008/auth/register",
+        `${process.env.NEXT_PUBLIC_URL}/auth/register`,
         {
           ...userData,
           user_id: userData.id,

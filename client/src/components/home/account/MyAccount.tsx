@@ -39,7 +39,7 @@ export function MyAccount() {
       // * for of 문으로 위에서 지정한 symbols의 배열을 반복
       for (const symbol of symbols) {
         try {
-          const res = await axios.get(`http://localhost:8008/stocks/${symbol}`)
+          const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/stocks/${symbol}`)
           // * res.data가 존재하는지? 그안에 values가 존재하는지? [0]의 데이터가 존재하는지? 그안에 close라는 요소가 존재하는지?
           // * 위의 뜻을 요약한 코드가 아래 price코드
           const price = res.data?.values?.[0]?.close
@@ -65,7 +65,7 @@ export function MyAccount() {
       try {
         // * 보유주식 데이터를 뱉어내는 엔드포인트에 포스트 요청
         const res = await axios.post(
-          "http://localhost:8008/userportfolio/calc",
+          `${process.env.NEXT_PUBLIC_URL}/userportfolio/calc`,
           {},
           // * 쿠키 데이터를 포함해서 보낸다.
           { withCredentials: true }

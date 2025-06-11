@@ -21,7 +21,7 @@ export function PwFindForm() {
     }
   
     try {
-      const res = await axios.post("http://localhost:8008/auth/find-password", {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/find-password`, {
         id,
         email,
       });

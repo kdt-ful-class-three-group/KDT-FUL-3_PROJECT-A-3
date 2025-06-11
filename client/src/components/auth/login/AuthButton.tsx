@@ -14,7 +14,7 @@ export function AuthButton() {
 
     const kakaoClientId = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
     const naverClientId = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
-    const redirectUri = "http://localhost:3000/login"; // 콘솔에 등록된 리디렉션 URI
+    const redirectUri = `${process.env.NEXT_PUBLIC_URL}`; // 콘솔에 등록된 리디렉션 URI
 
     const provider = session?.user?.provider;
 

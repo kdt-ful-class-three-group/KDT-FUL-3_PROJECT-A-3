@@ -24,7 +24,7 @@ export function ResetPasswordModal({ userId, onClose, onSuccess }: ResetPassword
     }
 
     try {
-      const res = await axios.post("http://localhost:8008/auth/reset-password", {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/reset-password`, {
         user_id: userId,
         password: newPassword,
       });

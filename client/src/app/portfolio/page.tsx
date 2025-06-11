@@ -53,13 +53,13 @@ export default function portfolioPage(){
   useEffect(()=>{
     const fetchData=async()=>{
       try{
-        const tradeRes = await axios.post('http://localhost:8008/userportfolio/history',{},{withCredentials:true})
+        const tradeRes = await axios.post(`${process.env.NEXT_PUBLIC_URL}/userportfolio/history`,{},{withCredentials:true})
         setTradeData(tradeRes.data)
         
         //각 symbol에 대해 개별 요청 -> 병렬 처리
         const stockRes = await Promise.all(
           symbols.map(symbol=>
-            axios.get(`http://localhost:8008/stocks/${symbol}`).then(res=>({symbol, price:res.data?.close || 0}))
+            axios.get(`${process.env.NEXT_PUBLIC_URL}/stocks/${symbol}`).then(res=>({symbol, price:res.data?.close || 0}))
           )
         )
         

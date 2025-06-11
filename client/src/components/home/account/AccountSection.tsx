@@ -27,7 +27,7 @@ export function AccountSection() {
   }
 
   useEffect(() => {
-    axios.post('http://localhost:8008/account/check', {}, {
+    axios.post(`${process.env.NEXT_PUBLIC_URL}/account/check`, {}, {
       // * 쿠키를 포함해서 보낸다는 설정.
       withCredentials: true, // 쿠키 전송
     })

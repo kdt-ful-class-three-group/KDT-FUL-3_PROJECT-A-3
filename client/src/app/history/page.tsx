@@ -15,7 +15,7 @@ export default function historyPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.post('http://localhost:8008/userportfolio/history', {}, {
+        const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/userportfolio/history`, {}, {
           withCredentials: true,
         })
 

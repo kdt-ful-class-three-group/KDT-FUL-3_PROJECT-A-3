@@ -26,7 +26,7 @@ export default function CreateAccount({onClick}:props){
     const handleClick = () => {
           setIsOpen(true);
 
-          axios.post('http://localhost:8008/account/createNumber', {}, {
+          axios.post(`${process.env.NEXT_PUBLIC_URL}/account/createNumber`, {}, {
             withCredentials: true,
           }).then(res => {
           console.log(res.data);

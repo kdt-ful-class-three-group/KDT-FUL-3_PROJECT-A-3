@@ -43,7 +43,7 @@ export default function StatusBar(){
         //종목 -> 반복문
         for(const symbol of symbols){
           //주식 데이터 최신 2개 비교
-          const stockRes = await axios.get(`http://localhost:8008/stocks/${symbol}`)
+          const stockRes = await axios.get(`${process.env.NEXT_PUBLIC_URL}/stocks/${symbol}`)
 
           //조건에 해당하지 않을때
           if(!stockRes.data.values || stockRes.data.length<2){

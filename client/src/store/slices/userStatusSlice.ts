@@ -30,7 +30,7 @@ export const getUserStatus = createAsyncThunk(
   //* 인자 - 두번째 : 비동기 함수
   async(userId:string, thunkAPI)=>{
     try {
-      const res = await axios.post('http://localhost:8008/userportfolio/history',{},{
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/userportfolio/history`,{},{
         withCredentials: true
       })
 

@@ -66,7 +66,7 @@ export default function TradePage() {
       try {
         // 종목 제대로 가져오는지 확인
         console.log('종목확인용', symbol)
-        const res = await axios.get(`http://localhost:8008/stocks/${symbol}`)
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/stocks/${symbol}`)
         // 종가
         const price = res.data?.values?.[0]?.close;
         

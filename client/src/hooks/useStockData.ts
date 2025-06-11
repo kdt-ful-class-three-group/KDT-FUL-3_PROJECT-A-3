@@ -8,7 +8,7 @@ export function useStockData(symbol: string) {
 
   // 초기 데이터 불러오기
   useEffect(() => {
-    axios.get<StockData>(`http://localhost:8008/stocks/${symbol}`)
+    axios.get<StockData>(`${process.env.NEXT_PUBLIC_URL}/stocks/${symbol}`)
       .then(res => {
         setStockData(res.data)
         setLastDatetime(res.data.values.at(-1)?.datetime ?? null)
@@ -23,7 +23,7 @@ export function useStockData(symbol: string) {
     const interval = setInterval(() => {
       const now = new Date().toISOString()
 
-      axios.get<StockData>(`http://localhost:8008/stocks/${symbol}?fromKST=${lastDatetime}&toKST=${now}`)
+      axios.get<StockData>(`${process.env.NEXT_PUBLIC_URL}/stocks/${symbol}?fromKST=${lastDatetime}&toKST=${now}`)
         .then(res => {
           if (res.data.values.length > 0) {
             setStockData(prev => {

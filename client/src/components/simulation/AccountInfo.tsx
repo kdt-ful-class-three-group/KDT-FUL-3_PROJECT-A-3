@@ -16,7 +16,7 @@ export default function AccountInfo(){
   useEffect(()=>{
     const fetchAccount = async()=>{
       try{
-        const res = await axios.get('http://localhost:8008/account/me',{
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/account/me`,{
           withCredentials:true
         })
         setAccount(res.data)

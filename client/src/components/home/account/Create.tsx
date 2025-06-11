@@ -27,7 +27,7 @@ export default function Create({onClose}: props) {
    * 계좌 생성 후 onClose 콜백을 호출하여 모달을 닫음
    */
    function creatAccount() {
-    axios.post('http://localhost:8008/account/insertData', {account_number: account_number, asset: asset}, {
+    axios.post(`${process.env.NEXT_PUBLIC_URL}`, {account_number: account_number, asset: asset}, {
       withCredentials: true,
     }).then(res => {
       console.log(res.data);

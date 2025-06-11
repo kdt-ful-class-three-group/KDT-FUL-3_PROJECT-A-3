@@ -38,7 +38,7 @@ export default function Voca() {
   const [list, setList] = useState<any[]>([])
   
   useEffect(() => {
-    axios.get('http://localhost:8008/voca')
+    axios.get(`${process.env.NEXT_PUBLIC_URL}/voca`)
       .then(res => {
         // data = 백엔드에서 오는 vocaList 데이터
         const data = res.data;

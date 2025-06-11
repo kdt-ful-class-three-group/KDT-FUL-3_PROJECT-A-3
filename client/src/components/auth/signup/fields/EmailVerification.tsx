@@ -23,7 +23,7 @@ export function EmailVerification({
   // 인증번호 전송
   const submitEmailCode = async () => {
     try {
-      const res = await axios.post("http://localhost:8008/auth/sendCode", { email });
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}`, { email });
       if (res.status >= 200 && res.status < 300) {
         setModalMessage("인증번호가 이메일로 전송되었습니다.");
         setIsSend(true)
@@ -35,7 +35,7 @@ export function EmailVerification({
   // 인증번호 검증
   const submitEmailAuth = async () => {
     try {
-      const res = await axios.post("http://localhost:8008/auth/verifyCode", {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/verifyCode`, {
         email,
         code: emailCode,
       });

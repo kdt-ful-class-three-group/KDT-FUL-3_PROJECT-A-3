@@ -8,7 +8,7 @@ export function useNotLoginCheck({authStatus, setAuthStatus}:any){
   
   useEffect(() => {
     // * 아래의 url로 포스트 요청을 보냄.
-    axios.post('http://localhost:8008/auth/refresh', {}, {
+    axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/refresh`, {}, {
       // * 쿠키를 포함해서 보낸다는 설정.
       withCredentials: true, // 쿠키 전송
     })

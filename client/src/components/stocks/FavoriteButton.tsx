@@ -14,7 +14,7 @@ export function FavoriteButton({ symbol }: FavoriteButtonProps) {
 
   useEffect(() => {
     const favoritesCheck = async () => {
-      const res = await axios.post('http://localhost:8008/favorites/check',
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/favorites/check`,
         { symbol: symbol },
         { withCredentials: true })
 
@@ -36,7 +36,7 @@ export function FavoriteButton({ symbol }: FavoriteButtonProps) {
   useEffect(() => {
     const checkFavorite = async () => {
       try {
-        const res = await axios.post('http://localhost:8008/favorites/check',
+        const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/favorites/check`,
           { symbol },
           { withCredentials: true })
         setIsFavorite(res.data.status === true)
@@ -51,8 +51,8 @@ export function FavoriteButton({ symbol }: FavoriteButtonProps) {
   const toggleFavorite = async () => {
     try {
       const url = isFavorite
-        ? 'http://localhost:8008/favorites/delete'
-        : 'http://localhost:8008/favorites'
+        ? '${process.env.NEXT_PUBLIC_URL}/favorites/delete'
+        : '${process.env.NEXT_PUBLIC_URL}/favorites'
 
       const res = await axios.post(url, { symbol }, { withCredentials: true })
       console.log(res.data)

@@ -5,7 +5,7 @@ export function LogoutButton() {
   
   const handleLogout = () => {
     axios.post(
-      'http://localhost:8008/auth/logout',
+      `${process.env.NEXT_PUBLIC_URL}/auth/logout`,
       {}, // body
       { withCredentials: true } // config
     ).then(() => {

@@ -37,7 +37,7 @@ export function IdField({value = "", onChange, onValidChange}: InputProps) {
     if (!value) return setError('아이디를 입력해주세요');
 
     try {
-      const res = await axios.post('http://localhost:8008/auth/idCheck', { user_id: value });
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/idCheck`, { user_id: value });
 
       if (res.status === 201) {
         setError('사용 가능한 아이디입니다.');

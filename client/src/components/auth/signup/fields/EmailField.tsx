@@ -84,7 +84,7 @@ export function EmailField({ value, onChange, onValidChange }: EmailFieldProps) 
     //!중복확인 로직
 
     try {
-      const res = await axios.post('http://localhost:8008/auth/emailCheck', { email: value });
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/emailCheck`, { email: value });
 
       if (res.status === 201) {
         setError('사용 가능한 이메일입니다.');

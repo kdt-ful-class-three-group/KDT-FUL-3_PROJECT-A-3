@@ -24,7 +24,7 @@ async function bootstrap() {
   app.use(cookieParser());
   //cors
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: process.env.CLIENT_URL, // 클라이언트 URL을 환경 변수에서 가져옴
     credentials: true // 오타 수정: Credential -> credentials
   })
 
