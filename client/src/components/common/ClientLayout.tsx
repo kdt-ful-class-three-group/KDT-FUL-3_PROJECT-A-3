@@ -5,7 +5,7 @@ import { Nav } from "@/components/common/menu/Nav";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const hideNav = pathname.startsWith('/login') || pathname.startsWith('/signup') || pathname.startsWith('/find');
+  const hideNav = pathname.startsWith('/login') || pathname.startsWith('/signup') || pathname.startsWith('/find') || pathname === ('/');
 
   return (
     <>

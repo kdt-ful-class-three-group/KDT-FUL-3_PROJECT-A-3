@@ -13,7 +13,7 @@ export function Nav() {
   const [isHamburgerOpen, setHamburgerOpen] = useState(false);
   
   return(
-      <div className="flex justify-between items-center w-full h-16 max-w-[534px] mx-auto bg-[#B0DB9C] px-4">
+      <div className="flex justify-between items-center w-full h-16 max-w-full mx-auto bg-[#B0DB9C] px-4">
           <div>
               <StatusBar/>
           </div>

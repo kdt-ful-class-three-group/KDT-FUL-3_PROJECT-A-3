@@ -16,6 +16,7 @@ import {setSelectedTab} from "@/store/slices/stockSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store";
 import StockShow from "@/components/simulation/StockShow";
+import { useIsLoginCheck } from "@/hooks/useIsLoginCheck"
 
 export type HoldingItem={
   symbol:string;
@@ -103,6 +104,20 @@ export default function portfolioPage(){
     }
   },[tradeData,currentPrices])
 
+    const [authStatus, setAuthStatus] = useState<'loading' | 'ok' | 'no'>('loading');
+  
+    // * 페이지에 진입하면,
+    useIsLoginCheck({authStatus, setAuthStatus});
+  
+  
+    // * 상탯값이 변경 되기전에는 로딩중 화면이 뜨게 만듦.
+    if (authStatus === 'loading') {
+      return <div>로딩 중...</div>;
+    }
+  
+    // * 상탯값이 ok일 경우 홈페이지 화면이 뜨게 만듦.
+    if (authStatus === 'ok') {
+
   return (
       <div className="w-full max-w-xs md:max-w-lg lg:max-w-lg mx-auto">
         {/* 뒤로가기 */}
@@ -131,4 +146,6 @@ export default function portfolioPage(){
         <StockShow btnValue={selectedTab}/>
       </div>
   )
+}
+  return null;
 }

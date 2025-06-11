@@ -5,7 +5,7 @@ import UserStatus from "@/components/mypage/UserStatus"
 import BadgesSection from "@/components/mypage/BadgesSection"
 // 레벨 계산 함수
 import { calcLevel } from "@/utils/calcLevel"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { setUser } from "@/store/slices/userSlice"
 import axios from "axios"
@@ -13,6 +13,7 @@ import type { RootState } from "@/store"
 import { useSelector } from "react-redux"
 import { Button } from "@/components/common/Button"
 import { useRouter } from "next/navigation"
+import { useIsLoginCheck } from "@/hooks/useIsLoginCheck"
 
 export default function MyPage() {
 
@@ -67,6 +68,19 @@ export default function MyPage() {
 
   },[tradeCount, tradeVolume])
 
+    const [authStatus, setAuthStatus] = useState<'loading' | 'ok' | 'no'>('loading');
+  
+    // * 페이지에 진입하면,
+    useIsLoginCheck({authStatus, setAuthStatus});
+  
+  
+    // * 상탯값이 변경 되기전에는 로딩중 화면이 뜨게 만듦.
+    if (authStatus === 'loading') {
+      return <div>로딩 중...</div>;
+    }
+  
+    // * 상탯값이 ok일 경우 홈페이지 화면이 뜨게 만듦.
+    if (authStatus === 'ok') {
   
   return (
 
@@ -80,4 +94,6 @@ export default function MyPage() {
       <BadgesSection />
     </div>
   )
+  } 
+  return null;
 }

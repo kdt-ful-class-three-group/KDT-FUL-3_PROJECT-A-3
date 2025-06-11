@@ -5,10 +5,26 @@ import Link from "next/link";
 import { IdFindForm } from "@/components/auth/find/IdFindForm";
 import { PwFindForm } from "@/components/auth/find/PwFindForm";
 import { Button } from "@/components/common/Button";
+import { useNotLoginCheck } from "@/hooks/useNotLoginCheck";
 
 export default function Find() {
   const [activeTab, setActiveTab] = useState<"id" | "pw">("id")
   const [isId, setIsId]=useState(true)
+
+    const [authStatus, setAuthStatus] = useState<'loading' | 'ok' | 'no'>('loading');
+  
+    // * 페이지에 진입하면,
+    useNotLoginCheck({authStatus, setAuthStatus});
+
+  
+  
+    // * 상탯값이 변경 되기전에는 로딩중 화면이 뜨게 만듦.
+    if (authStatus === 'loading') {
+      return <div>로딩 중...</div>;
+    }
+  
+    // * 상탯값이 ok일 경우 홈페이지 화면이 뜨게 만듦.
+    if (authStatus === 'ok') {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen gap-10">
@@ -28,4 +44,6 @@ export default function Find() {
 
     </div>
   )
+}
+ return null;
 }
